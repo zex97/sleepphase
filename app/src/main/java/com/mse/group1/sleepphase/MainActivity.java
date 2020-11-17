@@ -2,43 +2,109 @@ package com.mse.group1.sleepphase;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
+import com.mse.group1.sleepphase.Fragments.MyAlarmsFragment;
+import com.mse.group1.sleepphase.Fragments.NewAlarmFragment;
+import com.mse.group1.sleepphase.Fragments.SettingsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView mTextMessage;
+    BottomNavigationView bottomNavigationView;
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+    //This is our viewPager
+    private ViewPager viewPager;
 
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_new_alarm:
-                    mTextMessage.setText(R.string.title_new_alarm);
-                    return true;
-                case R.id.navigation_my_alarms:
-                    mTextMessage.setText(R.string.title_my_alarms);
-                    return true;
-                case R.id.navigation_settings:
-                    mTextMessage.setText(R.string.title_settings);
-                    return true;
-            }
-            return false;
-        }
-    };
+
+    //Fragments
+
+    NewAlarmFragment newAlarmFragment;
+    MyAlarmsFragment myAlarmsFragment;
+    SettingsFragment settingsFragment;
+    MenuItem prevMenuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        //Initializing viewPager
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+
+        //Initializing the bottomNavigationView
+        bottomNavigationView = (BottomNavigationView)findViewById(R.id.navigation);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.navigation_new_alarm:
+                                viewPager.setCurrentItem(0);
+                                break;
+                            case R.id.navigation_my_alarms:
+                                viewPager.setCurrentItem(1);
+                                break;
+                            case R.id.navigation_settings:
+                                viewPager.setCurrentItem(2);
+                                break;
+                        }
+                        return false;
+                    }
+                });
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (prevMenuItem != null) {
+                    prevMenuItem.setChecked(false);
+                }
+                else
+                {
+                    bottomNavigationView.getMenu().getItem(0).setChecked(false);
+                }
+                bottomNavigationView.getMenu().getItem(position).setChecked(true);
+                prevMenuItem = bottomNavigationView.getMenu().getItem(position);
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+       /*  //Disable ViewPager Swipe
+       viewPager.setOnTouchListener(new View.OnTouchListener()
+        {
+            @Override
+            public boolean onTouch(View v, MotionEvent event)
+            {
+                return true;
+            }
+        });
+        */
+
+        setupViewPager(viewPager);
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        newAlarmFragment = new NewAlarmFragment();
+        myAlarmsFragment = new MyAlarmsFragment();
+        settingsFragment = new SettingsFragment();
+        adapter.addFragment(newAlarmFragment);
+        adapter.addFragment(myAlarmsFragment);
+        adapter.addFragment(settingsFragment);
+        viewPager.setAdapter(adapter);
     }
 
 }
