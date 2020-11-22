@@ -1,4 +1,4 @@
-package com.mse.group1.sleepphase.Fragments;
+package com.mse.group1.sleepphase.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,10 +8,10 @@ import androidx.fragment.app.Fragment;
 import com.mse.group1.sleepphase.R;
 
 
-public class MyAlarmsFragment extends Fragment {
+public class SettingsFragment extends Fragment {
 
 
-    public MyAlarmsFragment() {
+    public SettingsFragment() {
         // Required empty public constructor
     }
 
@@ -20,7 +20,7 @@ public class MyAlarmsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_alarms, container, false);
+        return inflater.inflate(R.layout.fragment_settings, container, false);
     }
 
 }

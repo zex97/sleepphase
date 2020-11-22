@@ -6,16 +6,14 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
-import com.mse.group1.sleepphase.Fragments.MyAlarmsFragment;
-import com.mse.group1.sleepphase.Fragments.NewAlarmFragment;
-import com.mse.group1.sleepphase.Fragments.SettingsFragment;
+import com.mse.group1.sleepphase.fragments.MyAlarmsFragment;
+import com.mse.group1.sleepphase.fragments.NewAlarmFragment;
+import com.mse.group1.sleepphase.fragments.SettingsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
 
-    //This is our viewPager
     private ViewPager viewPager;
 
 
@@ -31,10 +29,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Initializing viewPager
         viewPager = (ViewPager) findViewById(R.id.viewpager);
 
-        //Initializing the bottomNavigationView
         bottomNavigationView = (BottomNavigationView)findViewById(R.id.navigation);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
@@ -81,17 +77,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-       /*  //Disable ViewPager Swipe
-       viewPager.setOnTouchListener(new View.OnTouchListener()
-        {
-            @Override
-            public boolean onTouch(View v, MotionEvent event)
-            {
-                return true;
-            }
-        });
-        */
 
         setupViewPager(viewPager);
     }
