@@ -2,9 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context=".fragments.NewAlarmFragment">
+    android:id="@+id/alarmSettings"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.NewAlarmFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -13,7 +14,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -69,10 +70,100 @@
             </com.google.android.material.tabs.TabLayout>
 
             <fragment
-                android:id="@+id/fragment"
+                android:id="@+id/fragmentAlarmType"
                 android:name="com.mse.group1.sleepphase.fragments.AlarmTypeFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/buttonAlarmSettings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Alarm Settings" />
+
+            <fragment
+                android:id="@+id/fragmentAlarmSettings"
+                android:name="com.mse.group1.sleepphase.fragments.AlarmSettingsFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/buttonTurningOffAlarm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Turning Off The Alarm" />
+
+            <fragment
+                android:id="@+id/fragmentTurningOffAlarm"
+                android:name="com.mse.group1.sleepphase.fragments.TurningOffAlarmFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/buttonBedtimeReminder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bed Time Reminder" />
+
+            <fragment
+                android:id="@+id/fragmentBedTimeReminder"
+                android:name="com.mse.group1.sleepphase.fragments.BedTimeReminderFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/buttonChecklistBedtime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Button" />
+
+            <fragment
+                android:id="@+id/fragment6"
+                android:name="com.mse.group1.sleepphase.fragments.ChecklistBedTimeFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/buttonWakeupChecklist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Checklist Wakeup" />
+
+            <fragment
+                android:id="@+id/fragmentChecklistWakeup"
+                android:name="com.mse.group1.sleepphase.fragments.ChecklistWakeUpFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/buttonCreateAlarm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Create Alarm" />
 
         </LinearLayout>
     </ScrollView>
