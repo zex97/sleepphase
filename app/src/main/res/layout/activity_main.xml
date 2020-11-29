@@ -6,11 +6,12 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".MainActivity"
+android:background="@color/colorPrimary">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/navigation"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?android:attr/windowBackground"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -19,7 +20,8 @@
             app:itemIconTint="@color/btm_navi_background_selected"
             app:itemTextColor="@color/btm_navi_background_selected"
             app:menu="@menu/navigation"
-            app:itemBackground="@color/colorPrimary"/>
+            app:itemBackground="@color/colorPrimaryDark"
+    android:backgroundTint="@color/colorPrimaryDark"/>
 
     <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewpager"
@@ -27,6 +29,6 @@
             android:layout_height="match_parent"
             android:layout_above="@+id/navigation"
             android:layout_alignParentTop="true"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
