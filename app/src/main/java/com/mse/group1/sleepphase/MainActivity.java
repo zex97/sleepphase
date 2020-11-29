@@ -1,6 +1,8 @@
 package com.mse.group1.sleepphase;
 
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;

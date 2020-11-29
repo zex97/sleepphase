@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.mse.group1.sleepphase">
-
+    <uses-sdk android:minSdkVersion="26" />
     <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
@@ -9,11 +9,13 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".EditAlarmActivity">
+        <activity android:name=".EditAlarmActivity"
+                  android:theme="@style/AppTheme">
         </activity>
         <activity
                 android:name=".MainActivity"
-                android:label="@string/app_name">
+                android:label="@string/app_name"
+                android:theme="@style/AppThemeNoTitle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
