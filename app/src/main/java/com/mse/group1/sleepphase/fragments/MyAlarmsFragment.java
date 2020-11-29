@@ -1,15 +1,20 @@
 package com.mse.group1.sleepphase.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import com.mse.group1.sleepphase.EditAlarmActivity;
 import com.mse.group1.sleepphase.R;
 
 import java.util.Random;
@@ -50,7 +55,7 @@ public class MyAlarmsFragment extends Fragment {
             alarmType.setText("Step By Step");
 
             TextView alarmGoal = (TextView) singleAlarmView.getViewById(R.id.alarmGoalTextView);
-            alarmGoal.setText("Goal: " + ((i+3)*2-1) + ":" + (i*9));
+            alarmGoal.setText("Goal: " + ((i+5)*2-1) + ":" + ((i+2)*7));
 
             TextView alarmDays = (TextView) singleAlarmView.getViewById(R.id.daysOrDateAlarmTextView);
             alarmDays.setText("Mo-Fr");
@@ -61,6 +66,18 @@ public class MyAlarmsFragment extends Fragment {
             } else {
                 alarmSwitch.setChecked(false);
             }
+
+            singleAlarmView.setOnClickListener(
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            v.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.anim_item));
+                            Intent intent = new Intent(getActivity(), EditAlarmActivity.class);
+                            intent.putExtra(EditAlarmActivity.ALARM_ID_KEY, 0); //TODO alarm id for value
+                            startActivity(intent);
+                        }
+                    }
+            );
 
             scrollableLayout.addView(singleAlarmView);
         }
