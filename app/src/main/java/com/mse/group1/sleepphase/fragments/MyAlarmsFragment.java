@@ -45,6 +45,8 @@ public class MyAlarmsFragment extends Fragment {
             singleAlarmView = (ConstraintLayout) inflater.inflate(R.layout.alarm_layout, null);
             singleAlarmView.setLayoutParams(layoutParams);
 
+            singleAlarmView.setTag(i);
+
             TextView alarmName = (TextView) singleAlarmView.getViewById(R.id.alarmNameTextView);
             alarmName.setText("My Alarm " + (i+1));
 
@@ -73,7 +75,7 @@ public class MyAlarmsFragment extends Fragment {
                         public void onClick(View v) {
                             v.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.anim_item));
                             Intent intent = new Intent(getActivity(), EditAlarmActivity.class);
-                            intent.putExtra(EditAlarmActivity.ALARM_ID_KEY, 0); //TODO alarm id for value
+                            intent.putExtra(EditAlarmActivity.ALARM_ID_KEY, (int) v.getTag());
                             startActivity(intent);
                         }
                     }

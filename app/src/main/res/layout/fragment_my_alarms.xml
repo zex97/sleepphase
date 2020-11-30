@@ -9,7 +9,8 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingBottom="70dp"
-        android:id="@+id/fragment_my_alarm">
+        android:id="@+id/fragment_my_alarm"
+android:tag="12">
 
 
 

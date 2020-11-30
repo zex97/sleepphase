@@ -3,7 +3,8 @@ package com.mse.group1.sleepphase.models
 import java.time.LocalDate
 import java.time.LocalTime
 
-data class AlarmModel (var type: AlarmType,
+data class AlarmModel (var id: Int,
+                       var type: AlarmType,
                        var name: String,
                        var ringAt: LocalTime,
                        var goal: LocalTime?,        // step by step and skip a night alarms
@@ -19,7 +20,7 @@ data class AlarmModel (var type: AlarmType,
                        var turning_off_alarm: TurningOffAlarm,
                        var checklist_bedtime: Array<ChecklistBedtimeWakeup>,
                        var checklist_wakeup: Array<ChecklistBedtimeWakeup>) {
-    constructor() : this(AlarmType.REGULAR, "", LocalTime.MIN, null, emptyArray(), null, null, null, "",
+    constructor() : this(0, AlarmType.REGULAR, "", LocalTime.MIN, null, emptyArray(), null, null, null, "",
             false, false, 0, 0, TurningOffAlarm(TurningOffTypes.SWIPE_OVER_SCREEN, 0, 0),
             Array(0) { ChecklistBedtimeWakeup() }, Array(0) { ChecklistBedtimeWakeup() })
 }

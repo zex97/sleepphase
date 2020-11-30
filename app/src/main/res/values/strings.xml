@@ -3,4 +3,10 @@
     <string name="title_new_alarm">New Alarm</string>
     <string name="title_my_alarms">My Alarms</string>
     <string name="title_settings">Settings</string>
+
+    <string-array name="spinner_options">
+        <item>Regular</item>
+        <item>Step By Step</item>
+        <item>Skip A Night</item>
+    </string-array>
 </resources>
