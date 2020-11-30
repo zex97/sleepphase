@@ -15,4 +15,28 @@
         <item>Melodie 2</item>
         <item>Melodie 3</item>
     </string-array>
+
+    <string-array name="turning_off_types">
+        <item>Swipe</item>
+        <item>Math Exercise</item>
+        <item>Shake the Phone</item>
+    </string-array>
+
+    <string-array name="turning_off_difficulty">
+        <item>Easy</item>
+        <item>Medium</item>
+        <item>Hard</item>
+    </string-array>
+
+    <string-array name="turning_off_amount">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+    </string-array>
 </resources>

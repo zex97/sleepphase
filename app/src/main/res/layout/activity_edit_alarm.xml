@@ -4,7 +4,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
         android:layout_height="match_parent"
         android:layout_width="match_parent">
-    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent">
+    <androidx.core.widget.NestedScrollView android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true" android:scrollbars="vertical">
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -14,7 +14,8 @@
                 android:paddingTop="15dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingBottom="10dp">
+                android:paddingBottom="10dp"
+                android:id="@+id/linear_wrapper_layout">
 
             <EditText
                     android:layout_width="wrap_content"
@@ -68,7 +69,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/goal_elements_container"
-                        app:layout_constraintTop_toBottomOf="@+id/spinner_edit_alarm_type"
+                        app:layout_constraintTop_toBottomOf="@id/spinner_edit_alarm_type"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent">
                     <TextView
@@ -190,28 +191,133 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"
-                          android:background="@drawable/alarm_rounded_background"
-                    android:padding="20dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/alarm_rounded_background"
+                    android:padding="20dp"
+                    android:layout_marginBottom="8dp">
 
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sound" android:layout_marginBottom="10dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sound"
+                          app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+                          android:id="@+id/textView7" app:layout_constraintHorizontal_bias="0.5"
+                          app:layout_constraintEnd_toStartOf="@+id/spinner_melodies"
+                          app:layout_constraintBaseline_toBaselineOf="@+id/spinner_melodies"/>
                 <Spinner android:layout_width="wrap_content" android:layout_height="wrap_content"
                          android:entries="@array/melodies" android:id="@+id/spinner_melodies"
-                         android:background="@color/colorWhite"/>
+                         android:background="@color/colorWhite"
+                         app:layout_constraintStart_toEndOf="@+id/textView7"
+                         app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
+                         android:layout_marginTop="5dp" app:layout_constraintTop_toTopOf="parent"/>
                 <CheckBox
                         android:text="Vibrate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:id="@+id/vibrate_checkbox"/>
+                        android:layout_width="89dp"
+                        android:layout_height="26dp" android:id="@+id/vibrate_checkbox"
+                        app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintEnd_toStartOf="@+id/vibrate_checkbox2"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/vibrate_checkbox2"/>
+                <CheckBox
+                        android:text="Snooze"
+                        android:layout_width="89dp"
+                        android:layout_height="26dp" android:id="@+id/vibrate_checkbox2"
+                        app:layout_constraintStart_toEndOf="@+id/vibrate_checkbox"
+                        app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/spinner_melodies"/>
                 <TextView
                         android:text="Volume"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"/>
+                        android:layout_width="60dp"
+                        android:layout_height="19dp"
+                        android:layout_gravity="center" android:id="@+id/textView6"
+                        app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+                        app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+                        app:layout_constraintTop_toBottomOf="@+id/vibrate_checkbox"
+                        app:layout_constraintHorizontal_bias="0.544"
+                        app:layout_constraintBottom_toTopOf="@+id/seekBar" app:layout_constraintVertical_bias="0.0"/>
                 <SeekBar
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:id="@+id/seekBar"
-                        android:progress="50"/>
-            </LinearLayout>
+                        android:layout_height="23dp" android:id="@+id/seekBar"
+                        android:progress="50"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="8dp" android:layout_marginBottom="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/alarm_rounded_background"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:text="Turning off the Alarm" android:textSize="15sp"
+                          app:layout_constraintTop_toTopOf="parent" app:layout_constraintLeft_toLeftOf="parent"
+                          app:layout_constraintRight_toRightOf="parent"
+                          android:id="@+id/text_turning_off"/>
+                <Spinner android:layout_width="wrap_content" android:layout_height="wrap_content"
+                         android:id="@+id/spinner_turning_of_type"
+                         android:background="@color/colorWhite" android:entries="@array/turning_off_types"
+                         app:layout_constraintTop_toBottomOf="@id/text_turning_off"
+                         app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:text="Difficulty" android:layout_marginTop="8dp"
+                          app:layout_constraintTop_toBottomOf="@id/spinner_turning_of_type"
+                          android:id="@+id/text_turning_off_difficulty"
+                          app:layout_constraintStart_toStartOf="@+id/spinner_turning_of_difficulty"
+                          android:layout_marginStart="8dp"/>
+                <Spinner android:layout_width="80dp" android:layout_height="wrap_content"
+                         android:id="@+id/spinner_turning_of_difficulty"
+                         android:background="@color/colorWhite" android:entries="@array/turning_off_difficulty"
+                         app:layout_constraintTop_toBottomOf="@id/text_turning_off_difficulty"
+                         android:layout_marginStart="15dp" app:layout_constraintStart_toStartOf="parent"
+                         app:layout_constraintHorizontal_bias="0.5"
+                         app:layout_constraintEnd_toStartOf="@+id/spinner_turning_of_amount"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Amount"
+                          android:id="@+id/text_turning_off_amount"
+                          app:layout_constraintBaseline_toBaselineOf="@+id/text_turning_off_difficulty"
+                          app:layout_constraintStart_toStartOf="@+id/spinner_turning_of_amount"
+                          android:layout_marginStart="8dp" android:layout_marginTop="8dp"/>
+                <Spinner android:layout_width="80dp" android:layout_height="wrap_content"
+                         android:id="@+id/spinner_turning_of_amount"
+                         android:background="@color/colorWhite" android:entries="@array/turning_off_amount"
+                         app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+                         app:layout_constraintBaseline_toBaselineOf="@+id/spinner_turning_of_difficulty"
+                         app:layout_constraintStart_toEndOf="@+id/spinner_turning_of_difficulty"
+                         app:layout_constraintHorizontal_bias="0.5"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.appcompat.widget.AppCompatCheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:text="Bedtime Checklist"
+                    android:id="@+id/checklist_bedtime_checkbox"
+                    android:checked="true"/>
+            <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+                                                               android:layout_height="wrap_content"
+                                                               android:background="@drawable/alarm_rounded_background"
+                                                                android:id="@+id/bedtime_constr_layout">
+                <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:hint="Activity to add"
+                          app:layout_constraintLeft_toLeftOf="parent"
+                          android:id="@+id/edit_text_add_bedtime" android:layout_marginLeft="20dp"
+                          android:background="@color/colorWhite" android:textColor="@color/colorPrimaryDark"
+                          app:layout_constraintBaseline_toBaselineOf="@+id/button2"/>
+                <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="+"
+                        app:layout_constraintStart_toEndOf="@+id/edit_text_add_bedtime"
+                        android:layout_marginStart="8dp" android:layout_marginTop="5dp"
+                        app:layout_constraintTop_toTopOf="parent" android:id="@+id/button2"/>
+                <ListView android:layout_width="match_parent" android:layout_height="200dp"
+                          android:entries="@array/turning_off_amount" android:nestedScrollingEnabled="true"
+                          android:background="@color/colorPrimaryLight"
+                          app:layout_constraintTop_toBottomOf="@+id/button2"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.AppCompatCheckBox android:layout_width="wrap_content"
+                                                         android:layout_height="wrap_content"
+                                                         android:layout_marginBottom="15dp"
+                                                         android:text="Bedtime Checklist"
+                                                         android:id="@+id/checklist_wakeup_checkbox"/>
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

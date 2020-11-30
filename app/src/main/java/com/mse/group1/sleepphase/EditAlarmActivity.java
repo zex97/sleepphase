@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.*;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import androidx.appcompat.app.ActionBar;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -54,14 +55,19 @@ public class EditAlarmActivity extends AppCompatActivity implements DatePickerDi
             TimePicker timePicker = findViewById(R.id.timePickerGoalEditAlarm);
             timePicker.setIs24HourView(true);
             EditText editTextSkip = findViewById(R.id.skip_night_edit_text);
-            spinnerAlarmType.setOnItemSelectedListener(OnCatSpinnerCL);
+            spinnerAlarmType.setOnItemSelectedListener(alarmTypeSpinnerListener);
 
             Button skipNightButton = findViewById(R.id.skip_night_button);
             skipNightButton.setOnClickListener(datePickerOnClickListener);
             editTextSkip.setOnClickListener(datePickerOnClickListener);
 
-            Spinner spinnerMelodies = findViewById(R.id.spinner_melodies);
-            changeSpinnerColors(spinnerMelodies, 1);
+            changeSpinnerColors((Spinner) findViewById(R.id.spinner_melodies), 1);
+            changeSpinnerColors((Spinner) findViewById(R.id.spinner_turning_of_type), 2);
+            changeSpinnerColors((Spinner) findViewById(R.id.spinner_turning_of_difficulty), 3);
+            changeSpinnerColors((Spinner) findViewById(R.id.spinner_turning_of_amount), 4);
+
+            CheckBox checkBoxBedtime = findViewById(R.id.checklist_bedtime_checkbox);
+            checkBoxBedtime.setOnCheckedChangeListener(bedtimeCheckboxListener);
         }
     }
 
@@ -69,12 +75,30 @@ public class EditAlarmActivity extends AppCompatActivity implements DatePickerDi
         List<String> list;
         if (type == 0) {
             list = Arrays.asList(getResources().getStringArray(R.array.spinner_options));
-        } else {
+        } else if (type == 1){
             list = Arrays.asList(getResources().getStringArray(R.array.melodies));
+        } else if (type == 2){
+            list = Arrays.asList(getResources().getStringArray(R.array.turning_off_types));
+        } else if (type == 3){
+            list = Arrays.asList(getResources().getStringArray(R.array.turning_off_difficulty));
+        } else {
+            list = Arrays.asList(getResources().getStringArray(R.array.turning_off_amount));
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_entry, list);
         spinner.setAdapter(adapter);
     }
+
+    private OnCheckedChangeListener bedtimeCheckboxListener = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            ConstraintLayout bedtimeConstraintLayout = findViewById(R.id.bedtime_constr_layout);
+            if (isChecked) {
+                bedtimeConstraintLayout.setVisibility(View.VISIBLE);
+            } else {
+                bedtimeConstraintLayout.setVisibility(View.GONE);
+            }
+        }
+    };
 
     private OnClickListener datePickerOnClickListener = new AdapterView.OnClickListener() {
         @Override
@@ -92,7 +116,7 @@ public class EditAlarmActivity extends AppCompatActivity implements DatePickerDi
         alarm.setSkip(LocalDate.of(year, month, dayOfMonth));
     }
 
-    private OnItemSelectedListener OnCatSpinnerCL = new AdapterView.OnItemSelectedListener() {
+    private OnItemSelectedListener alarmTypeSpinnerListener = new AdapterView.OnItemSelectedListener() {
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
             alarm.setType(pos == 0 ? AlarmType.REGULAR : (pos == 1 ? AlarmType.STEP_BY_STEP : AlarmType.SKIP_A_NIGHT));
 //            ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE);
