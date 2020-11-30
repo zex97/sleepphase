@@ -9,4 +9,10 @@
         <item>Step By Step</item>
         <item>Skip A Night</item>
     </string-array>
+
+    <string-array name="melodies">
+        <item>Melodie 1</item>
+        <item>Melodie 2</item>
+        <item>Melodie 3</item>
+    </string-array>
 </resources>

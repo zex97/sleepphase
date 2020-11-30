@@ -1,5 +1,6 @@
 package com.mse.group1.sleepphase;
 
+import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Intent;
@@ -13,14 +14,17 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import androidx.appcompat.app.ActionBar;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import com.mse.group1.sleepphase.models.AlarmModel;
 import com.mse.group1.sleepphase.models.AlarmType;
 
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class EditAlarmActivity extends AppCompatActivity {
+public class EditAlarmActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
     public static final String ALARM_ID_KEY = "alarmId";
 
@@ -43,43 +47,71 @@ public class EditAlarmActivity extends AppCompatActivity {
             // TODO in exercise 3, get alarm from database
             alarm = new AlarmModel();
 
-            Spinner spinner = (Spinner) findViewById(R.id.spinner_edit_alarm_type);
-            changeSpinnerColors(spinner);
-            spinner.setSelection(alarm.getType() == AlarmType.REGULAR ? 0 : (alarm.getType() == AlarmType.STEP_BY_STEP ? 1 : 2));
+            Spinner spinnerAlarmType = findViewById(R.id.spinner_edit_alarm_type);
+            changeSpinnerColors(spinnerAlarmType,0);
+            spinnerAlarmType.setSelection(alarm.getType() == AlarmType.REGULAR ? 0 : (alarm.getType() == AlarmType.STEP_BY_STEP ? 1 : 2));
 
             TimePicker timePicker = findViewById(R.id.timePickerGoalEditAlarm);
-            TextView textView = findViewById(R.id.goalTextViewEditAlarm);
-//            if (alarm.getType() == AlarmType.REGULAR) {
-//                editText.setVisibility(View.INVISIBLE);
-//                textView.setVisibility(View.INVISIBLE);
-//            }
-            spinner.setOnItemSelectedListener(OnCatSpinnerCL);
+            timePicker.setIs24HourView(true);
+            EditText editTextSkip = findViewById(R.id.skip_night_edit_text);
+            spinnerAlarmType.setOnItemSelectedListener(OnCatSpinnerCL);
+
+            Button skipNightButton = findViewById(R.id.skip_night_button);
+            skipNightButton.setOnClickListener(datePickerOnClickListener);
+            editTextSkip.setOnClickListener(datePickerOnClickListener);
+
+            Spinner spinnerMelodies = findViewById(R.id.spinner_melodies);
+            changeSpinnerColors(spinnerMelodies, 1);
         }
     }
 
-    private void changeSpinnerColors(Spinner spinner) {
-        List<String> list = new ArrayList<>();
-        list.add("Regular");
-        list.add("Step By Step");
-        list.add("Skip A Night");
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_entry,list);
+    private void changeSpinnerColors(Spinner spinner, int type) {
+        List<String> list;
+        if (type == 0) {
+            list = Arrays.asList(getResources().getStringArray(R.array.spinner_options));
+        } else {
+            list = Arrays.asList(getResources().getStringArray(R.array.melodies));
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_entry, list);
         spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(OnCatSpinnerCL);
     }
 
+    private OnClickListener datePickerOnClickListener = new AdapterView.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            LocalDate now = LocalDate.now();
+            DatePickerDialog datePickerDialog = new DatePickerDialog(EditAlarmActivity.this, EditAlarmActivity.this, now.getYear(), now.getMonth().getValue()-1, now.getDayOfMonth());
+            datePickerDialog.show();
+        }
+    };
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        EditText editText = findViewById(R.id.skip_night_edit_text);
+        editText.setText(dayOfMonth + "/" + month + "/" + year);
+        alarm.setSkip(LocalDate.of(year, month, dayOfMonth));
+    }
 
     private OnItemSelectedListener OnCatSpinnerCL = new AdapterView.OnItemSelectedListener() {
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
             alarm.setType(pos == 0 ? AlarmType.REGULAR : (pos == 1 ? AlarmType.STEP_BY_STEP : AlarmType.SKIP_A_NIGHT));
 //            ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE);
-            TimePicker timePicker = findViewById(R.id.timePickerGoalEditAlarm);
-            TextView textView = findViewById(R.id.goalTextViewEditAlarm);
+            ConstraintLayout goal = findViewById(R.id.goal_elements_container);
+            ConstraintLayout skip = findViewById(R.id.skip_night_element_constainer);
+            ConstraintLayout step = findViewById(R.id.step_by_step_elements_container);
             if (alarm.getType() == AlarmType.REGULAR) {
-                timePicker.setVisibility(View.INVISIBLE);
-                textView.setVisibility(View.INVISIBLE);
+                goal.setVisibility(View.GONE);
+                skip.setVisibility(View.GONE);
+                step.setVisibility(View.GONE);
             } else {
-                timePicker.setVisibility(View.VISIBLE);
-                textView.setVisibility(View.VISIBLE);
+                goal.setVisibility(View.VISIBLE);
+                if (alarm.getType() == AlarmType.SKIP_A_NIGHT) {
+                    skip.setVisibility(View.VISIBLE);
+                    step.setVisibility(View.GONE);
+                } else {
+                    step.setVisibility(View.VISIBLE);
+                    skip.setVisibility(View.GONE);
+                }
             }
         }
 
