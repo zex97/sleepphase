@@ -12,115 +12,186 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
+            android:background="@color/colorPrimary"
+            android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/editTextTextMultiLine"
-            style="@style/Widget.AppCompat.AutoCompleteTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="false"
-            android:ems="10"
-            android:gravity="start|top"
-            android:inputType="textMultiLine"
-            android:paddingLeft="40px"
-            android:paddingTop="50px"
-            android:paddingRight="40px"
-            android:paddingBottom="40px"
-            android:text="Welcome to sleepphase :D\nDo you struggle getting out of bed at the time you want to?  We are here to help!\nTo pick the best method of achieving your sleep goals, we need to get to know you better.\nAnswer the questions below, for us to recommend you an alarm type." />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="227dp"
-            android:paddingLeft="70px"
-            android:paddingTop="30px"
-            android:paddingRight="70px"
-            android:paddingBottom="30px">
-
-            <LinearLayout
+            <EditText
+                android:id="@+id/editTextTextMultiLine"
+                style="@style/Widget.AppCompat.AutoCompleteTextView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingTop="20px"
-                tools:layout_editor_absoluteX="27dp"
-                tools:layout_editor_absoluteY="11dp">
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:paddingLeft="40px"
+                android:paddingTop="50px"
+                android:paddingRight="40px"
+                android:paddingBottom="40px"
+                android:text="Welcome to sleepphase :D\nDo you struggle getting out of bed at the time you want to?  We are here to help!\nTo pick the best method of achieving your sleep goals, we need to get to know you better.\nAnswer the questions below, for us to recommend you an alarm type." />
 
-                <EditText
-                    android:id="@+id/editTextTextMultiLine3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:gravity="start|top"
-                    android:inputType="textMultiLine"
-                    android:text="Are you capable of staying up a whole night at a time without too much struggle?" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="227dp"
+                android:paddingLeft="70px"
+                android:paddingTop="30px"
+                android:paddingRight="70px"
 
-                <RadioGroup
+                android:paddingBottom="30px">
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="128dp">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingTop="20px"
+                    tools:layout_editor_absoluteX="27dp"
+                    android:background="@drawable/alarm_rounded_background"
+                    tools:layout_editor_absoluteY="11dp">
+
+
+                    <EditText
+                        android:id="@+id/editTextTextMultiLine3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:gravity="start|top"
+                        android:inputType="textMultiLine"
+                        android:text="Are you capable of staying up a whole night at a time without too much struggle?" />
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="128dp">
+
+                        <RadioButton
+                            android:id="@+id/radioButton10"
+                            android:layout_width="match_parent"
+                            android:layout_height="59dp"
+                            android:text="Yes." />
+
+                        <RadioButton
+                            android:id="@+id/radioButton9"
+                            android:layout_width="match_parent"
+                            android:layout_height="68dp"
+                            android:text="No." />
+                    </RadioGroup>
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="211dp"
+                android:paddingLeft="70px"
+                android:paddingTop="30px"
+                android:paddingRight="70px"
+                android:paddingBottom="30px">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/alarm_rounded_background"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/editTextTextMultiLine4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:gravity="start|top"
+                        android:inputType="textMultiLine"
+                        android:text="How much time do you have to change your sleep rythm?" />
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <RadioButton
+                            android:id="@+id/radioButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="59dp"
+                            android:text="More than a month." />
+
+                        <RadioButton
+                            android:id="@+id/radioButton2"
+                            android:layout_width="match_parent"
+                            android:layout_height="68dp"
+                            android:text="Less than a month." />
+                    </RadioGroup>
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="218dp"
+                android:paddingLeft="70px"
+                android:paddingTop="30px"
+                android:paddingRight="70px"
+                android:paddingBottom="30px">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/alarm_rounded_background"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/editTextTextMultiLine2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:gravity="start|top"
+                        android:inputType="textMultiLine"
+                        android:text="Do you prefer gradual changes over sudden changes?" />
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <RadioButton
+                            android:id="@+id/radioButton7"
+                            android:layout_width="match_parent"
+                            android:layout_height="59dp"
+                            android:text="More than a month." />
+
+                        <RadioButton
+                            android:id="@+id/radioButton8"
+                            android:layout_width="match_parent"
+                            android:layout_height="68dp"
+                            android:text="Less than a month." />
+                    </RadioGroup>
 
                     <RadioButton
-                        android:id="@+id/radioButton"
+                        android:id="@+id/radioButton3"
                         android:layout_width="match_parent"
                         android:layout_height="59dp"
                         android:text="Yes." />
 
                     <RadioButton
-                        android:id="@+id/radioButton2"
+                        android:id="@+id/radioButton4"
                         android:layout_width="match_parent"
                         android:layout_height="68dp"
                         android:text="No." />
-                </RadioGroup>
 
-            </LinearLayout>
+                </LinearLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="211dp"
-            android:paddingLeft="70px"
-            android:paddingTop="30px"
-            android:paddingRight="70px"
-            android:paddingBottom="30px">
-
-            <LinearLayout
+            <Button
+                android:id="@+id/button4"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:paddingBottom="5px"
+                android:text="OK" />
 
-                <EditText
-                    android:id="@+id/editTextTextMultiLine4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:gravity="start|top"
-                    android:inputType="textMultiLine"
-                    android:text="How much time do you have to change your sleep rythm?" />
+            <Button
+                android:id="@+id/button5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Skip" />
 
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+        </LinearLayout>
+    </ScrollView>
 
-                    <RadioButton
-                        android:id="@+id/radioButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="59dp"
-                        android:text="More than a month." />
-
-                    <RadioButton
-                        android:id="@+id/radioButton2"
-                        android:layout_width="match_parent"
-                        android:layout_height="68dp"
-                        android:text="Less than a month." />
-                </RadioGroup>
-            </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
