@@ -1,171 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/alarmSettings"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.NewAlarmFragment">
+    android:layout_height="match_parent">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        tools:layout_editor_absoluteY="64dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/colorPrimary"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="?attr/actionBarTheme" />
+            android:orientation="vertical"
+            android:paddingTop="30px"
+            android:paddingBottom="30px">
 
             <EditText
-                android:id="@+id/editTextAlarmName"
+                android:id="@+id/editTextTextMultiLine5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Alarm Name" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Good Morning" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <com.google.android.material.tabs.TabLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/alarmTypeTabRegularAlarm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Regular Alarm" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/alarmTypeTabSkipANight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Skip A Night" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/alarmTypeTabStepByStep"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Step By Step" />
-            </com.google.android.material.tabs.TabLayout>
-
-            <fragment
-                android:id="@+id/fragmentAlarmType"
-                android:name="com.mse.group1.sleepphase.fragments.AlarmTypeFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:paddingLeft="30px"
+                android:paddingRight="30px"
+                android:text="Let's get started!!\n If you know what you are doing, just press the button 'Create New Alarm'. Otherwise you may want to read about our different alarm types below." />
 
             <Button
-                android:id="@+id/buttonAlarmSettings"
+                android:id="@+id/button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Alarm Settings" />
+                android:paddingTop="50px"
+                android:paddingBottom="50px"
+                android:text="Create New Alarm" />
 
-            <fragment
-                android:id="@+id/fragmentAlarmSettings"
-                android:name="com.mse.group1.sleepphase.fragments.AlarmSettingsFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/buttonTurningOffAlarm"
+            <EditText
+                android:id="@+id/editTextTextMultiLine6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Turning Off The Alarm" />
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:paddingLeft="30px"
+                android:paddingTop="50px"
+                android:paddingRight="30px"
+                android:paddingBottom="50px"
+                android:text="Skip A Night\nThis alarm is supposed to help all those, that need a quick reset to their sleeping schedule.\nIt works by having you stay up a night - you can obviously pick wich one - and after that jumping straight into your new bed- and wakeup time.\n\nThis might be the right alarm for you if you:\n- don't have a lot of time to achieve your new wakeup time\n- you don't mind staying up\n\nAbout setting this alarm:\nYou need to pick the time you currently get up. The alarm will ring each day at this time, like any regular alarm.\nYou need to pick the day, you want to use as your reset day. That day, no bedtime or wakeup alarm will ring, because you should not go to bed.\nYou need to enter your wakeup goal time. After your reset day, the alarm will ring at that time." />
 
-            <fragment
-                android:id="@+id/fragmentTurningOffAlarm"
-                android:name="com.mse.group1.sleepphase.fragments.TurningOffAlarmFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/buttonBedtimeReminder"
+            <EditText
+                android:id="@+id/editTextTextMultiLine7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Bed Time Reminder" />
-
-            <fragment
-                android:id="@+id/fragmentBedTimeReminder"
-                android:name="com.mse.group1.sleepphase.fragments.BedTimeReminderFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/buttonChecklistBedtime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Button" />
-
-            <fragment
-                android:id="@+id/fragment6"
-                android:name="com.mse.group1.sleepphase.fragments.ChecklistBedTimeFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/buttonWakeupChecklist"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Checklist Wakeup" />
-
-            <fragment
-                android:id="@+id/fragmentChecklistWakeup"
-                android:name="com.mse.group1.sleepphase.fragments.ChecklistWakeUpFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/buttonCreateAlarm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Create Alarm" />
-
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:paddingLeft="30px"
+                android:paddingTop="50px"
+                android:paddingRight="30px"
+                android:paddingBottom="50px"
+                android:text="Step By Step\nThis alarm will help you slowly achieve your sleeping goals. By setting the alarm earlier step by step, you will not have a big change all at once, but slowly get used to the new time you want to get up at.\nThe alarm will ring earlier for a certain number of minutes (that you pick) every few days. You will also choose the interval.\n\nThis migth be the right alarm for you if you:\n- prefer gradual change\n- you have some time to change up your sleep schedule\n\nAbout setting this alarm:\nYou need to pick the time you currently get up at. The alarm will start off ringing at that time.\nYou need to set the time by which the alarm should ring earlier every time the time gets set to an earlier time.\nYou also need to pick the interval at which the alarm will ring a bit earlier.\nAnd you will have to pick your desired wakeup time, so that the alarm will stop getting earlier when that time has been reached." />
         </LinearLayout>
     </ScrollView>
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

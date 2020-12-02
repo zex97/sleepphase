@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
 
-
     //Fragments
 
     NewAlarmFragment newAlarmFragment;
