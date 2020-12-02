@@ -47,7 +47,7 @@ public class NewAlarmFragment extends Fragment {
                 }
         );
 
-        /*quizButton.setOnClickListener(
+        quizButton.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -57,7 +57,7 @@ public class NewAlarmFragment extends Fragment {
                         startActivity(intent);
                     }
                 }
-        );*/
+        );
         return fragmentView;
     }
 
