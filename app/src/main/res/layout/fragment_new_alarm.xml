@@ -15,18 +15,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="30px"
-            android:paddingBottom="30px">
+            android:paddingLeft="50px"
+            android:paddingTop="50px"
+            android:paddingRight="50px"
+            android:paddingBottom="50px">
 
-            <EditText
-                android:id="@+id/editTextTextMultiLine5"
+            <TextView
+                android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:gravity="start|top"
-                android:inputType="textMultiLine"
-                android:paddingLeft="30px"
-                android:paddingRight="30px"
+                android:paddingBottom="30px"
                 android:text="Let's get started!!\n If you know what you are doing, just press the button 'Create New Alarm'. Otherwise you may want to read about our different alarm types below." />
 
             <Button
@@ -37,31 +35,20 @@
                 android:paddingBottom="50px"
                 android:text="Create New Alarm" />
 
-            <EditText
-                android:id="@+id/editTextTextMultiLine6"
+            <TextView
+                android:id="@+id/textView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:gravity="start|top"
-                android:inputType="textMultiLine"
-                android:paddingLeft="30px"
                 android:paddingTop="50px"
-                android:paddingRight="30px"
                 android:paddingBottom="50px"
                 android:text="Skip A Night\nThis alarm is supposed to help all those, that need a quick reset to their sleeping schedule.\nIt works by having you stay up a night - you can obviously pick wich one - and after that jumping straight into your new bed- and wakeup time.\n\nThis might be the right alarm for you if you:\n- don't have a lot of time to achieve your new wakeup time\n- you don't mind staying up\n\nAbout setting this alarm:\nYou need to pick the time you currently get up. The alarm will ring each day at this time, like any regular alarm.\nYou need to pick the day, you want to use as your reset day. That day, no bedtime or wakeup alarm will ring, because you should not go to bed.\nYou need to enter your wakeup goal time. After your reset day, the alarm will ring at that time." />
 
-            <EditText
-                android:id="@+id/editTextTextMultiLine7"
+            <TextView
+                android:id="@+id/textView11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:gravity="start|top"
-                android:inputType="textMultiLine"
-                android:paddingLeft="30px"
-                android:paddingTop="50px"
-                android:paddingRight="30px"
-                android:paddingBottom="50px"
                 android:text="Step By Step\nThis alarm will help you slowly achieve your sleeping goals. By setting the alarm earlier step by step, you will not have a big change all at once, but slowly get used to the new time you want to get up at.\nThe alarm will ring earlier for a certain number of minutes (that you pick) every few days. You will also choose the interval.\n\nThis migth be the right alarm for you if you:\n- prefer gradual change\n- you have some time to change up your sleep schedule\n\nAbout setting this alarm:\nYou need to pick the time you currently get up at. The alarm will start off ringing at that time.\nYou need to set the time by which the alarm should ring earlier every time the time gets set to an earlier time.\nYou also need to pick the interval at which the alarm will ring a bit earlier.\nAnd you will have to pick your desired wakeup time, so that the alarm will stop getting earlier when that time has been reached." />
+
         </LinearLayout>
     </ScrollView>
 

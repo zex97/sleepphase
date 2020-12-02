@@ -1,5 +1,6 @@
 package com.mse.group1.sleepphase;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
@@ -8,6 +9,8 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.animation.AnimationUtils;
+
 import com.mse.group1.sleepphase.fragments.MyAlarmsFragment;
 import com.mse.group1.sleepphase.fragments.NewAlarmFragment;
 import com.mse.group1.sleepphase.fragments.SettingsFragment;
@@ -80,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         setupViewPager(viewPager);
+
     }
 
     private void setupViewPager(ViewPager viewPager) {

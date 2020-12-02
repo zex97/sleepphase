@@ -9,6 +9,7 @@ import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.AnimationUtils;
 import android.widget.*;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -16,6 +17,10 @@ import androidx.appcompat.app.ActionBar;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+
+import com.mse.group1.sleepphase.fragments.MyAlarmsFragment;
 import com.mse.group1.sleepphase.models.AlarmModel;
 import com.mse.group1.sleepphase.models.AlarmType;
 
@@ -34,6 +39,7 @@ public class EditAlarmActivity extends AppCompatActivity implements DatePickerDi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_edit_alarm);
 
         ActionBar actionBar = getSupportActionBar();
@@ -73,6 +79,20 @@ public class EditAlarmActivity extends AppCompatActivity implements DatePickerDi
             CheckBox checkBoxBedtime = findViewById(R.id.checklist_bedtime_checkbox);
             checkBoxBedtime.setOnCheckedChangeListener(bedtimeCheckboxListener);
         }
+        Button okButton = findViewById(R.id.buttonOk);
+
+        okButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        /*MyAlarmsFragment firstFrag = new MyAlarmsFragment();
+                        this.getFragmentManager().beginTransaction()
+                                .replace(R.id.layout_container, firstFrag, TAG_FRAGMENT)
+                                .addToBackStack(null)
+                                .commit();*/
+                    }
+                }
+        );
     }
 
     private void changeSpinnerColors(Spinner spinner, int type) {
