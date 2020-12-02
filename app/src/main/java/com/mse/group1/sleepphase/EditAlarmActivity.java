@@ -38,12 +38,16 @@ public class EditAlarmActivity extends AppCompatActivity implements DatePickerDi
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle(Html.fromHtml("<font color=\"#ffffff\">" + "Edit alarm" + "</font>", Html.FROM_HTML_MODE_LEGACY));
+        actionBar.setTitle(Html.fromHtml("<font color=\"#ffffff\">" + "New alarm" + "</font>", Html.FROM_HTML_MODE_LEGACY));
 
         Intent intent = getIntent();
         int alarmId = -2;
         if (intent != null) {
             alarmId = intent.getIntExtra(ALARM_ID_KEY, -1);
+
+            if (alarmId != -1) {
+                actionBar.setTitle(Html.fromHtml("<font color=\"#ffffff\">" + "Edit alarm" + "</font>", Html.FROM_HTML_MODE_LEGACY));
+            }
 
             // TODO in exercise 3, get alarm from database
             alarm = new AlarmModel();
