@@ -25,7 +25,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="30px"
-                android:text="Let's get started!!\n If you know what you are doing, just press the button 'Create New Alarm'. Otherwise you may want to read about our different alarm types below." />
+                android:text="Let's get started!!\n If you know what you are doing, just press the button 'Create New Alarm'. Otherwise you may want to take the quiz to find the alarm type that would fit you best or read about the different alarm types below." />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="30px"
+                android:text="Find Your Perfect Alarm" />
+
+            <Button
+                android:id="@+id/takeQuizButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Take The Quiz" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Erstelle einen Alarm ohne Quiz" />
 
             <Button
                 android:id="@+id/createNew"
@@ -47,6 +66,7 @@
                 android:id="@+id/textView11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingBottom="170px"
                 android:text="Step By Step\nThis alarm will help you slowly achieve your sleeping goals. By setting the alarm earlier step by step, you will not have a big change all at once, but slowly get used to the new time you want to get up at.\nThe alarm will ring earlier for a certain number of minutes (that you pick) every few days. You will also choose the interval.\n\nThis migth be the right alarm for you if you:\n- prefer gradual change\n- you have some time to change up your sleep schedule\n\nAbout setting this alarm:\nYou need to pick the time you currently get up at. The alarm will start off ringing at that time.\nYou need to set the time by which the alarm should ring earlier every time the time gets set to an earlier time.\nYou also need to pick the interval at which the alarm will ring a bit earlier.\nAnd you will have to pick your desired wakeup time, so that the alarm will stop getting earlier when that time has been reached." />
 
         </LinearLayout>

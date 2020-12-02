@@ -13,6 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.mse.group1.sleepphase.EditAlarmActivity;
+import com.mse.group1.sleepphase.QuizActivity;
 import com.mse.group1.sleepphase.R;
 
 
@@ -32,6 +33,7 @@ public class NewAlarmFragment extends Fragment {
         View fragmentView = inflater.inflate(R.layout.fragment_new_alarm, container, false);
 
         Button createNewAlarmButton = fragmentView.findViewById(R.id.createNew);
+        Button quizButton = fragmentView.findViewById(R.id.takeQuizButton);
 
         createNewAlarmButton.setOnClickListener(
                 new View.OnClickListener() {
@@ -44,6 +46,18 @@ public class NewAlarmFragment extends Fragment {
                     }
                 }
         );
+
+        /*quizButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        v.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.anim_item));
+                        Intent intent = new Intent(getActivity(), QuizActivity.class);
+                        //intent.putExtra(null, (int) v.getTag());
+                        startActivity(intent);
+                    }
+                }
+        );*/
         return fragmentView;
     }
 
