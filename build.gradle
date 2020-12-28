@@ -3,6 +3,11 @@
 ext {
     roomVersion = '2.2.6'
     guavaVersion = '27.0.1-android'
+
+    androidXVersion = '1.0.0'
+    androidXTestVersion = '1.1.1'
+    androidXAnnotations = '1.0.1'
+    androidXLegacySupport = '1.0.0'
 }
 
 buildscript {

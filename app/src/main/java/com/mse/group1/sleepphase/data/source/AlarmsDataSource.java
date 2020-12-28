@@ -1,6 +1,7 @@
-package com.mse.group1.sleepphase.data;
+package com.mse.group1.sleepphase.data.source;
 
 import androidx.lifecycle.LiveData;
+import com.mse.group1.sleepphase.data.Alarm;
 
 import java.util.List;
 
