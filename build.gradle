@@ -1,5 +1,10 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
+ext {
+    roomVersion = '2.2.6'
+    guavaVersion = '27.0.1-android'
+}
+
 buildscript {
     repositories {
         google()
