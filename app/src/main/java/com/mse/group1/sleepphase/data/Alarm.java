@@ -10,9 +10,9 @@ import com.mse.group1.sleepphase.data.alarm_components.AlarmConverters;
 import com.mse.group1.sleepphase.data.alarm_components.AlarmType;
 import com.mse.group1.sleepphase.data.alarm_components.ChecklistBedtimeWakeup;
 import com.mse.group1.sleepphase.data.alarm_components.TurningOffAlarm;
+import org.joda.time.LocalTime;
+import org.joda.time.LocalDate;
 
-import java.util.Date;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -26,6 +26,10 @@ public final class Alarm {
     private final String id;
 
     @NonNull
+    @ColumnInfo(name = "active")
+    private Boolean active;
+
+    @NonNull
     @ColumnInfo(name = "type")
     private AlarmType type;
 
@@ -35,11 +39,11 @@ public final class Alarm {
 
     @NonNull
     @ColumnInfo(name = "ringAt")
-    private Time ringAt;
+    private LocalTime ringAt;
 
     @Nullable
     @ColumnInfo(name = "goal")
-    private Time goal;                   // step by step and skip a night alarms
+    private LocalTime goal;                   // step by step and skip a night alarms
 
     @NonNull
     @ColumnInfo(name = "days")
@@ -47,7 +51,7 @@ public final class Alarm {
 
     @Nullable
     @ColumnInfo(name = "skip")
-    private Date skip;                   //only skip a night alarms
+    private LocalDate skip;                   //only skip a night alarms
 
     @Nullable
     @ColumnInfo(name = "changeBy")
@@ -100,6 +104,11 @@ public final class Alarm {
     }
 
     @NonNull
+    public Boolean getActive() {
+        return active;
+    }
+
+    @NonNull
     public AlarmType getType() {
         return type;
     }
@@ -110,12 +119,12 @@ public final class Alarm {
     }
 
     @NonNull
-    public Time getRingAt() {
+    public LocalTime getRingAt() {
         return ringAt;
     }
 
     @Nullable
-    public Time getGoal() {
+    public LocalTime getGoal() {
         return goal;
     }
 
@@ -125,7 +134,7 @@ public final class Alarm {
     }
 
     @Nullable
-    public Date getSkip() {
+    public LocalDate getSkip() {
         return skip;
     }
 
@@ -179,6 +188,10 @@ public final class Alarm {
         return checklist_wakeup;
     }
 
+    public void setActive(@NonNull Boolean active) {
+        this.active = active;
+    }
+
     public void setType(@NonNull AlarmType type) {
         this.type = type;
     }
@@ -187,11 +200,11 @@ public final class Alarm {
         this.name = name;
     }
 
-    public void setRingAt(@NonNull Time ringAt) {
+    public void setRingAt(@NonNull LocalTime ringAt) {
         this.ringAt = ringAt;
     }
 
-    public void setGoal(@Nullable Time goal) {
+    public void setGoal(@Nullable LocalTime goal) {
         this.goal = goal;
     }
 
@@ -199,7 +212,7 @@ public final class Alarm {
         this.days = days;
     }
 
-    public void setSkip(@Nullable Date skip) {
+    public void setSkip(@Nullable LocalDate skip) {
         this.skip = skip;
     }
 
@@ -246,7 +259,7 @@ public final class Alarm {
     @NonNull
     @Override
     public String toString() {
-        return "Alarm: " + type + ", " + name + ", " + ringAt + ", " + goal + ", " + days + ", " + skip + ", " +
+        return "Alarm: " + active + ", " + type + ", " + name + ", " + ringAt + ", " + goal + ", " + days + ", " + skip + ", " +
                 changeBy + ", " + everyDays + ", " + sound + ", " + vibrate + ", " + snooze_enabled + ", " + snooze_every_min + ", " +
                 snooze_times + ", " + turning_off_alarm + ", " + checklist_bedtime + ", " + checklist_wakeup;
     }
@@ -259,6 +272,7 @@ public final class Alarm {
         Alarm alarm = (Alarm) o;
 
         if (!Objects.equals(type, alarm.type)) return false;
+        if (!Objects.equals(active, alarm.active)) return false;
         if (!Objects.equals(name, alarm.name)) return false;
         if (!Objects.equals(ringAt, alarm.ringAt)) return false;
         if (!Objects.equals(goal, alarm.goal)) return false;
@@ -280,6 +294,7 @@ public final class Alarm {
     @Override
     public int hashCode() {
         int result = type != null ? type.hashCode() : 0;
+        result = 31 * result + (active != null ? active.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (ringAt != null ? ringAt.hashCode() : 0);
         result = 31 * result + (goal != null ? goal.hashCode() : 0);

@@ -1,29 +1,91 @@
 package com.mse.group1.sleepphase.data.source;
 
+import android.app.Application;
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import com.mse.group1.sleepphase.data.Alarm;
+import com.mse.group1.sleepphase.util.AppExecutors;
 
 import java.util.List;
 
 public class SimpleAlarmsDataSource implements AlarmsDataSource {
 
+    private static volatile SimpleAlarmsDataSource INSTANCE;
+
+    private AppExecutors appExecutors;
+
     private AlarmDAO alarmDao;
-    private LiveData<List<Alarm>> alarmsLiveData;
 
-    public SimpleAlarmsDataSource (@NonNull AlarmDAO alarmDao) {
-        this.alarmDao = alarmDao;
-        this.alarmsLiveData = alarmDao.getAlarms();
+    private SimpleAlarmsDataSource (@NonNull AppExecutors appExecutors, Application application) {
+        LocalDatabase database = LocalDatabase.getInstance(application);
+        this.alarmDao = database.alarmDAO();
+        this.appExecutors = appExecutors;
+    }
+
+    public static SimpleAlarmsDataSource getInstance(@NonNull AppExecutors appExecutors, Application application) {
+        if (INSTANCE == null) {
+            synchronized (SimpleAlarmsDataSource.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new SimpleAlarmsDataSource(appExecutors, application);
+                }
+            }
+        }
+        return INSTANCE;
     }
 
     @Override
-    public Alarm getAlarm(String alarmId) {
-        return alarmDao.getAlarmById(alarmId);
+    public void changeActiveStatusAlarm(@NonNull final String alarmId) {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                alarmDao.invertActive(alarmId);
+            }
+        };
+
+        appExecutors.diskIO().execute(runnable);
     }
 
     @Override
-    public LiveData<List<Alarm>> getAlarms() {
-        return alarmsLiveData;
+    public void getAlarm(@NonNull final String alarmId, @NonNull final GetAlarmsCallback callback) {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                final Alarm alarm = alarmDao.getAlarmById(alarmId);
+
+                appExecutors.mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (alarm == null) {
+                            callback.onDataNotAvailable();
+                        } else {
+                            callback.onAlarmLoaded(alarm);
+                        }
+                    }
+                });
+            }
+        };
+
+        appExecutors.diskIO().execute(runnable);
+    }
+
+    @Override
+    public void getAlarms(@NonNull final LoadAlarmsCallback callback) {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                final List<Alarm> alarms = alarmDao.getAlarms();
+                appExecutors.mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (alarms.size() != 0) {
+                            callback.onAlarmsLoaded(alarms);
+                        } else {
+                            callback.onDataNotAvailable();
+                        }
+                    }
+                });
+            }
+        };
+        LocalDatabase.databaseExecutors.execute(runnable);
     }
 
     @Override
@@ -34,18 +96,7 @@ public class SimpleAlarmsDataSource implements AlarmsDataSource {
                 alarmDao.insertAlarm(alarm);
             }
         };
-        LocalDatabase.databaseExecutors.execute(runnable);
-    }
-
-    @Override
-    public void deleteAlarm(final String alarmId) {
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                alarmDao.deleteAlarmById(alarmId);
-            }
-        };
-        LocalDatabase.databaseExecutors.execute(runnable);
+        appExecutors.diskIO().execute(runnable);
     }
 
     @Override
@@ -56,6 +107,20 @@ public class SimpleAlarmsDataSource implements AlarmsDataSource {
                 alarmDao.updateAlarm(alarm);
             }
         };
-        LocalDatabase.databaseExecutors.execute(runnable);
+        appExecutors.diskIO().execute(runnable);
     }
+
+    @Override
+    public void deleteAlarm(@NonNull final String alarmId) {
+        Runnable deleteRunnable = new Runnable() {
+            @Override
+            public void run() {
+                alarmDao.deleteAlarmById(alarmId);
+            }
+        };
+
+        appExecutors.diskIO().execute(deleteRunnable);
+    }
+
+
 }

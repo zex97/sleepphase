@@ -1,33 +1,79 @@
 package com.mse.group1.sleepphase.alarms;
 
+import android.app.Application;
+import androidx.annotation.NonNull;
 import androidx.arch.core.util.Function;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
-import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.*;
+import com.mse.group1.sleepphase.Event;
 import com.mse.group1.sleepphase.data.Alarm;
 import com.mse.group1.sleepphase.data.source.AlarmsDataSource;
+import com.mse.group1.sleepphase.data.source.SimpleAlarmsDataSource;
+import com.mse.group1.sleepphase.util.AppExecutors;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class AlarmsViewModel extends ViewModel {
+public class AlarmsViewModel extends AndroidViewModel {
 
     private AlarmsDataSource alarmsDataSource;
 
-    private LiveData<List<Alarm>> alarms;
+    private final MutableLiveData<List<Alarm>> alarms = new MutableLiveData<>();
 
-    private LiveData<Boolean> isEmpty = Transformations.map(alarms, new Function<List<Alarm>, Boolean>() {
+    private final MutableLiveData<Event<String>> toastText = new MutableLiveData<>();
+
+    private MutableLiveData<Event<Object>> createAlarmObservable = new MutableLiveData<>();
+
+    private MutableLiveData<Event<String>> openAlarmObservable = new MutableLiveData<>();
+
+    private LiveData<Boolean> isAlarmsEmpty = Transformations.map(alarms, new Function<List<Alarm>, Boolean>() {
         @Override
         public Boolean apply(List<Alarm> input) {
             return input.size() == 0;
         }
     });
 
-    private LiveData<String> toastText = new MutableLiveData<>();
+    public AlarmsViewModel (@NonNull Application application) {
+        super(application);
+        alarmsDataSource = SimpleAlarmsDataSource.getInstance(new AppExecutors(), application);
+    }
 
-    public AlarmsViewModel (AlarmsDataSource alarmsDataSource) {
-        this.alarmsDataSource = alarmsDataSource;
-        this.alarms = alarmsDataSource.getAlarms();
+    public void loadAlarms() {
+
+        alarmsDataSource.getAlarms(new AlarmsDataSource.LoadAlarmsCallback() {
+            @Override
+            public void onAlarmsLoaded(List<Alarm> tasks) {
+                alarms.setValue(tasks);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                // TODO error handling
+            }
+        });
+    }
+
+    public void changeActiveStatus(String alarmId) {
+        alarmsDataSource.changeActiveStatusAlarm(alarmId);
+    }
+
+    private void showToastMessage(String message) {
+        toastText.setValue(new Event<>(message));
+    }
+
+    public void updateAlarm(Alarm alarm) {
+        alarmsDataSource.updateAlarm(alarm);
+    }
+
+    public void editAlarmObservable(String alarmId) {
+        openAlarmObservable.setValue(new Event<>(alarmId));
+    }
+
+    public void addNewAlarmObservable() {
+        createAlarmObservable.setValue(new Event<>(new Object()));
+    }
+
+    public LiveData<Event<String>> getToastText() {
+        return toastText;
     }
 
     public LiveData<List<Alarm>> getAlarms() {
@@ -35,14 +81,18 @@ public class AlarmsViewModel extends ViewModel {
     }
 
     public LiveData<Boolean> getIsEmpty() {
-        return isEmpty;
+        return isAlarmsEmpty;
     }
 
-    public LiveData<String> getToastText() {
-        return toastText;
+    public LiveData<Boolean> getIsAlarmsEmpty() {
+        return isAlarmsEmpty;
     }
 
-    public void updateAlarm(Alarm alarm) {
-        alarmsDataSource.updateAlarm(alarm);
+    public MutableLiveData<Event<Object>> getCreateAlarmObservable() {
+        return createAlarmObservable;
+    }
+
+    public MutableLiveData<Event<String>> getOpenAlarmObservable() {
+        return openAlarmObservable;
     }
 }

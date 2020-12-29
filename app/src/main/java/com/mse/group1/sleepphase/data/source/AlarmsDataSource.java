@@ -1,17 +1,33 @@
 package com.mse.group1.sleepphase.data.source;
 
-import androidx.lifecycle.LiveData;
+import androidx.annotation.NonNull;
 import com.mse.group1.sleepphase.data.Alarm;
 
 import java.util.List;
 
 public interface AlarmsDataSource {
 
-    Alarm getAlarm(String alarmId);
+    interface LoadAlarmsCallback {
 
-    LiveData<List<Alarm>> getAlarms();
+        void onAlarmsLoaded(List<Alarm> alarms);
+
+        void onDataNotAvailable();
+    }
+
+    interface GetAlarmsCallback {
+
+        void onAlarmLoaded(Alarm alarm);
+
+        void onDataNotAvailable();
+    }
+
+    void getAlarm(@NonNull String taskId, @NonNull GetAlarmsCallback callback);
+
+    void getAlarms(@NonNull LoadAlarmsCallback callback);
 
     void saveAlarm(Alarm alarm);
+
+    void changeActiveStatusAlarm(@NonNull String alarmId);
 
     void deleteAlarm(String alarmId);
 

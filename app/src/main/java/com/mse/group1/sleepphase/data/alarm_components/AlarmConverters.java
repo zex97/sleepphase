@@ -1,18 +1,18 @@
 package com.mse.group1.sleepphase.data.alarm_components;
 
 import androidx.room.TypeConverter;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONStringer;
+import org.joda.time.LocalTime;
 
-import java.sql.Time;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.Locale;
 
 public class AlarmConverters {
@@ -28,30 +28,25 @@ public class AlarmConverters {
     }
 
     @TypeConverter
-    public Time toTime(String value) {
-        return Time.valueOf(value);
+    public LocalTime toTime(String value) {
+        return LocalTime.parse(value);
     }
 
     @TypeConverter
-    public String fromTime(Time value) {
+    public String fromTime(LocalTime value) {
         return value.toString();
     }
 
     @TypeConverter
-    public Date toDate(String value) {
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-        try {
-            return format.parse(value);
-        } catch (ParseException e) {
-            System.err.println("Could not parse string to date: " + e);
-        }
-        return null;
+    public LocalDate toDate(String value) {
+        DateTimeFormatter format = DateTimeFormat.forPattern("dd-MM-yyyy");
+        return format.parseLocalDate(value);
     }
 
     @TypeConverter
-    public String fromDate(Date value) {
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-        return format.format(value);
+    public String fromDate(LocalDate value) {
+        DateTimeFormatter format = DateTimeFormat.forPattern("dd-MM-yyyy");
+        return format.print(value);
     }
 
     @TypeConverter

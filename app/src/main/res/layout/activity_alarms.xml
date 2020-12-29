@@ -21,7 +21,10 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_alarms"/>
+    <FrameLayout
+            android:id="@+id/alarms_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"

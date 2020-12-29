@@ -1,6 +1,5 @@
 package com.mse.group1.sleepphase.data.source;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.*;
 import com.mse.group1.sleepphase.data.Alarm;
 
@@ -13,7 +12,7 @@ public interface AlarmDAO {
     Alarm getAlarmById(String alarmId);
 
     @Query("SELECT * FROM alarms ORDER BY name ASC")
-    LiveData<List<Alarm>> getAlarms();
+    List<Alarm> getAlarms();
 
     @Insert (onConflict = OnConflictStrategy.REPLACE)
     void insertAlarm(Alarm alarm);
@@ -23,4 +22,7 @@ public interface AlarmDAO {
 
     @Update
     void updateAlarm(Alarm alarm);
+
+    @Query("UPDATE alarms SET active = NOT active WHERE alarmId = :alarmId")
+    void invertActive(String alarmId);
 }
