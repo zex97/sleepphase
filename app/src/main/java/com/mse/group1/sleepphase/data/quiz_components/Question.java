@@ -15,6 +15,23 @@ public class Question {
         this.indicates = AlarmType.REGULAR;
     }
 
+    public Question(String question, AlarmType indicates) {
+        this.question = question;
+        this.indicates = indicates;
+    }
+
+    public static Question fromString(String string) {
+        String[] split = string.split(" --- ");
+        String question = split[0];
+        AlarmType alarmType = AlarmType.valueOf(split[1]);
+        return new Question(question, alarmType);
+    }
+
+    @Override
+    public String toString() {
+        return question + " --- " + indicates;
+    }
+
     public String getQuestion() {
         return question;
     }
