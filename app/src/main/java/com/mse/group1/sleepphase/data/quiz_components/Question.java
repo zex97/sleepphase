@@ -1,17 +1,18 @@
 package com.mse.group1.sleepphase.data.quiz_components;
 
 import com.google.common.base.Objects;
+import com.mse.group1.sleepphase.data.alarm_components.AlarmType;
 
 import java.util.ArrayList;
 
 public class Question {
 
     private String question;
-    private ArrayList<Answer> answers;
+    private AlarmType indicates;
 
     public Question () {
         this.question = "";
-        this.answers = new ArrayList<>();
+        this.indicates = AlarmType.REGULAR;
     }
 
     public String getQuestion() {
@@ -22,11 +23,11 @@ public class Question {
         this.question = question;
     }
 
-    public ArrayList<Answer> getAnswers() {
-        return answers;
+    public AlarmType getIndicates() {
+        return indicates;
     }
 
-    public void setAnswers(ArrayList<Answer> answers) {
-        this.answers = answers;
+    public void setIndicates(AlarmType indicates) {
+        this.indicates = indicates;
     }
 }
