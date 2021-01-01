@@ -18,13 +18,11 @@
         >
             <TextView
                     android:text="insert question here"
-                    app:layout_constraintWidth_max="wrap"
-                    app:layout_constraintWidth_percent="0.55"
-                    android:layout_width="wrap_content"
+                    android:layout_marginEnd="80dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/quizQuestionView"
                     app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="5dp"
                     app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="3dp"
-                    android:layout_marginEnd="5dp"
                     app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="3dp"/>
             <RadioButton
                     android:id="@+id/quizQuestionRadio"
