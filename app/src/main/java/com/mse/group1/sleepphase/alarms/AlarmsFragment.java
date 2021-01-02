@@ -8,19 +8,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mse.group1.sleepphase.Event;
 import com.mse.group1.sleepphase.R;
 import com.mse.group1.sleepphase.data.Alarm;
 
 import java.util.List;
 
-public class AlarmsFragment extends Fragment implements SwitchChangeListener{
+public class AlarmsFragment extends Fragment implements AlarmItemListener {
 
     private RecycleViewAdapter adapter;
     private RecyclerView alarmsRecyclerView;
@@ -43,6 +41,13 @@ public class AlarmsFragment extends Fragment implements SwitchChangeListener{
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        setupToastListener();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         viewModel.loadAlarms();
@@ -61,6 +66,15 @@ public class AlarmsFragment extends Fragment implements SwitchChangeListener{
     @Override
     public void onSwitchChange(Alarm alarm) {
         // TODO implement alarm scheduling
+        System.out.println("switchhhhh");
+    }
+
+    @Override
+    public void onAlarmClicked(Alarm alarm) {
+        System.out.println("CCCCCCCCCC " + alarm.getId());
+        System.out.println(viewModel.getEditAlarmObservable().getValue());
+        viewModel.editAlarmObservable(alarm.getId());
+        System.out.println(viewModel.getEditAlarmObservable().getValue());
     }
 
     private void setupToastListener() {

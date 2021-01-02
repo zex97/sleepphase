@@ -2,13 +2,14 @@ package com.mse.group1.sleepphase.alarms;
 
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import com.mse.group1.sleepphase.R;
 import com.mse.group1.sleepphase.data.Alarm;
+import com.mse.group1.sleepphase.databinding.AlarmItemBinding;
 
 import java.util.Locale;
 
@@ -19,9 +20,11 @@ public class AlarmViewHolder extends RecyclerView.ViewHolder {
     private TextView alarmType;
     private Switch alarmActive;
 
-    private SwitchChangeListener changeListener;
+    private AlarmItemBinding binding;
 
-    public AlarmViewHolder(@NonNull View itemView, SwitchChangeListener changeListener) {
+    private AlarmItemListener changeListener;
+
+    public AlarmViewHolder(@NonNull View itemView, final AlarmItemBinding binding) {
         super(itemView);
 
         alarmTime = itemView.findViewById(R.id.alarmTimeTextView);
@@ -29,11 +32,20 @@ public class AlarmViewHolder extends RecyclerView.ViewHolder {
         alarmName = itemView.findViewById(R.id.alarmNameTextView);
         alarmType = itemView.findViewById(R.id.alarmTypeTextView);
         alarmActive = itemView.findViewById(R.id.myAlarmsSwitch);
+        this.binding = binding;
 
-        this.changeListener = changeListener;
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // POKUSATI DIREKTNO DA  PROMIJENIS OBSERVABLE, ako ne direktno da pozoves edit, ko ga jebe
+                changeListener.onAlarmClicked(binding.getAlarm());
+            }
+        });
     }
 
-    public void bind(final Alarm alarm) {
+    public void bind(final Alarm alarm, final AlarmItemListener changeListener) {
+        this.changeListener = changeListener;
+
         String alarmTimeString = String.format(Locale.ENGLISH, "%02d:%02d", alarm.getRingAt().getHourOfDay(), alarm.getRingAt().getMinuteOfHour());
         alarmTime.setText(alarmTimeString);
 
@@ -54,6 +66,10 @@ public class AlarmViewHolder extends RecyclerView.ViewHolder {
                 changeListener.onSwitchChange(alarm);
             }
         });
+
+        binding.setAlarm(alarm);
+        binding.setListener(this.changeListener);
+        binding.executePendingBindings();
     }
 
     public Switch getAlarmActive() {

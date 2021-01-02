@@ -23,7 +23,7 @@ public class AlarmsViewModel extends AndroidViewModel {
 
     private MutableLiveData<Event<Object>> createAlarmObservable = new MutableLiveData<>();
 
-    private MutableLiveData<Event<String>> openAlarmObservable = new MutableLiveData<>();
+    private MutableLiveData<Event<String>> editAlarmObservable = new MutableLiveData<>();
 
     private LiveData<Boolean> isAlarmsEmpty = Transformations.map(alarms, new Function<List<Alarm>, Boolean>() {
         @Override
@@ -65,7 +65,7 @@ public class AlarmsViewModel extends AndroidViewModel {
     }
 
     public void editAlarmObservable(String alarmId) {
-        openAlarmObservable.setValue(new Event<>(alarmId));
+        editAlarmObservable.setValue(new Event<>(alarmId));
     }
 
     public void addNewAlarmObservable() {
@@ -92,7 +92,7 @@ public class AlarmsViewModel extends AndroidViewModel {
         return createAlarmObservable;
     }
 
-    public MutableLiveData<Event<String>> getOpenAlarmObservable() {
-        return openAlarmObservable;
+    public MutableLiveData<Event<String>> getEditAlarmObservable() {
+        return editAlarmObservable;
     }
 }

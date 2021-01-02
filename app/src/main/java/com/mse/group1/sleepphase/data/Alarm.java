@@ -2,10 +2,8 @@ package com.mse.group1.sleepphase.data;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-import androidx.room.TypeConverters;
+import androidx.room.*;
+import com.google.common.base.Strings;
 import com.mse.group1.sleepphase.data.alarm_components.AlarmConverters;
 import com.mse.group1.sleepphase.data.alarm_components.AlarmType;
 import com.mse.group1.sleepphase.data.alarm_components.ChecklistBedtimeWakeup;
@@ -15,15 +13,47 @@ import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity(tableName = "alarms")
 @TypeConverters(AlarmConverters.class)
 public final class Alarm {
 
+    public Alarm () {
+        this.id = UUID.randomUUID().toString();
+    }
+
+    @Ignore
+    public void setAlarm (Alarm alarm) {
+        this.id = alarm.id;
+        this.active = alarm.active;
+        this.type = alarm.type;
+        this.name = alarm.name;
+        this.ringAt = alarm.ringAt;
+        this.goal = alarm.goal;
+        this.days = alarm.days;
+        this.skip = alarm.skip;
+        this.changeBy = alarm.changeBy;
+        this.everyDays = alarm.everyDays;
+        this.sound = alarm.sound;
+        this.vibrate = alarm.vibrate;
+        this.snooze_times = alarm.snooze_times;
+        this.snooze_every_min = alarm.snooze_every_min;
+        this.snooze_enabled = alarm.snooze_enabled;
+        this.turning_off_alarm = alarm.turning_off_alarm;
+        this.checklist_bedtime = alarm.checklist_bedtime;
+        this.checklist_wakeup = alarm.checklist_wakeup;
+    }
+
+    @Ignore
+    public boolean isInvalid () {
+        return Strings.isNullOrEmpty(name);
+    }
+
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "alarmId")
-    private final String id;
+    private String id;
 
     @NonNull
     @ColumnInfo(name = "active")
@@ -92,11 +122,6 @@ public final class Alarm {
     @NonNull
     @ColumnInfo(name = "checklist_wakeup")
     private ArrayList<ChecklistBedtimeWakeup> checklist_wakeup;
-
-
-    public Alarm (String id) {
-        this.id = id;
-    }
 
     @NonNull
     public String getId() {
@@ -186,6 +211,10 @@ public final class Alarm {
     @NonNull
     public ArrayList<ChecklistBedtimeWakeup> getChecklist_wakeup() {
         return checklist_wakeup;
+    }
+
+    public void setId(@NonNull String id) {
+        this.id = id;
     }
 
     public void setActive(@NonNull Boolean active) {
