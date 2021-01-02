@@ -138,6 +138,11 @@ public final class Alarm {
         return type;
     }
 
+    @Ignore
+    public String getTypeForList() {
+        return type.toString().replace("_"," ");
+    }
+
     @NonNull
     public String getName() {
         return name;
@@ -148,10 +153,21 @@ public final class Alarm {
         return ringAt;
     }
 
+    @Ignore
+    public String getRingAtForList () {
+        return ringAt.toString("HH:mm");
+    }
+
     @Nullable
     public LocalTime getGoal() {
         return goal;
     }
+
+    @Ignore
+    public String getGoalForList () {
+        return goal.toString("HH:mm");
+    }
+
 
     @NonNull
     public ArrayList<String> getDays() {

@@ -40,7 +40,7 @@ public class AddEditAlarmActivity extends AppCompatActivity {
             fragment = new AddEditAlarmFragment();
 
             Bundle bundle = new Bundle();
-            bundle.putString(AddEditAlarmFragment.EDIT_TASK_ID, getIntent().getStringExtra(AddEditAlarmFragment.EDIT_TASK_ID));
+            bundle.putString(AddEditAlarmFragment.EDIT_ALARM_ID, getIntent().getStringExtra(AddEditAlarmFragment.EDIT_ALARM_ID));
             fragment.setArguments(bundle);
         }
 
@@ -51,8 +51,8 @@ public class AddEditAlarmActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(AddEditViewModel.class);
         viewModel.getAlarmUpdatedObservable().observe(this, new Observer<Event<Object>>() {
             @Override
-            public void onChanged(Event<Object> taskIdEvent) {
-                if (taskIdEvent.getContentIfNotHandled() != null) {
+            public void onChanged(Event<Object> alarmIdEvent) {
+                if (alarmIdEvent.getContentIfNotHandled() != null) {
                     onAlarmSavedSuccessfully();
                 }
             }

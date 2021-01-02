@@ -59,8 +59,8 @@ public class AlarmsActivity extends AppCompatActivity {
 
         viewModel.getCreateAlarmObservable().observe(this, new Observer<Event<Object>>() {
             @Override
-            public void onChanged(Event<Object> taskIdEvent) {
-                if (taskIdEvent.getContentIfNotHandled() != null) {
+            public void onChanged(Event<Object> alarmsIdEvent) {
+                if (alarmsIdEvent.getContentIfNotHandled() != null) {
                     createNewAlarm();
                 }
             }
@@ -113,7 +113,7 @@ public class AlarmsActivity extends AppCompatActivity {
     public void editAlarm (String alarmId) {
         System.out.println("EDIIIIIT");
         Intent intent = new Intent(this, AddEditAlarmActivity.class);
-        intent.putExtra(AddEditAlarmFragment.EDIT_TASK_ID, alarmId);
+        intent.putExtra(AddEditAlarmFragment.EDIT_ALARM_ID, alarmId);
         startActivityForResult(intent, AddEditAlarmActivity.REQUEST_CODE);
     }
 

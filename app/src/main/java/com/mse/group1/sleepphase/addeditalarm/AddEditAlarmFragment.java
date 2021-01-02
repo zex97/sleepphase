@@ -4,5 +4,5 @@ import androidx.fragment.app.Fragment;
 
 public class AddEditAlarmFragment extends Fragment {
 
-public static final String EDIT_TASK_ID = "edit_task_id";
+public static final String EDIT_ALARM_ID = "edit_alarm_id";
 }
