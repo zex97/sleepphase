@@ -17,15 +17,15 @@ public class AlarmsViewModel extends AndroidViewModel {
 
     private AlarmsDataSource alarmsDataSource;
 
-    private final MutableLiveData<List<Alarm>> alarms = new MutableLiveData<>();
+    private final MutableLiveData<List<Alarm>> items = new MutableLiveData<>();
 
     private final MutableLiveData<Event<String>> toastText = new MutableLiveData<>();
 
     private MutableLiveData<Event<Object>> createAlarmObservable = new MutableLiveData<>();
 
-    private MutableLiveData<Event<String>> openAlarmObservable = new MutableLiveData<>();
+    private MutableLiveData<Event<String>> editAlarmObservable = new MutableLiveData<>();
 
-    private LiveData<Boolean> isAlarmsEmpty = Transformations.map(alarms, new Function<List<Alarm>, Boolean>() {
+    private LiveData<Boolean> isAlarmsEmpty = Transformations.map(items, new Function<List<Alarm>, Boolean>() {
         @Override
         public Boolean apply(List<Alarm> input) {
             return input.size() == 0;
@@ -41,8 +41,8 @@ public class AlarmsViewModel extends AndroidViewModel {
 
         alarmsDataSource.getAlarms(new AlarmsDataSource.LoadAlarmsCallback() {
             @Override
-            public void onAlarmsLoaded(List<Alarm> tasks) {
-                alarms.setValue(tasks);
+            public void onAlarmsLoaded(List<Alarm> alarms) {
+                items.setValue(alarms);
             }
 
             @Override
@@ -65,7 +65,7 @@ public class AlarmsViewModel extends AndroidViewModel {
     }
 
     public void editAlarmObservable(String alarmId) {
-        openAlarmObservable.setValue(new Event<>(alarmId));
+        editAlarmObservable.setValue(new Event<>(alarmId));
     }
 
     public void addNewAlarmObservable() {
@@ -76,8 +76,8 @@ public class AlarmsViewModel extends AndroidViewModel {
         return toastText;
     }
 
-    public LiveData<List<Alarm>> getAlarms() {
-        return alarms;
+    public LiveData<List<Alarm>> getItems() {
+        return items;
     }
 
     public LiveData<Boolean> getIsEmpty() {
@@ -92,7 +92,7 @@ public class AlarmsViewModel extends AndroidViewModel {
         return createAlarmObservable;
     }
 
-    public MutableLiveData<Event<String>> getOpenAlarmObservable() {
-        return openAlarmObservable;
+    public MutableLiveData<Event<String>> getEditAlarmObservable() {
+        return editAlarmObservable;
     }
 }
