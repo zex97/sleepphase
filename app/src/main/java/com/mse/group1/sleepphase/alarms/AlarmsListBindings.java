@@ -9,7 +9,7 @@ import java.util.List;
 public class AlarmsListBindings {
 
     @SuppressWarnings("unchecked")
-    @BindingAdapter("app:items")
+    @BindingAdapter("android:items")
     public static void setItems(ListView listView, List<Alarm> items) {
         AlarmsAdapter adapter = (AlarmsAdapter) listView.getAdapter();
         if (adapter != null)

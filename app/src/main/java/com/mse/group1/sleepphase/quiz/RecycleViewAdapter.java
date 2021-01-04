@@ -6,8 +6,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.mse.group1.sleepphase.R;
-import com.mse.group1.sleepphase.alarms.SwitchChangeListener;
-import com.mse.group1.sleepphase.data.Quiz;
 import com.mse.group1.sleepphase.data.quiz_components.Question;
 
 import java.util.ArrayList;
