@@ -9,6 +9,7 @@ public class Question {
 
     private String question;
     private AlarmType indicates;
+    private boolean selected = false;
 
     public Question () {
         this.question = "";
