@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+                name="viewmodel"
+                type="com.mse.group1.sleepphase.addeditalarm.AddEditViewModel"/>
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary">
+        <LinearLayout android:orientation="vertical"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content" android:layout_marginTop="20dp"
+                      app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+                      android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
+                      android:layout_marginEnd="8dp">
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="Sound"
+                      android:layout_gravity="center"/>
+
+            <Spinner android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:entries="@array/spinner_songs_placeholder"/>
+
+            <CheckBox
+                    android:text="Vibrate"
+                    android:layout_width="89dp"
+                    android:layout_height="26dp"
+                    android:checked="@{viewmodel.vibrate}"/>
+            <TextView
+                    android:text="Volume"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
+            <SeekBar
+                    android:layout_width="match_parent"
+                    android:layout_height="23dp" android:id="@+id/seekBar"
+                    android:progress="@{viewmodel.volume}"/>
+            <CheckBox
+                    android:text="Snooze"
+                    android:layout_width="89dp"
+                    android:layout_height="26dp"
+                    android:checked="@{viewmodel.snooze}"/>
+            <View
+                    android:id="@+id/vVerticalLine"
+                    android:background="@drawable/horizontal_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"/>
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:orientation="horizontal" android:layout_gravity="center">
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="Bedtime Reminder"/>
+                <Button android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:text="i"
+                        android:onClick="@{() -> viewmodel.displayInformationDialog(`reminder`)}"/>
+            </LinearLayout>
+            <RadioGroup android:layout_width="match_parent" android:layout_height="wrap_content">
+                <RadioButton android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="Pick Suggested Bedtime Reminder"
+                             android:checked="@={viewmodel.pickReminder}"/>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:orientation="vertical" android:layout_gravity="center"
+                              android:visibility="@{viewmodel.pickReminder ? View.VISIBLE : View.GONE}">
+                    <Spinner android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:entries="@array/spinner_reminders_placeholder"
+                             android:layout_gravity="center"/>
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                  android:orientation="horizontal" android:layout_gravity="center">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                  android:text="Ring"/>
+                        <EditText android:layout_width="35dp"
+                                  android:layout_height="40dp"
+                                  android:inputType="number" android:ems="10"
+                                  android:text="3"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                  android:text="minutes before."/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <RadioButton android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="Bed-Time Reminder At"
+                             android:checked="@={viewmodel.atReminder}"/>
+                <RadioButton android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="No Bed-Time Reminder"
+                             android:checked="@={viewmodel.noReminder}"/>
+
+            </RadioGroup>
+        </LinearLayout>
+        <!--   progess dots here     -->
+        <Button android:id="@+id/button_next_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Next"
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="8dp" android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

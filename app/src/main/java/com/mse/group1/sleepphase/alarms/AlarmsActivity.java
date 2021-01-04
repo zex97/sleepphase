@@ -6,7 +6,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.view.View;
@@ -16,16 +15,6 @@ import com.mse.group1.sleepphase.Event;
 import com.mse.group1.sleepphase.R;
 import com.mse.group1.sleepphase.addeditalarm.AddEditAlarmActivity;
 import com.mse.group1.sleepphase.addeditalarm.AddEditAlarmFragment;
-import com.mse.group1.sleepphase.addeditalarm.AddEditViewModel;
-import com.mse.group1.sleepphase.data.Alarm;
-import com.mse.group1.sleepphase.data.alarm_components.AlarmType;
-import com.mse.group1.sleepphase.data.alarm_components.ChecklistBedtimeWakeup;
-import com.mse.group1.sleepphase.data.alarm_components.TurningOffAlarm;
-import com.mse.group1.sleepphase.data.alarm_components.TurningOffTypes;
-import org.joda.time.LocalDate;
-import org.joda.time.LocalTime;
-
-import java.util.ArrayList;
 
 public class AlarmsActivity extends AppCompatActivity {
 
@@ -69,7 +58,6 @@ public class AlarmsActivity extends AppCompatActivity {
         viewModel.getEditAlarmObservable().observe(this, new Observer<Event<String>>() {
             @Override
             public void onChanged(Event<String> alarmIdEvent) {
-                System.out.println("BBBBBBBBBB  ");
                 String alarmId = alarmIdEvent.getContentIfNotHandled();
                 if (alarmId != null) {
                     editAlarm(alarmId);
@@ -113,7 +101,7 @@ public class AlarmsActivity extends AppCompatActivity {
     public void editAlarm (String alarmId) {
         System.out.println("EDIIIIIT");
         Intent intent = new Intent(this, AddEditAlarmActivity.class);
-        intent.putExtra(AddEditAlarmFragment.EDIT_ALARM_ID, alarmId);
+        intent.putExtra(AddEditAlarmFragment.EDIT_ALARM_CODE, alarmId);
         startActivityForResult(intent, AddEditAlarmActivity.REQUEST_CODE);
     }
 

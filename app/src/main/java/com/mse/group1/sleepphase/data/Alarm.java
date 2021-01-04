@@ -96,6 +96,10 @@ public final class Alarm {
     private String sound;
 
     @NonNull
+    @ColumnInfo(name = "volume")
+    private Integer volume;
+
+    @NonNull
     @ColumnInfo(name = "vibrate")
     private Boolean vibrate;
 
@@ -190,6 +194,11 @@ public final class Alarm {
     }
 
     @NonNull
+    public Integer getVolume() {
+        return volume;
+    }
+
+    @NonNull
     public String getSound() {
         return sound;
     }
@@ -273,6 +282,10 @@ public final class Alarm {
         this.sound = sound;
     }
 
+    public void setVolume(@NonNull Integer volume) {
+        this.volume = volume;
+    }
+
     public void setVibrate(@NonNull Boolean vibrate) {
         this.vibrate = vibrate;
     }
@@ -305,7 +318,7 @@ public final class Alarm {
     @Override
     public String toString() {
         return "Alarm: " + active + ", " + type + ", " + name + ", " + ringAt + ", " + goal + ", " + days + ", " + skip + ", " +
-                changeBy + ", " + everyDays + ", " + sound + ", " + vibrate + ", " + snooze_enabled + ", " + snooze_every_min + ", " +
+                changeBy + ", " + everyDays + ", " + sound + ", " + volume + ", " + vibrate + ", " + snooze_enabled + ", " + snooze_every_min + ", " +
                 snooze_times + ", " + turning_off_alarm + ", " + checklist_bedtime + ", " + checklist_wakeup;
     }
 
@@ -326,6 +339,7 @@ public final class Alarm {
         if (!Objects.equals(changeBy, alarm.changeBy)) return false;
         if (!Objects.equals(everyDays, alarm.everyDays)) return false;
         if (!Objects.equals(sound, alarm.sound)) return false;
+        if (!Objects.equals(volume, alarm.volume)) return false;
         if (!Objects.equals(vibrate, alarm.vibrate)) return false;
         if (!Objects.equals(snooze_enabled, alarm.snooze_enabled)) return false;
         if (!Objects.equals(snooze_every_min, alarm.snooze_every_min)) return false;
@@ -348,6 +362,7 @@ public final class Alarm {
         result = 31 * result + (changeBy != null ? changeBy.hashCode() : 0);
         result = 31 * result + (everyDays != null ? everyDays.hashCode() : 0);
         result = 31 * result + (sound != null ? sound.hashCode() : 0);
+        result = 31 * result + (volume != null ? volume.hashCode() : 0);
         result = 31 * result + (vibrate != null ? vibrate.hashCode() : 0);
         result = 31 * result + (snooze_enabled != null ? snooze_enabled.hashCode() : 0);
         result = 31 * result + (snooze_every_min != null ? snooze_every_min.hashCode() : 0);
