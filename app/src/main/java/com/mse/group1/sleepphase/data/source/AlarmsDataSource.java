@@ -21,6 +21,12 @@ public interface AlarmsDataSource {
         void onDataNotAvailable();
     }
 
+    interface GetAfterDeleteCallback {
+
+        void onAlarmDeleted();
+
+    }
+
     void getAlarm(@NonNull String taskId, @NonNull GetAlarmsCallback callback);
 
     void getAlarms(@NonNull LoadAlarmsCallback callback);
@@ -29,7 +35,7 @@ public interface AlarmsDataSource {
 
     void changeActiveStatusAlarm(@NonNull String alarmId);
 
-    void deleteAlarm(String alarmId);
+    void deleteAlarm(String alarmId, @NonNull GetAfterDeleteCallback callback);
 
     void updateAlarm(Alarm alarm);
 }

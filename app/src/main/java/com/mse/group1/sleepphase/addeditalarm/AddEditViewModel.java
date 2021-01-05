@@ -61,7 +61,6 @@ public class AddEditViewModel extends AndroidViewModel {
     public final MutableLiveData<String> addChecklistField = new MutableLiveData<>();
 
 
-
     private final MutableLiveData<Event<Object>> alarmUpdated = new MutableLiveData<>();
 
     private final MutableLiveData<Event<String>> toastText = new MutableLiveData<>();
@@ -78,7 +77,7 @@ public class AddEditViewModel extends AndroidViewModel {
 
     private boolean alarmActive = true;
 
-    public AddEditViewModel (@NonNull Application application) {
+    public AddEditViewModel(@NonNull Application application) {
         super(application);
         alarmsDataSource = SimpleAlarmsDataSource.getInstance(new AppExecutors(), application);
     }
@@ -132,8 +131,6 @@ public class AddEditViewModel extends AndroidViewModel {
                 sundayActive.setValue(alarm.getDays().contains("Su"));
 
 
-
-
                 TurningOffTypes type = alarm.getTurning_off_alarm().getTypes();
                 turningOffSpinnerPosition.setValue(type == TurningOffTypes.SWIPE_OVER_SCREEN ? 0 : (type == TurningOffTypes.MATH_EQUATION ? 1 : 2));
                 Integer amount = alarm.getTurning_off_alarm().getAmount();
@@ -142,7 +139,6 @@ public class AddEditViewModel extends AndroidViewModel {
                 turningOffDifficulty.setValue(difficulty);
 
                 itemss.setValue(alarm.getChecklist_bedtime());
-
 
 
                 alarmActive = alarm.getActive();
@@ -164,28 +160,7 @@ public class AddEditViewModel extends AndroidViewModel {
         alarm.setName(name.getValue());
         alarm.setRingAt(new LocalTime(ringAtHour.getValue(), ringAtMinute.getValue()));
         alarm.setGoal(LocalTime.now()); // TODO goal
-        ArrayList<String> daysStrings = new ArrayList<>();
-        if (mondayActive.getValue()) {
-            daysStrings.add("Mo");
-        }
-        if (tuesdayActive.getValue()) {
-            daysStrings.add("Tu");
-        }
-        if (wednesdayActive.getValue()) {
-            daysStrings.add("We");
-        }
-        if (thursdayActive.getValue()) {
-            daysStrings.add("Th");
-        }
-        if (fridayActive.getValue()) {
-            daysStrings.add("Fr");
-        }
-        if (saturdayActive.getValue()) {
-            daysStrings.add("Sa");
-        }
-        if (sundayActive.getValue()) {
-            daysStrings.add("Su");
-        }
+        ArrayList<String> daysStrings = makeDaysStrings();
         alarm.setDays(daysStrings);
         alarm.setSkip(LocalDate.now()); //TODO skip
         alarm.setChangeBy(5);           //TODO change by
@@ -238,7 +213,7 @@ public class AddEditViewModel extends AndroidViewModel {
         return itemss;
     }
 
-    public void addItemToChecklist () {
+    public void addItemToChecklist() {
         List<ChecklistBedtime> list = itemss.getValue();
         if (list == null) {
             list = new ArrayList<>();
@@ -246,5 +221,59 @@ public class AddEditViewModel extends AndroidViewModel {
         list.add(new ChecklistBedtime(addChecklistField.getValue(), false));
         itemss.setValue(list);
         addChecklistField.setValue("");
+    }
+
+    private ArrayList<String> makeDaysStrings() {
+        ArrayList<String> strings = new ArrayList<>();
+        if (mondayActive.getValue()) {
+            strings.add("Mo");
+        }
+        if (tuesdayActive.getValue()) {
+            strings.add("Tu");
+        }
+        if (wednesdayActive.getValue()) {
+            strings.add("We");
+        }
+        if (thursdayActive.getValue()) {
+            strings.add("Th");
+        }
+        if (fridayActive.getValue()) {
+            strings.add("Fr");
+        }
+        if (saturdayActive.getValue()) {
+            strings.add("Sa");
+        }
+        if (sundayActive.getValue()) {
+            strings.add("Su");
+        }
+        if (strings.size() == 0) {
+            int day = LocalDate.now().getDayOfWeek();
+            if (ringAtHour.getValue() < LocalTime.now().getHourOfDay() ||
+                    (ringAtHour.getValue() == LocalTime.now().getHourOfDay() && ringAtMinute.getValue() < LocalTime.now().getMinuteOfHour())) {
+                day = (day + 1) % 7;
+            }
+            if (day == 1) {
+                strings.add("Mo");
+            }
+            if (day == 2) {
+                strings.add("Tu");
+            }
+            if (day == 3) {
+                strings.add("We");
+            }
+            if (day == 4) {
+                strings.add("Th");
+            }
+            if (day == 5) {
+                strings.add("Fr");
+            }
+            if (day == 6) {
+                strings.add("Sa");
+            }
+            if (day == 7) {
+                strings.add("Su");
+            }
+        }
+        return strings;
     }
 }

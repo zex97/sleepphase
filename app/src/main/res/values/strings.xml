@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Sleepphase</string>
     <string name="action_settings">Settings</string>
+    <string name="delete_alarm">Delete</string>
 
     <string-array name="spinner_alarm_types">
         <item>Regular</item>

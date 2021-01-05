@@ -77,10 +77,8 @@ public class SimpleAlarmsDataSource implements AlarmsDataSource {
                     @Override
                     public void run() {
                         if (alarms.size() != 0) {
-                            System.out.println("1111111111");
                             callback.onAlarmsLoaded(alarms);
                         } else {
-                            System.out.println("2222222222222");
                             callback.onDataNotAvailable();
                         }
                     }
@@ -113,11 +111,17 @@ public class SimpleAlarmsDataSource implements AlarmsDataSource {
     }
 
     @Override
-    public void deleteAlarm(@NonNull final String alarmId) {
+    public void deleteAlarm(@NonNull final String alarmId, @NonNull final GetAfterDeleteCallback callback) {
         Runnable deleteRunnable = new Runnable() {
             @Override
             public void run() {
                 alarmDao.deleteAlarmById(alarmId);
+                appExecutors.mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onAlarmDeleted();
+                    }
+                });
             }
         };
 

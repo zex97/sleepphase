@@ -1,9 +1,11 @@
 package com.mse.group1.sleepphase.alarms;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.PopupMenu;
 import android.widget.Switch;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LifecycleOwner;
@@ -23,11 +25,13 @@ public class AlarmsAdapter extends BaseAdapter {
 
     private LifecycleOwner lifecycleOwner;
 
-    public AlarmsAdapter(List<Alarm> alarms, AlarmsViewModel viewModel, LifecycleOwner activity) {
+    private AlarmItemListener listener;
+
+    public AlarmsAdapter(List<Alarm> alarms, AlarmsViewModel viewModel, LifecycleOwner activity, AlarmItemListener listener) {
         this.viewModel = viewModel;
         setList(alarms);
         lifecycleOwner = activity;
-
+        this.listener = listener;
     }
 
     @Override
@@ -39,19 +43,6 @@ public class AlarmsAdapter extends BaseAdapter {
         } else {
             binding = DataBindingUtil.getBinding(view);
         }
-
-        AlarmItemListener listener = new AlarmItemListener() {
-            @Override
-            public void onSwitchChange(Alarm alarm, View v) {
-//                boolean active = ((Switch)v).isChecked();
-                // TODO   viewModel.... schedule
-            }
-
-            @Override
-            public void onAlarmClicked(Alarm alarm) {
-                viewModel.editAlarmObservable(alarm.getId());
-            }
-        };
 
         binding.setAlarm(alarmList.get(position));
         binding.setLifecycleOwner(lifecycleOwner);

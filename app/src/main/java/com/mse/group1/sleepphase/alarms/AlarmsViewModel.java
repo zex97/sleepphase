@@ -39,17 +39,15 @@ public class AlarmsViewModel extends AndroidViewModel {
     }
 
     public void loadAlarms() {
-        System.out.println("BBBBBBBBBBBBB");
         alarmsDataSource.getAlarms(new AlarmsDataSource.LoadAlarmsCallback() {
             @Override
             public void onAlarmsLoaded(List<Alarm> alarms) {
                 items.setValue(alarms);
-                System.out.println("CCCCCCCCCCC");
             }
 
             @Override
             public void onDataNotAvailable() {
-                // TODO error handling
+                items.setValue(new ArrayList<Alarm>());
             }
         });
     }
@@ -101,9 +99,17 @@ public class AlarmsViewModel extends AndroidViewModel {
     void handleActivityResult(int requestCode, int resultCode) {
         if (AddEditAlarmActivity.REQUEST_CODE == requestCode) {
             if (AddEditAlarmActivity.ADD_EDIT_OK == resultCode) {
-                System.out.println("AAAAAAAAAAAAAAAA");
                 toastText.setValue(new Event<String>("Alarm saved."));
             }
         }
+    }
+
+    public void deleteAlarm(Alarm alarm) {
+        alarmsDataSource.deleteAlarm(alarm.getId(), new AlarmsDataSource.GetAfterDeleteCallback() {
+            @Override
+            public void onAlarmDeleted() {
+                loadAlarms();
+            }
+        });
     }
 }

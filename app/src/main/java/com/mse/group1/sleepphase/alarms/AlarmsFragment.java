@@ -1,16 +1,17 @@
 package com.mse.group1.sleepphase.alarms;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import com.mse.group1.sleepphase.Event;
+import com.mse.group1.sleepphase.R;
 import com.mse.group1.sleepphase.data.Alarm;
 import com.mse.group1.sleepphase.databinding.AlarmsFragmentBinding;
 
@@ -74,10 +75,43 @@ public class AlarmsFragment extends Fragment {
     private void setupListAdapter() {
         ListView listView =  binding.listAlarms;
 
+        AlarmItemListener listener = new AlarmItemListener() {
+            @Override
+            public void onSwitchChange(Alarm alarm, View v) {
+//                boolean active = ((Switch)v).isChecked();
+                // TODO   viewModel.... schedule
+            }
+
+            @Override
+            public void onAlarmClicked(Alarm alarm) {
+                viewModel.editAlarmObservable(alarm.getId());
+            }
+
+            @Override
+            public void openPopup(final Alarm alarm, View v) {
+                PopupMenu popup = new PopupMenu(getActivity(), v);
+                MenuInflater inflater = popup.getMenuInflater();
+                inflater.inflate(R.menu.actions, popup.getMenu());
+                popup.show();
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        deleteAlarm(alarm);
+                        return true;
+                    }
+                });
+            }
+
+            @Override
+            public void deleteAlarm(Alarm alarm) {
+                viewModel.deleteAlarm(alarm);
+            }
+        };
+
         adapter = new AlarmsAdapter(
                 new ArrayList<Alarm>(0),
                 viewModel,
-                getActivity()
+                getActivity(), listener
         );
         listView.setAdapter(adapter);
     }

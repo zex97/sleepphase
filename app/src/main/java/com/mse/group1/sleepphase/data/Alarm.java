@@ -4,10 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.room.*;
 import com.google.common.base.Strings;
-import com.mse.group1.sleepphase.data.alarm_components.AlarmConverters;
-import com.mse.group1.sleepphase.data.alarm_components.AlarmType;
-import com.mse.group1.sleepphase.data.alarm_components.ChecklistBedtime;
-import com.mse.group1.sleepphase.data.alarm_components.TurningOffAlarm;
+import com.mse.group1.sleepphase.data.alarm_components.*;
 import org.joda.time.LocalTime;
 import org.joda.time.LocalDate;
 
@@ -140,7 +137,13 @@ public final class Alarm {
 
     @Ignore
     public String getTypeForList() {
-        return type.toString().replace("_"," ");
+        if (type == AlarmType.REGULAR) {
+            return "Regular";
+        } else if (type == AlarmType.SKIP_A_NIGHT) {
+            return "Skip a Night";
+        } else {
+            return "Step by Step";
+        }
     }
 
     @NonNull
@@ -172,6 +175,18 @@ public final class Alarm {
     @NonNull
     public ArrayList<String> getDays() {
         return days;
+    }
+
+    @Ignore
+    public String getDaysForList () {
+        if (days.size() == 7) {
+            return "Everyday";
+        }
+        String s = "";
+        for (String day : days) {
+            s += day + " ";
+        }
+        return s;
     }
 
     @Nullable
@@ -222,6 +237,17 @@ public final class Alarm {
     @NonNull
     public TurningOffAlarm getTurning_off_alarm() {
         return turning_off_alarm;
+    }
+
+    @Ignore
+    public String getTurningOffAlarmForList() {
+        if (turning_off_alarm.getTypes() == TurningOffTypes.SWIPE_OVER_SCREEN) {
+            return "Swipe screen";
+        } else if (turning_off_alarm.getTypes() == TurningOffTypes.MATH_EQUATION) {
+            return "Math exercise";
+        } else {
+            return "Shake phone";
+        }
     }
 
     @NonNull
