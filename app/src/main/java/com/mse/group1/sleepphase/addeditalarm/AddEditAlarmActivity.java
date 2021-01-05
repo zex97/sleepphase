@@ -16,7 +16,7 @@ public class AddEditAlarmActivity extends AppCompatActivity {
 
     public static final int REQUEST_CODE = 1;
 
-    public static final int ADD_EDIT_OK = 1;
+    public static final int ADD_EDIT_OK = 2;
 
     private AddEditViewModel viewModel;
 
@@ -75,8 +75,6 @@ public class AddEditAlarmActivity extends AppCompatActivity {
                         alertDialog.setMessage("Turning off types are this and that");
                     } else if (typeDialog.equals("checklist_bedtime")) {
                         alertDialog.setMessage("Checklist bedtime is this and that");
-                    } else if (typeDialog.equals("checklist_wakeup")) {
-                        alertDialog.setMessage("Checklist wakeup is this and that");
                     } else {
                         alertDialog.setMessage("Invalid dialog code, something went wrong.");
                     }

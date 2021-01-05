@@ -7,9 +7,12 @@ import android.widget.BaseAdapter;
 import android.widget.Switch;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LifecycleOwner;
+import com.google.common.collect.Collections2;
 import com.mse.group1.sleepphase.data.Alarm;
 import com.mse.group1.sleepphase.databinding.AlarmItemBinding;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class AlarmsAdapter extends BaseAdapter {
@@ -58,6 +61,15 @@ public class AlarmsAdapter extends BaseAdapter {
     }
 
     private void setList(List<Alarm> alarms) {
+        Comparator<Alarm> compareByTime = new Comparator<Alarm>() {
+            @Override
+            public int compare(Alarm o1, Alarm o2) {
+                return o1.getRingAt().compareTo(o2.getRingAt());
+            }
+        };
+        if (alarms != null) {
+            Collections.sort(alarms, compareByTime);
+        }
         alarmList = alarms;
         notifyDataSetChanged();
     }

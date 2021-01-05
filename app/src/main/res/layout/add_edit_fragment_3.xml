@@ -35,11 +35,11 @@
                      android:layout_marginStart="20dp"
                      android:layout_marginEnd="20dp"
                      android:entries="@array/spinner_turning_off_types"
-                     android:selectedItemPosition="@={viewmodel.typeSpinnerPosition}"/>
+                     android:selectedItemPosition="@={viewmodel.turningOffSpinnerPosition}"/>
 
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:orientation="vertical" android:background="@drawable/block_border"
-                          android:visibility="@{viewmodel.typeSpinnerPosition != 0 ? View.VISIBLE : View.GONE}"
+                          android:visibility="@{viewmodel.turningOffSpinnerPosition != 0 ? View.VISIBLE : View.GONE}"
                           android:padding="10dp">
 
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -49,23 +49,23 @@
                          android:layout_marginEnd="10dp"
                          android:entries="@array/spinner_amount_low"
                          android:selectedItemPosition="@={viewmodel.turningOffAmount}"
-                         android:visibility="@{viewmodel.typeSpinnerPosition == 1 ? View.VISIBLE : View.GONE}"/>
+                         android:visibility="@{viewmodel.turningOffSpinnerPosition == 1 ? View.VISIBLE : View.GONE}"/>
                 <Spinner android:layout_width="match_parent" android:layout_height="wrap_content"
                          android:layout_marginStart="10dp"
                          android:layout_marginEnd="10dp"
                          android:entries="@array/spinner_amount_high"
                          android:selectedItemPosition="@={viewmodel.turningOffAmount}"
-                         android:visibility="@{viewmodel.typeSpinnerPosition == 2 ? View.VISIBLE : View.GONE}"/>
+                         android:visibility="@{viewmodel.turningOffSpinnerPosition == 2 ? View.VISIBLE : View.GONE}"/>
 
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:layout_gravity="center" android:text="Difficulty"
-                          android:visibility="@{viewmodel.typeSpinnerPosition == 1 ? View.VISIBLE : View.GONE}"/>
+                          android:visibility="@{viewmodel.turningOffSpinnerPosition == 1 ? View.VISIBLE : View.GONE}"/>
                 <Spinner android:layout_width="match_parent" android:layout_height="wrap_content"
                          android:layout_marginStart="10dp"
                          android:layout_marginEnd="10dp"
                          android:entries="@array/spinner_difficulties"
                          android:selectedItemPosition="@={viewmodel.turningOffDifficulty}"
-                         android:visibility="@{viewmodel.typeSpinnerPosition == 1 ? View.VISIBLE : View.GONE}"/>
+                         android:visibility="@{viewmodel.turningOffSpinnerPosition == 1 ? View.VISIBLE : View.GONE}"/>
 
 
 

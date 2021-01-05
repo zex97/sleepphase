@@ -45,7 +45,6 @@ public static final String EDIT_ALARM_CODE = "edit_alarm_code";
             viewModel.start(null);
         }
 
-
         Button nextButton = getActivity().findViewById(R.id.button_next_1);
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override

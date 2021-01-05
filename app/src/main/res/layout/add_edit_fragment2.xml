@@ -34,7 +34,7 @@
                     android:text="Vibrate"
                     android:layout_width="89dp"
                     android:layout_height="26dp"
-                    android:checked="@{viewmodel.vibrate}"/>
+                    android:checked="@={viewmodel.vibrate}"/>
             <TextView
                     android:text="Volume"
                     android:layout_width="wrap_content"
@@ -43,12 +43,12 @@
             <SeekBar
                     android:layout_width="match_parent"
                     android:layout_height="23dp" android:id="@+id/seekBar"
-                    android:progress="@{viewmodel.volume}"/>
+                    android:progress="@={viewmodel.volume}"/>
             <CheckBox
                     android:text="Snooze"
                     android:layout_width="89dp"
                     android:layout_height="26dp"
-                    android:checked="@{viewmodel.snooze}"/>
+                    android:checked="@={viewmodel.snooze}"/>
             <View
                     android:id="@+id/vVerticalLine"
                     android:background="@drawable/horizontal_line"

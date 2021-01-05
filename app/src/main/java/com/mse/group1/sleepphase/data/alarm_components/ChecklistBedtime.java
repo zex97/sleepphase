@@ -4,16 +4,16 @@ import androidx.annotation.NonNull;
 
 import java.util.Objects;
 
-public class ChecklistBedtimeWakeup {
+public class ChecklistBedtime {
 
     private String description;
     private Boolean checked;
 
-    public ChecklistBedtimeWakeup () {
+    public ChecklistBedtime() {
 
     }
 
-    public ChecklistBedtimeWakeup (String description, Boolean checked) {
+    public ChecklistBedtime(String description, Boolean checked) {
         this.description = description;
         this.checked = checked;
     }
@@ -37,13 +37,13 @@ public class ChecklistBedtimeWakeup {
     @NonNull
     @Override
     public String toString() {
-        return description + " " + checked;
+        return description + "_____" + checked;
     }
 
-    public static ChecklistBedtimeWakeup fromString(String string) {
-        ChecklistBedtimeWakeup item = new ChecklistBedtimeWakeup();
-        item.setDescription(string.split(" ")[0]);
-        item.setChecked(string.split(" ")[1].equals("true"));
+    public static ChecklistBedtime fromString(String string) {
+        ChecklistBedtime item = new ChecklistBedtime();
+        item.setDescription(string.split("_____")[0]);
+        item.setChecked(string.split("_____")[1].equals("true"));
         return item;
     }
 
@@ -52,10 +52,10 @@ public class ChecklistBedtimeWakeup {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ChecklistBedtimeWakeup checklistBedtimeWakeup = (ChecklistBedtimeWakeup) o;
+        ChecklistBedtime checklistBedtime = (ChecklistBedtime) o;
 
-        if (!Objects.equals(description, checklistBedtimeWakeup.description)) return false;
-        return Objects.equals(checked, checklistBedtimeWakeup.checked);
+        if (!Objects.equals(description, checklistBedtime.description)) return false;
+        return Objects.equals(checked, checklistBedtime.checked);
     }
 
 

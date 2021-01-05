@@ -6,12 +6,13 @@ import androidx.room.*;
 import com.google.common.base.Strings;
 import com.mse.group1.sleepphase.data.alarm_components.AlarmConverters;
 import com.mse.group1.sleepphase.data.alarm_components.AlarmType;
-import com.mse.group1.sleepphase.data.alarm_components.ChecklistBedtimeWakeup;
+import com.mse.group1.sleepphase.data.alarm_components.ChecklistBedtime;
 import com.mse.group1.sleepphase.data.alarm_components.TurningOffAlarm;
 import org.joda.time.LocalTime;
 import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -42,7 +43,6 @@ public final class Alarm {
         this.snooze_enabled = alarm.snooze_enabled;
         this.turning_off_alarm = alarm.turning_off_alarm;
         this.checklist_bedtime = alarm.checklist_bedtime;
-        this.checklist_wakeup = alarm.checklist_wakeup;
     }
 
     @Ignore
@@ -121,11 +121,7 @@ public final class Alarm {
 
     @NonNull
     @ColumnInfo(name = "checklist_bedtime")
-    private ArrayList<ChecklistBedtimeWakeup> checklist_bedtime;
-
-    @NonNull
-    @ColumnInfo(name = "checklist_wakeup")
-    private ArrayList<ChecklistBedtimeWakeup> checklist_wakeup;
+    private List<ChecklistBedtime> checklist_bedtime;
 
     @NonNull
     public String getId() {
@@ -229,13 +225,8 @@ public final class Alarm {
     }
 
     @NonNull
-    public ArrayList<ChecklistBedtimeWakeup> getChecklist_bedtime() {
+    public List<ChecklistBedtime> getChecklist_bedtime() {
         return checklist_bedtime;
-    }
-
-    @NonNull
-    public ArrayList<ChecklistBedtimeWakeup> getChecklist_wakeup() {
-        return checklist_wakeup;
     }
 
     public void setId(@NonNull String id) {
@@ -306,12 +297,8 @@ public final class Alarm {
         this.turning_off_alarm = turning_off_alarm;
     }
 
-    public void setChecklist_bedtime(@NonNull ArrayList<ChecklistBedtimeWakeup> checklist_bedtime) {
+    public void setChecklist_bedtime(@NonNull List<ChecklistBedtime> checklist_bedtime) {
         this.checklist_bedtime = checklist_bedtime;
-    }
-
-    public void setChecklist_wakeup(@NonNull ArrayList<ChecklistBedtimeWakeup> checklist_wakeup) {
-        this.checklist_wakeup = checklist_wakeup;
     }
 
     @NonNull
@@ -319,7 +306,7 @@ public final class Alarm {
     public String toString() {
         return "Alarm: " + active + ", " + type + ", " + name + ", " + ringAt + ", " + goal + ", " + days + ", " + skip + ", " +
                 changeBy + ", " + everyDays + ", " + sound + ", " + volume + ", " + vibrate + ", " + snooze_enabled + ", " + snooze_every_min + ", " +
-                snooze_times + ", " + turning_off_alarm + ", " + checklist_bedtime + ", " + checklist_wakeup;
+                snooze_times + ", " + turning_off_alarm + ", " + checklist_bedtime;
     }
 
     @Override
@@ -345,8 +332,7 @@ public final class Alarm {
         if (!Objects.equals(snooze_every_min, alarm.snooze_every_min)) return false;
         if (!Objects.equals(snooze_times, alarm.snooze_times)) return false;
         if (!Objects.equals(turning_off_alarm, alarm.turning_off_alarm)) return false;
-        if (!Objects.equals(checklist_bedtime, alarm.checklist_bedtime)) return false;
-        return Objects.equals(checklist_wakeup, alarm.checklist_wakeup);
+        return Objects.equals(checklist_bedtime, alarm.checklist_bedtime);
     }
 
 
@@ -369,7 +355,6 @@ public final class Alarm {
         result = 31 * result + (snooze_times != null ? snooze_times.hashCode() : 0);
         result = 31 * result + (turning_off_alarm != null ? turning_off_alarm.hashCode() : 0);
         result = 31 * result + (checklist_bedtime != null ? checklist_bedtime.hashCode() : 0);
-        result = 31 * result + (checklist_wakeup != null ? checklist_wakeup.hashCode() : 0);
         return result;
     }
 }

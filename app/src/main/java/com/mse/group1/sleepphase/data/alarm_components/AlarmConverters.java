@@ -4,16 +4,13 @@ import androidx.room.TypeConverter;
 import org.joda.time.LocalTime;
 
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Locale;
+import java.util.List;
 
 public class AlarmConverters {
 
@@ -57,23 +54,25 @@ public class AlarmConverters {
 
     @TypeConverter
     public String fromTurningOffAlarm(TurningOffAlarm value) {
-        return value.getTypes().toString() + " " + value.getAmount() + " " + value.getDifficulty();
+        return value.getTypes().toString() + " " + value.getDifficulty() + " " + value.getAmount();
     }
 
     @TypeConverter
-    public ArrayList<ChecklistBedtimeWakeup> toArrayListChecklistBedtimeWakeup(String value) {
-        ArrayList<ChecklistBedtimeWakeup> list = new ArrayList<>();
+    public List<ChecklistBedtime> toListChecklistBedtime(String value) {
+        List<ChecklistBedtime> list = new ArrayList<>();
         String[] strings = value.split(",");
         for (int i = 0; i < strings.length; i++) {
-            list.add(ChecklistBedtimeWakeup.fromString(strings[i]));
+            if (strings[i].length() > 1) {
+                list.add(ChecklistBedtime.fromString(strings[i]));
+            }
         }
         return list;
     }
 
     @TypeConverter
-    public String fromArrayListChecklistBedtimeWakeup(ArrayList<ChecklistBedtimeWakeup> value) {
+    public String fromListChecklistBedtime(List<ChecklistBedtime> value) {
         String string = "";
-        for (ChecklistBedtimeWakeup item : value) {
+        for (ChecklistBedtime item : value) {
             string += item.toString() + ",";
         }
         return string;

@@ -36,7 +36,9 @@
                         android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
                         android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
                         android:theme="@style/SwitchActiveAlarmTheme" app:layout_constraintVertical_bias="0.508"
-                        android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="@+id/guideline2"/>
+                        android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="@+id/guideline2"
+                        android:checked="@={alarm.active}"
+                        android:onClick="@{(v) -> listener.onSwitchChange(alarm,v)}"/>
                 <TextView
                         android:text="@{alarm.name}"
                         android:layout_width="wrap_content"

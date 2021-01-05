@@ -2,21 +2,23 @@ package com.mse.group1.sleepphase.addeditalarm;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.mse.group1.sleepphase.Event;
-import com.mse.group1.sleepphase.R;
 import com.mse.group1.sleepphase.data.Alarm;
 import com.mse.group1.sleepphase.data.alarm_components.AlarmType;
+import com.mse.group1.sleepphase.data.alarm_components.ChecklistBedtime;
+import com.mse.group1.sleepphase.data.alarm_components.TurningOffAlarm;
 import com.mse.group1.sleepphase.data.alarm_components.TurningOffTypes;
 import com.mse.group1.sleepphase.data.source.AlarmsDataSource;
 import com.mse.group1.sleepphase.data.source.SimpleAlarmsDataSource;
 import com.mse.group1.sleepphase.util.AppExecutors;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 
 public class AddEditViewModel extends AndroidViewModel {
@@ -29,7 +31,6 @@ public class AddEditViewModel extends AndroidViewModel {
 
     public final MutableLiveData<Integer> ringAtHour = new MutableLiveData<>();
     public final MutableLiveData<Integer> ringAtMinute = new MutableLiveData<>();
-    public final MutableLiveData<String> ringAtMode = new MutableLiveData<>();
 
     public final MutableLiveData<Boolean> mondayActive = new MutableLiveData<>();
     public final MutableLiveData<Boolean> tuesdayActive = new MutableLiveData<>();
@@ -56,15 +57,10 @@ public class AddEditViewModel extends AndroidViewModel {
     public final MutableLiveData<Integer> turningOffAmount = new MutableLiveData<>();
     public final MutableLiveData<Integer> turningOffDifficulty = new MutableLiveData<>(); // 0,1,2
 
-
-    public final MutableLiveData<String> difficulty = new MutableLiveData<>();
-
-    public final MutableLiveData<Integer> amount = new MutableLiveData<>();
-
-    //... checklists here
+    private final MutableLiveData<List<ChecklistBedtime>> itemss = new MutableLiveData<>();
+    public final MutableLiveData<String> addChecklistField = new MutableLiveData<>();
 
 
-    public final MutableLiveData<Alarm> alarmObservable = new MutableLiveData<>();
 
     private final MutableLiveData<Event<Object>> alarmUpdated = new MutableLiveData<>();
 
@@ -87,11 +83,27 @@ public class AddEditViewModel extends AndroidViewModel {
         alarmsDataSource = SimpleAlarmsDataSource.getInstance(new AppExecutors(), application);
     }
 
-    public void start(String alarmId) {
+    public void start(final String alarmId) {
         this.alarmId = alarmId;
         if (alarmId == null) {
             // new alarm creation
+            name.setValue("");
+            volume.setValue(50);
+            vibrate.setValue(false);
+            snooze.setValue(false);
             isNewAlarm = true;
+            mondayActive.setValue(false);
+            tuesdayActive.setValue(false);
+            wednesdayActive.setValue(false);
+            thursdayActive.setValue(false);
+            fridayActive.setValue(false);
+            saturdayActive.setValue(false);
+            sundayActive.setValue(false);
+
+            turningOffDifficulty.setValue(0);
+            turningOffAmount.setValue(0);
+
+            itemss.setValue(new ArrayList<ChecklistBedtime>());
             return;
         }
         if (mIsDataLoaded) {
@@ -119,15 +131,20 @@ public class AddEditViewModel extends AndroidViewModel {
                 saturdayActive.setValue(alarm.getDays().contains("Sa"));
                 sundayActive.setValue(alarm.getDays().contains("Su"));
 
+
+
+
                 TurningOffTypes type = alarm.getTurning_off_alarm().getTypes();
                 turningOffSpinnerPosition.setValue(type == TurningOffTypes.SWIPE_OVER_SCREEN ? 0 : (type == TurningOffTypes.MATH_EQUATION ? 1 : 2));
                 Integer amount = alarm.getTurning_off_alarm().getAmount();
-                turningOffAmount.setValue(type == TurningOffTypes.SWIPE_OVER_SCREEN ? 0 : (type == TurningOffTypes.MATH_EQUATION ? amount-1 : amount/10-1));
+                turningOffAmount.setValue(type == TurningOffTypes.SWIPE_OVER_SCREEN ? 0 : amount);
                 Integer difficulty = alarm.getTurning_off_alarm().getDifficulty();
                 turningOffDifficulty.setValue(difficulty);
 
+                itemss.setValue(alarm.getChecklist_bedtime());
 
-                alarmObservable.setValue(alarm);
+
+
                 alarmActive = alarm.getActive();
                 mIsDataLoaded = true;
             }
@@ -141,11 +158,48 @@ public class AddEditViewModel extends AndroidViewModel {
 
     // Called after click on last button
     public void saveAlarm() {
-        Alarm alarm = alarmObservable.getValue();
-        if (alarm.isInvalid()) {
-            toastText.setValue(new Event<>("Required field is null or empty."));
-            return;
+        Alarm alarm = new Alarm();
+        alarm.setActive(true);
+        alarm.setType(typeSpinnerPosition.getValue() == 0 ? AlarmType.REGULAR : (typeSpinnerPosition.getValue() == 1 ? AlarmType.STEP_BY_STEP : AlarmType.SKIP_A_NIGHT));
+        alarm.setName(name.getValue());
+        alarm.setRingAt(new LocalTime(ringAtHour.getValue(), ringAtMinute.getValue()));
+        alarm.setGoal(LocalTime.now()); // TODO goal
+        ArrayList<String> daysStrings = new ArrayList<>();
+        if (mondayActive.getValue()) {
+            daysStrings.add("Mo");
         }
+        if (tuesdayActive.getValue()) {
+            daysStrings.add("Tu");
+        }
+        if (wednesdayActive.getValue()) {
+            daysStrings.add("We");
+        }
+        if (thursdayActive.getValue()) {
+            daysStrings.add("Th");
+        }
+        if (fridayActive.getValue()) {
+            daysStrings.add("Fr");
+        }
+        if (saturdayActive.getValue()) {
+            daysStrings.add("Sa");
+        }
+        if (sundayActive.getValue()) {
+            daysStrings.add("Su");
+        }
+        alarm.setDays(daysStrings);
+        alarm.setSkip(LocalDate.now()); //TODO skip
+        alarm.setChangeBy(5);           //TODO change by
+        alarm.setEveryDays(3);          // TODO everyDays
+        alarm.setSound("Song");         // TODO sound
+        alarm.setVolume(volume.getValue());
+        alarm.setVibrate(vibrate.getValue());
+        alarm.setSnooze_enabled(snooze.getValue());
+        alarm.setSnooze_every_min(3);   // TODO snooze
+        alarm.setSnooze_times(1);       //TODO snooze
+        TurningOffTypes tot = turningOffSpinnerPosition.getValue() == 0 ? TurningOffTypes.SWIPE_OVER_SCREEN :
+                (turningOffSpinnerPosition.getValue() == 1 ? TurningOffTypes.MATH_EQUATION : TurningOffTypes.SHAKE_THE_PHONE);
+        alarm.setTurning_off_alarm(new TurningOffAlarm(tot, turningOffDifficulty.getValue(), turningOffAmount.getValue()));
+        alarm.setChecklist_bedtime(itemss.getValue());
         if (isNewAlarm() || this.alarmId == null) {
             alarmsDataSource.saveAlarm(alarm);
             alarmUpdated.setValue(new Event<>(new Object()));
@@ -178,5 +232,19 @@ public class AddEditViewModel extends AndroidViewModel {
 
     public MutableLiveData<Event<String>> getInformationDialog() {
         return informationDialog;
+    }
+
+    public LiveData<List<ChecklistBedtime>> getItemss() {
+        return itemss;
+    }
+
+    public void addItemToChecklist () {
+        List<ChecklistBedtime> list = itemss.getValue();
+        if (list == null) {
+            list = new ArrayList<>();
+        }
+        list.add(new ChecklistBedtime(addChecklistField.getValue(), false));
+        itemss.setValue(list);
+        addChecklistField.setValue("");
     }
 }

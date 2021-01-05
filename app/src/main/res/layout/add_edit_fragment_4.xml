@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="androidx.core.content.ContextCompat" />
+
+        <variable
+                name="viewmodel"
+                type="com.mse.group1.sleepphase.addeditalarm.AddEditViewModel"/>
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary">
+        <LinearLayout android:orientation="vertical"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content" android:layout_marginTop="20dp"
+                      app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+                      android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
+                      android:layout_marginEnd="8dp">
+
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:orientation="horizontal" android:layout_gravity="center">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:text="Checklist Bedtime"/>
+                <Button android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:text="i"
+                        android:onClick="@{() -> viewmodel.displayInformationDialog(`checklist_bedtime`)}"/>
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:orientation="horizontal">
+
+                <EditText android:layout_width="100dp" android:layout_height="wrap_content"
+                          android:inputType="text" android:background="@color/colorWhite"
+                          android:text="@={viewmodel.addChecklistField}"/>
+
+                <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="+" android:onClick="@{() -> viewmodel.addItemToChecklist()}"/>
+
+            </LinearLayout>
+
+            <ListView android:id="@+id/list_bedtime"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:itemss="@{viewmodel.itemss}"/>
+
+        </LinearLayout>
+        <!--   progess dots here     -->
+        <Button android:id="@+id/button_next_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Save Alarm"
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="8dp" android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

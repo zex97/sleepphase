@@ -86,20 +86,19 @@ public class AlarmsActivity extends AppCompatActivity {
 //        alarm.setChangeBy(5);
 //        alarm.setEveryDays(3);
 //        alarm.setSound("Song");
+//        alarm.setVolume(100);
 //        alarm.setVibrate(true);
 //        alarm.setSnooze_enabled(true);
 //        alarm.setSnooze_every_min(3);
 //        alarm.setSnooze_times(1);
 //        alarm.setTurning_off_alarm(new TurningOffAlarm(TurningOffTypes.MATH_EQUATION, 1, 2));
-//        alarm.setChecklist_bedtime(new ArrayList<ChecklistBedtimeWakeup>(){{add(new ChecklistBedtimeWakeup());}});
-//        alarm.setChecklist_wakeup(new ArrayList<ChecklistBedtimeWakeup>(){{add(new ChecklistBedtimeWakeup());}});
+//        alarm.setChecklist_bedtime(new ArrayList<ChecklistBedtime>(){{add(new ChecklistBedtime("walk dog", false)); add(new ChecklistBedtime("brush teeth", true));}});
 //
 //        aa.alarmObservable.setValue(alarm);
 //        aa.saveAlarm();
     }
 
     public void editAlarm (String alarmId) {
-        System.out.println("EDIIIIIT");
         Intent intent = new Intent(this, AddEditAlarmActivity.class);
         intent.putExtra(AddEditAlarmFragment.EDIT_ALARM_CODE, alarmId);
         startActivityForResult(intent, AddEditAlarmActivity.REQUEST_CODE);
@@ -125,5 +124,11 @@ public class AlarmsActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        viewModel.handleActivityResult(requestCode, resultCode);
     }
 }
