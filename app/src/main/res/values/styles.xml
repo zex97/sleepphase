@@ -19,4 +19,13 @@
         <item name="trackTint">@color/alarm_switch_selector</item>
     </style>
 
+    <!-- Daypicker styles-->
+    <style name="Widget.Button.Toggle" parent="android:Widget">
+        <item name="android:background">@drawable/daypicker_background_color</item>
+    </style>
+    <style name="toggleButton" parent="AppTheme">
+        <item name="android:buttonStyleToggle">@style/Widget.Button.Toggle</item>
+        <item name="android:textColor">@drawable/daypicker_text_color</item>
+    </style>
+
 </resources>

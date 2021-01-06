@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.arch.core.util.Function;
 import androidx.lifecycle.*;
 import com.mse.group1.sleepphase.Event;
+import com.mse.group1.sleepphase.addeditalarm.AddEditAlarmActivity;
 import com.mse.group1.sleepphase.data.Alarm;
 import com.mse.group1.sleepphase.data.source.AlarmsDataSource;
 import com.mse.group1.sleepphase.data.source.SimpleAlarmsDataSource;
@@ -38,7 +39,6 @@ public class AlarmsViewModel extends AndroidViewModel {
     }
 
     public void loadAlarms() {
-
         alarmsDataSource.getAlarms(new AlarmsDataSource.LoadAlarmsCallback() {
             @Override
             public void onAlarmsLoaded(List<Alarm> alarms) {
@@ -47,7 +47,7 @@ public class AlarmsViewModel extends AndroidViewModel {
 
             @Override
             public void onDataNotAvailable() {
-                // TODO error handling
+                items.setValue(new ArrayList<Alarm>());
             }
         });
     }
@@ -94,5 +94,22 @@ public class AlarmsViewModel extends AndroidViewModel {
 
     public MutableLiveData<Event<String>> getEditAlarmObservable() {
         return editAlarmObservable;
+    }
+
+    void handleActivityResult(int requestCode, int resultCode) {
+        if (AddEditAlarmActivity.REQUEST_CODE == requestCode) {
+            if (AddEditAlarmActivity.ADD_EDIT_OK == resultCode) {
+                toastText.setValue(new Event<String>("Alarm saved."));
+            }
+        }
+    }
+
+    public void deleteAlarm(Alarm alarm) {
+        alarmsDataSource.deleteAlarm(alarm.getId(), new AlarmsDataSource.GetAfterDeleteCallback() {
+            @Override
+            public void onAlarmDeleted() {
+                loadAlarms();
+            }
+        });
     }
 }

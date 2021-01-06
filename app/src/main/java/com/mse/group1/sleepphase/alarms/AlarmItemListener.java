@@ -8,4 +8,8 @@ public interface AlarmItemListener {
     void onSwitchChange(Alarm alarm, View view);
 
     void onAlarmClicked(Alarm alarm);
+
+    void openPopup (Alarm alarm, View view);
+
+    void deleteAlarm(Alarm alarm);
 }

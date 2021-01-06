@@ -111,11 +111,17 @@ public class SimpleAlarmsDataSource implements AlarmsDataSource {
     }
 
     @Override
-    public void deleteAlarm(@NonNull final String alarmId) {
+    public void deleteAlarm(@NonNull final String alarmId, @NonNull final GetAfterDeleteCallback callback) {
         Runnable deleteRunnable = new Runnable() {
             @Override
             public void run() {
                 alarmDao.deleteAlarmById(alarmId);
+                appExecutors.mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onAlarmDeleted();
+                    }
+                });
             }
         };
 

@@ -1,9 +1,10 @@
 package com.mse.group1.sleepphase.addeditalarm;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -15,7 +16,7 @@ public class AddEditAlarmActivity extends AppCompatActivity {
 
     public static final int REQUEST_CODE = 1;
 
-    public static final int ADD_EDIT_OK = 1;
+    public static final int ADD_EDIT_OK = 2;
 
     private AddEditViewModel viewModel;
 
@@ -40,7 +41,7 @@ public class AddEditAlarmActivity extends AppCompatActivity {
             fragment = new AddEditAlarmFragment();
 
             Bundle bundle = new Bundle();
-            bundle.putString(AddEditAlarmFragment.EDIT_ALARM_ID, getIntent().getStringExtra(AddEditAlarmFragment.EDIT_ALARM_ID));
+            bundle.putString(AddEditAlarmFragment.EDIT_ALARM_CODE, getIntent().getStringExtra(AddEditAlarmFragment.EDIT_ALARM_CODE));
             fragment.setArguments(bundle);
         }
 
@@ -55,6 +56,38 @@ public class AddEditAlarmActivity extends AppCompatActivity {
                 if (alarmIdEvent.getContentIfNotHandled() != null) {
                     onAlarmSavedSuccessfully();
                 }
+            }
+        });
+
+        viewModel.getInformationDialog().observe(this, new Observer<Event<String>>() {
+            @Override
+            public void onChanged(Event<String> typeDialogEvent) {
+                String typeDialog = typeDialogEvent.getContentIfNotHandled();
+                if (typeDialog != null) {
+                    final AlertDialog alertDialog = new AlertDialog.Builder(AddEditAlarmActivity.this).create();
+                    alertDialog.setTitle("Info Dialog");
+                    if (typeDialog.equals("reminder")) {
+                        // TODO describe bedtime reminder
+                        alertDialog.setMessage("Bedtime reminder is this and that");
+                    } else if (typeDialog.equals("alarm_type")) {
+                        alertDialog.setMessage("Alarm types are this and that");
+                    } else if (typeDialog.equals("turning_off_type")) {
+                        alertDialog.setMessage("Turning off types are this and that");
+                    } else if (typeDialog.equals("checklist_bedtime")) {
+                        alertDialog.setMessage("Checklist bedtime is this and that");
+                    } else {
+                        alertDialog.setMessage("Invalid dialog code, something went wrong.");
+                    }
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    alertDialog.show();
+                                }
+                            });
+                    alertDialog.show();
+                }
+
             }
         });
     }

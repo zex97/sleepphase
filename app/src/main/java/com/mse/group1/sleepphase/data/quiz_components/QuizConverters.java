@@ -1,7 +1,6 @@
 package com.mse.group1.sleepphase.data.quiz_components;
 
 import androidx.room.TypeConverter;
-import com.mse.group1.sleepphase.data.alarm_components.ChecklistBedtimeWakeup;
 
 import java.util.ArrayList;
 

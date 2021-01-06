@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+                name="viewmodel"
+                type="com.mse.group1.sleepphase.addeditalarm.AddEditViewModel"/>
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary">
+        <LinearLayout android:orientation="vertical"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content" android:layout_marginTop="20dp"
+                      app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+                      android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
+                      android:layout_marginEnd="8dp">
+
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:orientation="horizontal" android:layout_gravity="center">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:text="Turning Off Method" />
+                <Button android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:text="i"
+                        android:onClick="@{() -> viewmodel.displayInformationDialog(`turning_off_type`)}"/>
+            </LinearLayout>
+
+            <Spinner android:layout_width="match_parent" android:layout_height="wrap_content"
+                     android:layout_marginStart="20dp"
+                     android:layout_marginEnd="20dp"
+                     android:entries="@array/spinner_turning_off_types"
+                     android:selectedItemPosition="@={viewmodel.turningOffSpinnerPosition}"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:orientation="vertical" android:background="@drawable/block_border"
+                          android:visibility="@{viewmodel.turningOffSpinnerPosition != 0 ? View.VISIBLE : View.GONE}"
+                          android:padding="10dp">
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:layout_gravity="center" android:text="Amount"/>
+                <Spinner android:layout_width="match_parent" android:layout_height="wrap_content"
+                         android:layout_marginStart="10dp"
+                         android:layout_marginEnd="10dp"
+                         android:entries="@array/spinner_amount_low"
+                         android:selectedItemPosition="@={viewmodel.turningOffAmount}"
+                         android:visibility="@{viewmodel.turningOffSpinnerPosition == 1 ? View.VISIBLE : View.GONE}"/>
+                <Spinner android:layout_width="match_parent" android:layout_height="wrap_content"
+                         android:layout_marginStart="10dp"
+                         android:layout_marginEnd="10dp"
+                         android:entries="@array/spinner_amount_high"
+                         android:selectedItemPosition="@={viewmodel.turningOffAmount}"
+                         android:visibility="@{viewmodel.turningOffSpinnerPosition == 2 ? View.VISIBLE : View.GONE}"/>
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:layout_gravity="center" android:text="Difficulty"
+                          android:visibility="@{viewmodel.turningOffSpinnerPosition == 1 ? View.VISIBLE : View.GONE}"/>
+                <Spinner android:layout_width="match_parent" android:layout_height="wrap_content"
+                         android:layout_marginStart="10dp"
+                         android:layout_marginEnd="10dp"
+                         android:entries="@array/spinner_difficulties"
+                         android:selectedItemPosition="@={viewmodel.turningOffDifficulty}"
+                         android:visibility="@{viewmodel.turningOffSpinnerPosition == 1 ? View.VISIBLE : View.GONE}"/>
+
+
+
+            </LinearLayout>
+
+
+
+
+
+
+        </LinearLayout>
+        <!--   progess dots here     -->
+        <Button android:id="@+id/button_next_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Next"
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="8dp" android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
