@@ -6,8 +6,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import com.mse.group1.sleepphase.R;
-import com.mse.group1.sleepphase.alarms.AlarmsFragment;
-import com.mse.group1.sleepphase.alarms.AlarmsViewModel;
 
 public class QuizActivity  extends AppCompatActivity {
 
@@ -17,15 +15,14 @@ public class QuizActivity  extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        QuizFragment quizFragment = (QuizFragment) getSupportFragmentManager().findFragmentById(R.id.quiz_fragment);
+        QuizFragment quizFragment = (QuizFragment) getSupportFragmentManager().findFragmentById(R.id.container_for_quiz_fragment);
         if (quizFragment == null) {
             quizFragment = new QuizFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.quiz_fragment, quizFragment);
+            transaction.replace(R.id.container_for_quiz_fragment, quizFragment);
             transaction.commit();
         }
 
