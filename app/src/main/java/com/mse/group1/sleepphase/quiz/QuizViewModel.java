@@ -18,6 +18,7 @@ public class QuizViewModel extends AndroidViewModel {
 
     public QuizViewModel(@NonNull Application application) {
         super(application);
+        loadQuestions();
     }
 
     public void loadQuestions() {

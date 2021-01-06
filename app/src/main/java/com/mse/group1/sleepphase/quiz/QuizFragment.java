@@ -34,7 +34,7 @@ public class QuizFragment extends Fragment {
 
             @Override
             public void onRadioButtonChange(Question question, View view) {
-                // TODO
+                // TODO - change backgroundcolor question
             }
 
         };
