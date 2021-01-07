@@ -44,7 +44,7 @@ public class AddEditViewModel extends AndroidViewModel {
     public final MutableLiveData<Boolean> atReminder = new MutableLiveData<>();
     public final MutableLiveData<Boolean> noReminder = new MutableLiveData<>();
 
-    public final MutableLiveData<String> sound = new MutableLiveData<>(); // not bound to layout yet
+    public final MutableLiveData<Integer> soundSpinnerPosition = new MutableLiveData<>();
 
     public final MutableLiveData<Boolean> vibrate = new MutableLiveData<>();
 
@@ -73,7 +73,7 @@ public class AddEditViewModel extends AndroidViewModel {
     private boolean isNewAlarm;
 
     //true after first load
-    private boolean mIsDataLoaded = false;
+    private boolean isDataLoaded = false;
 
     private boolean alarmActive = true;
 
@@ -87,6 +87,8 @@ public class AddEditViewModel extends AndroidViewModel {
         if (alarmId == null) {
             // new alarm creation
             name.setValue("");
+            ringAtHour.setValue(LocalTime.now().getHourOfDay());
+            ringAtMinute.setValue(LocalTime.now().getMinuteOfHour());
             volume.setValue(50);
             vibrate.setValue(false);
             snooze.setValue(false);
@@ -105,7 +107,7 @@ public class AddEditViewModel extends AndroidViewModel {
             itemss.setValue(new ArrayList<ChecklistBedtime>());
             return;
         }
-        if (mIsDataLoaded) {
+        if (isDataLoaded) {
             return;
         }
         isNewAlarm = false;
@@ -117,7 +119,8 @@ public class AddEditViewModel extends AndroidViewModel {
                 name.setValue(alarm.getName());
                 ringAtHour.setValue(alarm.getRingAt().getHourOfDay());
                 ringAtMinute.setValue(alarm.getRingAt().getMinuteOfHour());
-                sound.setValue(alarm.getSound());
+                String song = alarm.getSound();
+                soundSpinnerPosition.setValue(song.equals("Feeling Good") ? 0 : (song.equals("Strings Galore") ? 1 : 2));
                 vibrate.setValue(alarm.getVibrate());
                 volume.setValue(alarm.getVolume());
                 snooze.setValue(alarm.getSnooze_enabled());
@@ -142,7 +145,7 @@ public class AddEditViewModel extends AndroidViewModel {
 
 
                 alarmActive = alarm.getActive();
-                mIsDataLoaded = true;
+                isDataLoaded = true;
             }
 
             @Override
@@ -159,13 +162,14 @@ public class AddEditViewModel extends AndroidViewModel {
         alarm.setType(typeSpinnerPosition.getValue() == 0 ? AlarmType.REGULAR : (typeSpinnerPosition.getValue() == 1 ? AlarmType.STEP_BY_STEP : AlarmType.SKIP_A_NIGHT));
         alarm.setName(name.getValue());
         alarm.setRingAt(new LocalTime(ringAtHour.getValue(), ringAtMinute.getValue()));
+        alarm.setRecurring(true);
         alarm.setGoal(LocalTime.now()); // TODO goal
         ArrayList<String> daysStrings = makeDaysStrings();
         alarm.setDays(daysStrings);
         alarm.setSkip(LocalDate.now()); //TODO skip
         alarm.setChangeBy(5);           //TODO change by
         alarm.setEveryDays(3);          // TODO everyDays
-        alarm.setSound("Song");         // TODO sound
+        alarm.setSound(soundSpinnerPosition.getValue() == 0 ? "Feeling Good" : soundSpinnerPosition.getValue() == 1 ? "Strings Galore" : "Tropical Keys");
         alarm.setVolume(volume.getValue());
         alarm.setVibrate(vibrate.getValue());
         alarm.setSnooze_enabled(snooze.getValue());
@@ -178,14 +182,14 @@ public class AddEditViewModel extends AndroidViewModel {
         if (isNewAlarm() || this.alarmId == null) {
             alarmsDataSource.saveAlarm(alarm);
             alarmUpdated.setValue(new Event<>(new Object()));
+            alarm.activateAlarm(getApplication());                   // DAL?
         } else {
             alarm.setId(this.alarmId);
             alarm.setActive(alarmActive);
-            if (isNewAlarm()) {
-                throw new RuntimeException("updateAlarm() was called but alarm is new.");
-            }
             alarmsDataSource.saveAlarm(alarm);
             alarmUpdated.setValue(new Event<>(new Object()));
+            alarm.deactivateAlarm(getApplication());
+            alarm.activateAlarm(getApplication());
         }
     }
 

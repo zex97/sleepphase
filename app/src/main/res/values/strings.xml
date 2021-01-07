@@ -16,9 +16,9 @@
     </string-array>
 
     <string-array name="spinner_songs_placeholder">
-        <item>Song 1</item>
-        <item>Song 2</item>
-        <item>Song 3</item>
+        <item>Feeling Good</item>
+        <item>Strings Galore</item>
+        <item>Tropical Keys</item>
     </string-array>
 
     <string-array name="spinner_turning_off_types">

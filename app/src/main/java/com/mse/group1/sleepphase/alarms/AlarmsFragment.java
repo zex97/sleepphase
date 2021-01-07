@@ -1,10 +1,10 @@
 package com.mse.group1.sleepphase.alarms;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.Switch;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -78,8 +78,14 @@ public class AlarmsFragment extends Fragment {
         AlarmItemListener listener = new AlarmItemListener() {
             @Override
             public void onSwitchChange(Alarm alarm, View v) {
-//                boolean active = ((Switch)v).isChecked();
-                // TODO   viewModel.... schedule
+                boolean active = ((Switch)v).isChecked();
+                alarm.setActive(active);
+                viewModel.updateAlarm(alarm);
+                if (active) {
+                    alarm.activateAlarm(getContext());
+                } else {
+                    alarm.deactivateAlarm(getContext());
+                }
             }
 
             @Override

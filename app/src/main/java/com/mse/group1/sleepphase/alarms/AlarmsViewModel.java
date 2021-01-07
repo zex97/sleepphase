@@ -104,10 +104,11 @@ public class AlarmsViewModel extends AndroidViewModel {
         }
     }
 
-    public void deleteAlarm(Alarm alarm) {
+    public void deleteAlarm(final Alarm alarm) {
         alarmsDataSource.deleteAlarm(alarm.getId(), new AlarmsDataSource.GetAfterDeleteCallback() {
             @Override
             public void onAlarmDeleted() {
+                alarm.deactivateAlarm(getApplication().getApplicationContext());
                 loadAlarms();
             }
         });

@@ -1,17 +1,21 @@
 package com.mse.group1.sleepphase.data;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.room.*;
-import com.google.common.base.Strings;
 import com.mse.group1.sleepphase.data.alarm_components.*;
+import com.mse.group1.sleepphase.ringing.AlarmReceiver;
 import org.joda.time.LocalTime;
 import org.joda.time.LocalDate;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
+
+import static com.mse.group1.sleepphase.ringing.AlarmReceiver.*;
 
 @Entity(tableName = "alarms")
 @TypeConverters(AlarmConverters.class)
@@ -21,31 +25,51 @@ public final class Alarm {
         this.id = UUID.randomUUID().toString();
     }
 
-    @Ignore
-    public void setAlarm (Alarm alarm) {
-        this.id = alarm.id;
-        this.active = alarm.active;
-        this.type = alarm.type;
-        this.name = alarm.name;
-        this.ringAt = alarm.ringAt;
-        this.goal = alarm.goal;
-        this.days = alarm.days;
-        this.skip = alarm.skip;
-        this.changeBy = alarm.changeBy;
-        this.everyDays = alarm.everyDays;
-        this.sound = alarm.sound;
-        this.vibrate = alarm.vibrate;
-        this.snooze_times = alarm.snooze_times;
-        this.snooze_every_min = alarm.snooze_every_min;
-        this.snooze_enabled = alarm.snooze_enabled;
-        this.turning_off_alarm = alarm.turning_off_alarm;
-        this.checklist_bedtime = alarm.checklist_bedtime;
+    public void activateAlarm(Context context) {
+        this.active = true;
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, AlarmReceiver.class);
+        intent.putExtra(ALARM_ID, getId());
+        intent.putExtra(DAYS, getDaysForList());
+        intent.putExtra(TITLE, getName());
+        intent.putExtra(SONG, getSound());
+//        intent.putExtra(IS_RECURRING, getRecurring());
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, getId().hashCode(), intent, 0);
+
+        Calendar ringTime = Calendar.getInstance();
+        ringTime.setTimeInMillis(System.currentTimeMillis());
+        ringTime.set(Calendar.HOUR_OF_DAY, ringAt.getHourOfDay());
+        ringTime.set(Calendar.MINUTE, ringAt.getMinuteOfHour());
+        ringTime.set(Calendar.SECOND, 0);
+        ringTime.set(Calendar.MILLISECOND, 0);
+
+        if (ringTime.getTimeInMillis() <= System.currentTimeMillis()) {
+            ringTime.set(Calendar.DAY_OF_MONTH, ringTime.get(Calendar.DAY_OF_MONTH) + 1);
+        }
+
+        /* Alarms created with setRepeating aren't exact (they can be delayed for a couple minutes) so for demonstration purposes we will only
+        create one-off alarms using setExact() */
+//        if (recurring) {
+//            final long mseconds = 1000 * 60 * 60 * 24;
+//            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), mseconds, alarmPendingIntent);
+//        }
+        String toastString = String.format(Locale.ENGLISH, "Alarm %s scheduled for %02d:%02d.", name, ringAt.getHourOfDay(), ringAt.getMinuteOfHour());
+        Toast.makeText(context, toastString, Toast.LENGTH_LONG).show();
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, ringTime.getTimeInMillis(), pendingIntent);
     }
 
-    @Ignore
-    public boolean isInvalid () {
-        return Strings.isNullOrEmpty(name);
+    public void deactivateAlarm(Context context) {
+        this.active = false;
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, getId().hashCode(), intent, 0);
+        alarmManager.cancel(pendingIntent);
+
+        String string = String.format(Locale.ENGLISH,"Alarm %s cancelled for %02d:%02d", name, ringAt.getHourOfDay(), ringAt.getMinuteOfHour());
+        Toast.makeText(context, string, Toast.LENGTH_SHORT).show();
     }
+
 
     @PrimaryKey
     @NonNull
@@ -67,6 +91,10 @@ public final class Alarm {
     @NonNull
     @ColumnInfo(name = "ringAt")
     private LocalTime ringAt;
+
+    @NonNull
+    @ColumnInfo(name = "recurring")
+    private Boolean recurring;
 
     @Nullable
     @ColumnInfo(name = "goal")
@@ -159,6 +187,11 @@ public final class Alarm {
     @Ignore
     public String getRingAtForList () {
         return ringAt.toString("HH:mm");
+    }
+
+    @NonNull
+    public Boolean getRecurring() {
+        return recurring;
     }
 
     @Nullable
@@ -275,6 +308,10 @@ public final class Alarm {
         this.ringAt = ringAt;
     }
 
+    public void setRecurring(@NonNull Boolean recurring) {
+        this.recurring = recurring;
+    }
+
     public void setGoal(@Nullable LocalTime goal) {
         this.goal = goal;
     }
@@ -330,7 +367,7 @@ public final class Alarm {
     @NonNull
     @Override
     public String toString() {
-        return "Alarm: " + active + ", " + type + ", " + name + ", " + ringAt + ", " + goal + ", " + days + ", " + skip + ", " +
+        return "Alarm: " + active + ", " + type + ", " + name + ", " + ringAt + ", " + recurring + ", " + goal + ", " + days + ", " + skip + ", " +
                 changeBy + ", " + everyDays + ", " + sound + ", " + volume + ", " + vibrate + ", " + snooze_enabled + ", " + snooze_every_min + ", " +
                 snooze_times + ", " + turning_off_alarm + ", " + checklist_bedtime;
     }
@@ -346,6 +383,7 @@ public final class Alarm {
         if (!Objects.equals(active, alarm.active)) return false;
         if (!Objects.equals(name, alarm.name)) return false;
         if (!Objects.equals(ringAt, alarm.ringAt)) return false;
+        if (!Objects.equals(recurring, alarm.recurring)) return false;
         if (!Objects.equals(goal, alarm.goal)) return false;
         if (!Objects.equals(days, alarm.days)) return false;
         if (!Objects.equals(skip, alarm.skip)) return false;
@@ -368,6 +406,7 @@ public final class Alarm {
         result = 31 * result + (active != null ? active.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (ringAt != null ? ringAt.hashCode() : 0);
+        result = 31 * result + (recurring != null ? recurring.hashCode() : 0);
         result = 31 * result + (goal != null ? goal.hashCode() : 0);
         result = 31 * result + (days != null ? days.hashCode() : 0);
         result = 31 * result + (skip != null ? skip.hashCode() : 0);

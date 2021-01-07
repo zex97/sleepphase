@@ -72,30 +72,6 @@ public class AlarmsActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, AddEditAlarmActivity.class);
         startActivityForResult(intent, AddEditAlarmActivity.REQUEST_CODE);
-
-//        AddEditViewModel aa = new ViewModelProvider(this).get(AddEditViewModel.class);
-//        Alarm alarm = new Alarm();
-//
-//        alarm.setActive(true);
-//        alarm.setType(AlarmType.SKIP_A_NIGHT);
-//        alarm.setName("Name");
-//        alarm.setRingAt(LocalTime.now());
-//        alarm.setGoal(LocalTime.now());
-//        alarm.setDays(new ArrayList<String>(){{add("Mo"); add("We");}});
-//        alarm.setSkip(LocalDate.now());
-//        alarm.setChangeBy(5);
-//        alarm.setEveryDays(3);
-//        alarm.setSound("Song");
-//        alarm.setVolume(100);
-//        alarm.setVibrate(true);
-//        alarm.setSnooze_enabled(true);
-//        alarm.setSnooze_every_min(3);
-//        alarm.setSnooze_times(1);
-//        alarm.setTurning_off_alarm(new TurningOffAlarm(TurningOffTypes.MATH_EQUATION, 1, 2));
-//        alarm.setChecklist_bedtime(new ArrayList<ChecklistBedtime>(){{add(new ChecklistBedtime("walk dog", false)); add(new ChecklistBedtime("brush teeth", true));}});
-//
-//        aa.alarmObservable.setValue(alarm);
-//        aa.saveAlarm();
     }
 
     public void editAlarm (String alarmId) {

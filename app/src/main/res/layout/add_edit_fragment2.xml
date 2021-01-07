@@ -28,7 +28,8 @@
 
             <Spinner android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:entries="@array/spinner_songs_placeholder"/>
+                     android:entries="@array/spinner_songs_placeholder"
+                     android:selectedItemPosition="@={viewmodel.soundSpinnerPosition}"/>
 
             <CheckBox
                     android:text="Vibrate"
