@@ -12,6 +12,7 @@ import com.mse.group1.sleepphase.util.DateUtils;
 import org.joda.time.LocalTime;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 public class RingingViewModel extends AndroidViewModel {
 
@@ -38,13 +39,12 @@ public class RingingViewModel extends AndroidViewModel {
                 RingingViewModel.this.alarm.setValue(alarm);
                 name.setValue(alarm.getName());
                 LocalTime ringTime = alarm.getRingAt();
-                ringAtString.setValue(ringTime.getHourOfDay() + ":" + ringTime.getMinuteOfHour());
+                ringAtString.setValue(String.format(Locale.ENGLISH, "%02d:%02d",ringTime.getHourOfDay(), ringTime.getMinuteOfHour()));
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTimeInMillis(System.currentTimeMillis());
                 int today = calendar.get(Calendar.DAY_OF_WEEK);
                 int month = calendar.get(Calendar.MONTH);
                 int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-
                 dateString.setValue(DateUtils.getDayOfWeekString(today) + " " + DateUtils.getMonthOfYearString(month) + " " + dayOfMonth);
                 snoozeEnabled.setValue(alarm.getSnooze_enabled());
             }

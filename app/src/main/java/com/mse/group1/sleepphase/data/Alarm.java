@@ -30,7 +30,7 @@ public final class Alarm {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
         intent.putExtra(ALARM_ID, getId());
-        intent.putExtra(DAYS, getDaysForList());
+        intent.putExtra(DAYS, getDaysForScheduler());
         intent.putExtra(TITLE, getName());
         intent.putExtra(SONG, getSound());
 //        intent.putExtra(IS_RECURRING, getRecurring());
@@ -215,6 +215,15 @@ public final class Alarm {
         if (days.size() == 7) {
             return "Everyday";
         }
+        String s = "";
+        for (String day : days) {
+            s += day + " ";
+        }
+        return s;
+    }
+
+    @Ignore
+    public String getDaysForScheduler () {
         String s = "";
         for (String day : days) {
             s += day + " ";

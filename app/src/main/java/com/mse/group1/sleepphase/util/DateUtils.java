@@ -31,6 +31,7 @@ public class DateUtils {
     }
 
     public static String getMonthOfYearString(int value){
+        value++;
         String month = "";
         switch (value) {
             case 1:
