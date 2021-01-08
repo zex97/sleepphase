@@ -65,7 +65,7 @@ public class AlarmService extends Service {
 
         startForeground(1, notification);
 
-        return START_STICKY;
+        return START_STICKY_COMPATIBILITY;
     }
 
     @Override

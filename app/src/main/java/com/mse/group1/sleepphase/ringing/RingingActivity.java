@@ -24,4 +24,9 @@ public class RingingActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        //handle back press event
+    }
+
 }

@@ -35,12 +35,22 @@
                       android:textSize="25sp" android:textColor="@color/colorWhite"
                       android:textStyle="bold"/>
         </LinearLayout>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="Solve equations to dismiss alarm!" android:layout_marginBottom="8dp"
+                  app:layout_constraintBottom_toTopOf="@+id/constraintLayout" android:layout_marginTop="8dp"
+                  app:layout_constraintTop_toBottomOf="@+id/linearLayout" app:layout_constraintEnd_toEndOf="parent"
+                  android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
+                  android:layout_marginStart="8dp"
+                  android:textSize="28sp"
+                  android:gravity="center_horizontal"
+                  android:textColor="@color/colorWhite"
+                  android:visibility="@{viewmodel.turningOffType == `MATH_EQUATION` ? View.VISIBLE : View.GONE}"/>
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:layout_marginBottom="80dp"
                 app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="8dp">
+                android:layout_marginStart="8dp" android:id="@+id/constraintLayout">
 
             <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
                     android:text="SNOOZE"
@@ -52,14 +62,26 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:visibility="@{viewmodel.snoozeEnabled ? View.VISIBLE : View.GONE}"/>
 
-            <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+            <Button android:layout_width="88dp" android:layout_height="wrap_content"
                     android:text="DISMISS"
                     android:background="@drawable/dismiss_button_bg"
                     android:onClick="@{() -> listener.dismissPressed()}" android:layout_marginEnd="8dp"
                     android:id="@+id/button2" app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/button" app:layout_constraintHorizontal_bias="0.5"
                     android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+                    android:visibility="@{viewmodel.turningOffType == `SWIPE_OVER_SCREEN` ? View.VISIBLE : View.GONE}"/>
+
+            <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="GO"
+                    android:background="@drawable/check_equation_button_bg"
+                    android:onClick="@{() -> listener.goPressed()}" android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:visibility="@{viewmodel.turningOffType == `MATH_EQUATION` ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintStart_toEndOf="@+id/button" android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"/>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

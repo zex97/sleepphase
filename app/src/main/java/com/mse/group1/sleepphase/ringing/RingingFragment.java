@@ -51,10 +51,10 @@ public class RingingFragment extends Fragment {
                 alarm.setSound(originalAlarm.getSound());
                 alarm.setVolume(originalAlarm.getVolume());
                 alarm.setVibrate(originalAlarm.getVibrate());
-                alarm.setSnooze_enabled(true);
+                alarm.setSnooze_enabled(true);                  // TODO disable after a few times?
                 alarm.setSnooze_every_min(5);                   //TODO not implemented yet, maybe leave out?
                 alarm.setSnooze_times(1);                       //TODO same
-                alarm.setTurning_off_alarm(new TurningOffAlarm(TurningOffTypes.SWIPE_OVER_SCREEN, 0, 0));
+                alarm.setTurning_off_alarm(originalAlarm.getTurning_off_alarm());
                 alarm.setChecklist_bedtime(originalAlarm.getChecklist_bedtime());
 
                 alarm.activateAlarm(getActivity().getApplicationContext());
@@ -69,6 +69,15 @@ public class RingingFragment extends Fragment {
                 Intent intentAlarmService = new Intent(getActivity().getApplicationContext(), AlarmService.class);
                 getActivity().getApplicationContext().stopService(intentAlarmService);
                 getActivity().finish();
+            }
+
+            @Override
+            public void goPressed() {
+                EquationFragment fragment = new EquationFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container_for_ringing, fragment, "EquationFragment")
+                        .addToBackStack(null)
+                        .commit();
             }
         };
 

@@ -5,4 +5,6 @@ public interface RingingActionsListener {
     void snoozePressed();
 
     void dismissPressed();
+
+    void goPressed();
 }

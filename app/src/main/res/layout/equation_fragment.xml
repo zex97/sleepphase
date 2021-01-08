@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+                name="viewmodel"
+                type="com.mse.group1.sleepphase.ringing.RingingViewModel"/>
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+                                                       android:layout_height="match_parent"
+                                                       android:background="@color/colorPrimary">
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="vertical"
+                      app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                      app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+                      app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+                      android:layout_marginTop="25dp"
+                      android:visibility="@{viewmodel.turningOffType == `MATH_EQUATION` ? View.VISIBLE : View.GONE}">
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:orientation="horizontal" android:layout_gravity="center"
+                          android:layout_marginTop="60dp" android:layout_marginRight="20dp">
+                <TextView android:layout_width="150dp" android:layout_height="wrap_content"
+                          android:text="@{viewmodel.randomEquation}" android:textSize="28sp"
+                          android:gravity="right"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:text="="
+                          android:textSize="28sp"/>
+                <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:orientation="vertical" android:paddingBottom="5dp"
+                              android:background="@{viewmodel.invalidAnswer ? @drawable/wrong_answer_background : @drawable/white_background}">
+                    <TextView android:layout_width="100dp" android:layout_height="32dp"
+                              android:text="@{viewmodel.typedSolution}"
+                              android:textSize="28sp"/>
+                </LinearLayout>
+            </LinearLayout>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:layout_gravity="center"
+                      android:text="@{@string/equation_progress(viewmodel.progress, viewmodel.amount)}"
+                      android:layout_marginTop="30dp"
+                      android:textSize="28sp"/>
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:orientation="vertical" android:layout_gravity="center">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:orientation="horizontal" android:layout_marginTop="5dp"
+                              android:layout_marginBottom="5dp">
+                    <Button android:layout_width="60dp" android:layout_height="60dp"
+                            android:background="@drawable/numbers_button_bg"
+                            android:text="1" android:textColor="@color/colorWhite"
+                            android:onClick="@{() -> viewmodel.equationAdd(`1`)}"
+                            android:textSize="28sp" android:textStyle="bold"/>
+                    <Button android:layout_width="60dp" android:layout_height="60dp"
+                            android:background="@drawable/numbers_button_bg"
+                            android:text="2" android:textColor="@color/colorWhite"
+                            android:onClick="@{() -> viewmodel.equationAdd(`2`)}"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:textSize="28sp" android:textStyle="bold"/>
+                    <Button android:layout_width="60dp" android:layout_height="60dp"
+                            android:background="@drawable/numbers_button_bg"
+                            android:text="3" android:textColor="@color/colorWhite"
+                            android:onClick="@{() -> viewmodel.equationAdd(`3`)}"
+                            android:textSize="28sp" android:textStyle="bold"/>
+
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:orientation="horizontal">
+                    <Button android:layout_width="60dp" android:layout_height="60dp"
+                            android:background="@drawable/numbers_button_bg"
+                            android:text="4" android:textColor="@color/colorWhite"
+                            android:onClick="@{() -> viewmodel.equationAdd(`4`)}"
+                            android:textSize="28sp" android:textStyle="bold"/>
+                    <Button android:layout_width="60dp" android:layout_height="60dp"
+                            android:background="@drawable/numbers_button_bg"
+                            android:text="5" android:textColor="@color/colorWhite"
+                            android:onClick="@{() -> viewmodel.equationAdd(`5`)}"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:textSize="28sp" android:textStyle="bold"/>
+                    <Button android:layout_width="60dp" android:layout_height="60dp"
+                            android:background="@drawable/numbers_button_bg"
+                            android:text="6" android:textColor="@color/colorWhite"
+                            android:onClick="@{() -> viewmodel.equationAdd(`6`)}"
+                            android:textSize="28sp" android:textStyle="bold"/>
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:orientation="horizontal" android:layout_marginTop="5dp"
+                              android:layout_marginBottom="5dp">
+                    <Button android:layout_width="60dp" android:layout_height="60dp"
+                            android:background="@drawable/numbers_button_bg"
+                            android:text="7" android:textColor="@color/colorWhite"
+                            android:onClick="@{() -> viewmodel.equationAdd(`7`)}"
+                            android:textSize="28sp" android:textStyle="bold"/>
+                    <Button android:layout_width="60dp" android:layout_height="60dp"
+                            android:background="@drawable/numbers_button_bg"
+                            android:text="8" android:textColor="@color/colorWhite"
+                            android:onClick="@{() -> viewmodel.equationAdd(`8`)}"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:textSize="28sp" android:textStyle="bold"/>
+                    <Button android:layout_width="60dp" android:layout_height="60dp"
+                            android:background="@drawable/numbers_button_bg"
+                            android:text="9" android:textColor="@color/colorWhite"
+                            android:onClick="@{() -> viewmodel.equationAdd(`9`)}"
+                            android:textSize="28sp" android:textStyle="bold"/>
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:orientation="horizontal">
+                    <ImageView android:layout_width="60dp" android:layout_height="60dp"
+                               android:background="@drawable/dismiss_button_bg"
+                               android:src="@drawable/ic_backspace_black_24dp"
+                               android:onClick="@{() -> viewmodel.equationRemoveOne()}"
+                               android:scaleType="fitXY"
+                               android:padding="7dp"/>
+                    <Button android:layout_width="60dp" android:layout_height="60dp"
+                            android:background="@drawable/numbers_button_bg"
+                            android:text="0" android:textColor="@color/colorWhite"
+                            android:onClick="@{() -> viewmodel.equationAdd(`0`)}"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:textSize="28sp" android:textStyle="bold"/>
+                    <ImageView android:layout_width="60dp" android:layout_height="60dp"
+                               android:background="@drawable/check_equation_button_bg"
+                               android:src="@drawable/ic_check_black_24dp"
+                               android:id="@+id/check_equation_button"/>
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:orientation="vertical" android:layout_marginTop="5dp">
+                    <Button android:layout_width="60dp" android:layout_height="60dp"
+                            android:background="@drawable/numbers_button_bg"
+                            android:text="-"
+                            android:textColor="@color/colorWhite"
+                            android:onClick="@{() -> viewmodel.equationAdd(`-`)}"
+                            android:textSize="28sp"
+                            android:textStyle="bold"
+                            android:layout_gravity="center"
+                    />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

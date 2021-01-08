@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 import com.mse.group1.sleepphase.data.Alarm;
+import com.mse.group1.sleepphase.data.alarm_components.TurningOffTypes;
 import com.mse.group1.sleepphase.data.source.AlarmsDataSource;
 import com.mse.group1.sleepphase.data.source.SimpleAlarmsDataSource;
 import com.mse.group1.sleepphase.util.AppExecutors;
@@ -26,11 +27,23 @@ public class RingingViewModel extends AndroidViewModel {
 
     private final MutableLiveData<String> dateString = new MutableLiveData<>();
 
-    public MutableLiveData<Boolean> getSnoozeEnabled() {
-        return snoozeEnabled;
-    }
+    private final MutableLiveData<String> turningOffType = new MutableLiveData<>();
 
     private final MutableLiveData<Boolean> snoozeEnabled = new MutableLiveData<>();
+
+    private final MutableLiveData<String> randomEquation = new MutableLiveData<>();
+
+    private final MutableLiveData<String> typedSolution = new MutableLiveData<>();
+
+    private final MutableLiveData<Integer> progress = new MutableLiveData<>();
+
+    private final MutableLiveData<Integer> amount = new MutableLiveData<>();
+
+    private final MutableLiveData<Integer> difficulty = new MutableLiveData<>();
+
+    private final MutableLiveData<Boolean> invalidAnswer = new MutableLiveData<>();
+
+
 
     public void start(final String alarmId) {
         alarmsDataSource.getAlarm(alarmId, new AlarmsDataSource.GetAlarmsCallback() {
@@ -46,7 +59,17 @@ public class RingingViewModel extends AndroidViewModel {
                 int month = calendar.get(Calendar.MONTH);
                 int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
                 dateString.setValue(DateUtils.getDayOfWeekString(today) + " " + DateUtils.getMonthOfYearString(month) + " " + dayOfMonth);
+
+                turningOffType.setValue(alarm.getTurning_off_alarm().getTypes().toString());
                 snoozeEnabled.setValue(alarm.getSnooze_enabled());
+                if (alarm.getTurning_off_alarm().getTypes() == TurningOffTypes.MATH_EQUATION) {
+                    randomEquation.setValue(EquationGenerator.generateEquation(alarm.getTurning_off_alarm().getDifficulty()));
+                }
+                typedSolution.setValue("");
+                progress.setValue(1);
+                amount.setValue(alarm.getTurning_off_alarm().getAmount() + 1);
+                difficulty.setValue(alarm.getTurning_off_alarm().getDifficulty());
+                invalidAnswer.setValue(false);
             }
 
             @Override
@@ -75,5 +98,70 @@ public class RingingViewModel extends AndroidViewModel {
 
     public MutableLiveData<String> getDateString() {
         return dateString;
+    }
+
+    public MutableLiveData<Boolean> getSnoozeEnabled() {
+        return snoozeEnabled;
+    }
+
+    public MutableLiveData<String> getTurningOffType() {
+        return turningOffType;
+    }
+
+    public MutableLiveData<String> getRandomEquation() {
+        return randomEquation;
+    }
+
+    public MutableLiveData<String> getTypedSolution() {
+        return typedSolution;
+    }
+
+    public MutableLiveData<Integer> getProgress() {
+        return progress;
+    }
+
+    public MutableLiveData<Integer> getAmount() {
+        return amount;
+    }
+
+    public MutableLiveData<Boolean> getInvalidAnswer() {
+        return invalidAnswer;
+    }
+
+    public void equationAdd(String s) {
+        invalidAnswer.setValue(false);
+        if (typedSolution.getValue().length() > 5) {
+            return;
+        }
+        if (s.equals("-") && typedSolution.getValue().length() > 0) {
+            return;
+        }
+        typedSolution.setValue(typedSolution.getValue() + s);
+    }
+
+    public void equationRemoveOne() {
+        invalidAnswer.setValue(false);
+        String solution = typedSolution.getValue();
+        if (solution.length() > 0) {
+            solution = solution.substring(0, solution.length()-1);
+        }
+        typedSolution.setValue(solution);
+    }
+
+    // returns true if final equation solution is valid
+    public boolean checkEquation () {
+        int currentProgress = progress.getValue();
+        if (EquationGenerator.parseSolution(randomEquation.getValue()) == Integer.parseInt(typedSolution.getValue())) {
+            if (currentProgress == amount.getValue()) {
+                return true;
+            } else {
+                progress.setValue(currentProgress + 1);
+                typedSolution.setValue("");
+                randomEquation.setValue(EquationGenerator.generateEquation(difficulty.getValue()));
+                return false;
+            }
+        }
+        invalidAnswer.setValue(true);
+        return false;
     }
 }
