@@ -12,6 +12,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mse.group1.sleepphase.R;
 import com.mse.group1.sleepphase.addeditalarm.AddEditAlarmActivity;
 import com.mse.group1.sleepphase.alarms.AlarmsActivity;
+import com.mse.group1.sleepphase.data.alarm_components.AlarmType;
 
 public class QuizActivity  extends AppCompatActivity {
 
@@ -58,7 +59,17 @@ public class QuizActivity  extends AppCompatActivity {
 
     public void finishClick() {
         Intent goToAddAlarms = new Intent(this, AddEditAlarmActivity.class);
-        // TODO find out which alarm --> set that alarm
+        // TODO find Alaram type
+        AlarmType type = AlarmType.STEP_BY_STEP;
+        int t = 0;
+        if (type == AlarmType.STEP_BY_STEP) {
+            t = 1;
+        } else if (type == AlarmType.SKIP_A_NIGHT) {
+            t = 2;
+        }
+        Bundle b = new Bundle();
+        b.putInt("type", t);
+        goToAddAlarms.putExtras(b);
         startActivity(goToAddAlarms);
     }
 
