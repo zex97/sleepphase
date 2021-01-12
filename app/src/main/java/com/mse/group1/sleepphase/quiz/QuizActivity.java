@@ -59,7 +59,7 @@ public class QuizActivity  extends AppCompatActivity {
 
     public void finishClick() {
         Intent goToAddAlarms = new Intent(this, AddEditAlarmActivity.class);
-        // TODO find Alaram type
+        // TODO find Alarm type
         AlarmType type = AlarmType.STEP_BY_STEP;
         int t = 0;
         if (type == AlarmType.STEP_BY_STEP) {

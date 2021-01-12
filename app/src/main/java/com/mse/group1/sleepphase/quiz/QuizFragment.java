@@ -29,14 +29,11 @@ public class QuizFragment extends Fragment {
 
     private void setupListAdapter() {
         ListView listView =  binding.listQuiz;
-
         QuestionListener listener = new QuestionListener() {
-
             @Override
             public void onRadioButtonChange(Question question, View view) {
                 // TODO - change backgroundcolor question
             }
-
         };
 
         adapter = new QuizAdapter(viewModel, listener, getActivity(), new ArrayList<Question>(0));
