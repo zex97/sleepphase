@@ -27,7 +27,7 @@ public interface AlarmsDataSource {
 
     }
 
-    void getAlarm(@NonNull String taskId, @NonNull GetAlarmsCallback callback);
+    void getAlarm(@NonNull String alarmId, @NonNull GetAlarmsCallback callback);
 
     void getAlarms(@NonNull LoadAlarmsCallback callback);
 
