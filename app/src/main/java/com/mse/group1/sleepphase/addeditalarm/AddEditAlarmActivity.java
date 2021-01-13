@@ -81,14 +81,13 @@ public class AddEditAlarmActivity extends AppCompatActivity {
                     final AlertDialog alertDialog = new AlertDialog.Builder(AddEditAlarmActivity.this).create();
                     alertDialog.setTitle("Info Dialog");
                     if (typeDialog.equals("reminder")) {
-                        // TODO describe bedtime reminder
-                        alertDialog.setMessage("Bedtime reminder is this and that");
+                        alertDialog.setMessage("Reminds you when you should go to bed.");
                     } else if (typeDialog.equals("alarm_type")) {
-                        alertDialog.setMessage("Alarm types are this and that");
+                        alertDialog.setMessage("Alarm types are..."); //TODO
                     } else if (typeDialog.equals("turning_off_type")) {
-                        alertDialog.setMessage("Turning off types are this and that");
+                        alertDialog.setMessage("Choose between turning the alarm off with a swipe, by solving math equations or by shaking your phone!");
                     } else if (typeDialog.equals("checklist_bedtime")) {
-                        alertDialog.setMessage("Checklist bedtime is this and that");
+                        alertDialog.setMessage("Things you have to do before you go to sleep!");
                     } else {
                         alertDialog.setMessage("Invalid dialog code, something went wrong.");
                     }

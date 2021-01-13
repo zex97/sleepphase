@@ -63,10 +63,15 @@
                           android:orientation="horizontal" android:layout_gravity="center">
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
-                          android:text="Bedtime Reminder"/>
-                <Button android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:text="i"
-                        android:onClick="@{() -> viewmodel.displayInformationDialog(`reminder`)}"/>
+                          android:text="Bedtime Reminder"
+                android:layout_gravity="center"/>
+                <ImageView android:layout_width="55dp" android:layout_height="55dp"
+                           android:id="@+id/info_button2"
+                           android:background="@drawable/info_bg"
+                           android:src="@drawable/ic_info_black_24dp"
+                           android:scaleType="fitXY"
+                           android:padding="7dp"
+                           android:onClick="@{() -> viewmodel.displayInformationDialog(`reminder`)}"/>
             </LinearLayout>
             <RadioGroup android:layout_width="match_parent" android:layout_height="wrap_content">
                 <RadioButton android:layout_width="wrap_content"
