@@ -24,8 +24,10 @@ public static final String EDIT_ALARM_CODE = "edit_alarm_code";
 
     private AddEditFragment1Binding binding;
 
-    public AddEditAlarmFragment() {
-        // Required empty public constructor
+    private AlarmType alarmType = null;
+
+    public AddEditAlarmFragment(AlarmType alarmType) {
+        this.alarmType = alarmType;
     }
 
     @Override
@@ -40,9 +42,9 @@ public static final String EDIT_ALARM_CODE = "edit_alarm_code";
         }
 
         if (getArguments() != null) {
-            viewModel.start(getArguments().getString(EDIT_ALARM_CODE));
+            viewModel.start(getArguments().getString(EDIT_ALARM_CODE), null);
         } else {
-            viewModel.start(null);
+            viewModel.start(null, alarmType);
         }
 
         Button nextButton = getActivity().findViewById(R.id.button_next_1);
@@ -71,5 +73,9 @@ public static final String EDIT_ALARM_CODE = "edit_alarm_code";
         setRetainInstance(false);
 
         return binding.getRoot();
+    }
+
+    public void setAlarmType(AlarmType alarmType) {
+        this.alarmType = alarmType;
     }
 }

@@ -14,6 +14,7 @@ import com.mse.group1.sleepphase.data.alarm_components.TurningOffTypes;
 import com.mse.group1.sleepphase.data.source.AlarmsDataSource;
 import com.mse.group1.sleepphase.data.source.SimpleAlarmsDataSource;
 import com.mse.group1.sleepphase.util.AppExecutors;
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
@@ -82,7 +83,7 @@ public class AddEditViewModel extends AndroidViewModel {
         alarmsDataSource = SimpleAlarmsDataSource.getInstance(new AppExecutors(), application);
     }
 
-    public void start(final String alarmId) {
+    public void start(final String alarmId, AlarmType type) {
         this.alarmId = alarmId;
         if (alarmId == null) {
             // new alarm creation
@@ -105,6 +106,9 @@ public class AddEditViewModel extends AndroidViewModel {
             turningOffAmount.setValue(0);
 
             itemss.setValue(new ArrayList<ChecklistBedtime>());
+            if (type != null) {
+                typeSpinnerPosition.setValue(type == AlarmType.REGULAR ? 0 : (type == AlarmType.STEP_BY_STEP ? 1 : 2));
+            }
             return;
         }
         if (isDataLoaded) {
@@ -160,6 +164,9 @@ public class AddEditViewModel extends AndroidViewModel {
         Alarm alarm = new Alarm();
         alarm.setActive(true);
         alarm.setType(typeSpinnerPosition.getValue() == 0 ? AlarmType.REGULAR : (typeSpinnerPosition.getValue() == 1 ? AlarmType.STEP_BY_STEP : AlarmType.SKIP_A_NIGHT));
+        if (alarm.getType().equals(AlarmType.STEP_BY_STEP)) {
+            alarm.setLastChange(LocalDate.now());
+        }
         alarm.setName(name.getValue());
         alarm.setRingAt(new LocalTime(ringAtHour.getValue(), ringAtMinute.getValue()));
         alarm.setRecurring(true);

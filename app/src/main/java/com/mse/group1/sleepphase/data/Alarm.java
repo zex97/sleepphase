@@ -116,6 +116,10 @@ public final class Alarm {
     @ColumnInfo(name = "everyDays")
     private Integer everyDays;           //only step by step alarms
 
+    @Nullable
+    @ColumnInfo(name = "lastChange")
+    private LocalDate lastChange;       // only step by step
+
     @NonNull
     @ColumnInfo(name = "sound")
     private String sound;
@@ -292,6 +296,11 @@ public final class Alarm {
         }
     }
 
+    @Nullable
+    public LocalDate getLastChange() {
+        return lastChange;
+    }
+
     @NonNull
     public List<ChecklistBedtime> getChecklist_bedtime() {
         return checklist_bedtime;
@@ -373,6 +382,10 @@ public final class Alarm {
         this.checklist_bedtime = checklist_bedtime;
     }
 
+    public void setLastChange(@Nullable LocalDate lastChange) {
+        this.lastChange = lastChange;
+    }
+
     @NonNull
     @Override
     public String toString() {
@@ -385,9 +398,7 @@ public final class Alarm {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Alarm alarm = (Alarm) o;
-
         if (!Objects.equals(type, alarm.type)) return false;
         if (!Objects.equals(active, alarm.active)) return false;
         if (!Objects.equals(name, alarm.name)) return false;
@@ -396,6 +407,7 @@ public final class Alarm {
         if (!Objects.equals(goal, alarm.goal)) return false;
         if (!Objects.equals(days, alarm.days)) return false;
         if (!Objects.equals(skip, alarm.skip)) return false;
+        if (!Objects.equals(lastChange, alarm.lastChange)) return false;
         if (!Objects.equals(changeBy, alarm.changeBy)) return false;
         if (!Objects.equals(everyDays, alarm.everyDays)) return false;
         if (!Objects.equals(sound, alarm.sound)) return false;
@@ -417,6 +429,7 @@ public final class Alarm {
         result = 31 * result + (ringAt != null ? ringAt.hashCode() : 0);
         result = 31 * result + (recurring != null ? recurring.hashCode() : 0);
         result = 31 * result + (goal != null ? goal.hashCode() : 0);
+        result = 31 * result + (lastChange != null ? lastChange.hashCode() : 0);
         result = 31 * result + (days != null ? days.hashCode() : 0);
         result = 31 * result + (skip != null ? skip.hashCode() : 0);
         result = 31 * result + (changeBy != null ? changeBy.hashCode() : 0);

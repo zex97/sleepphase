@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="androidx.core.content.ContextCompat" />
+
+        <variable
+                name="viewmodel"
+                type="com.mse.group1.sleepphase.checklist.ChecklistViewModel" />
+
+    </data>
+
+    <LinearLayout android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent">
+
+        <ListView
+                android:id="@+id/list_checklist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:items="@{viewmodel.items}"/>
+
+    </LinearLayout>
+</layout>

@@ -27,7 +27,7 @@
             <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:orientation="horizontal" android:layout_gravity="center">
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:text="Checklist Bedtime"/>
+                          android:text="Checklist Morning"/>
                 <Button android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:text="i"
                         android:onClick="@{() -> viewmodel.displayInformationDialog(`checklist_bedtime`)}"/>
