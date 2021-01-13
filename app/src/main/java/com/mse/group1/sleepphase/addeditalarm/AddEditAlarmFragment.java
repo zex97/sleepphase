@@ -42,7 +42,7 @@ public static final String EDIT_ALARM_CODE = "edit_alarm_code";
         }
 
         if (getArguments() != null) {
-            viewModel.start(getArguments().getString(EDIT_ALARM_CODE), null);
+            viewModel.start(getArguments().getString(EDIT_ALARM_CODE), alarmType);
         } else {
             viewModel.start(null, alarmType);
         }

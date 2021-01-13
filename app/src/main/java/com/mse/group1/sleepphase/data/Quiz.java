@@ -28,16 +28,14 @@ public final class Quiz {
     @ColumnInfo(name = "quizQuestions")
     private ArrayList<Question> questions;
 
-    public Quiz (String id) {
-        this.id = id;
-        this.description = "";
-        this.questions = new ArrayList<>();
-    }
+    @ColumnInfo(name = "completed")
+    private Boolean completed;
 
     public Quiz(@NonNull String id, String description, ArrayList<Question> questions) {
         this.id = id;
         this.description = description;
         this.questions = questions;
+        this.completed = false;
     }
 
     @NonNull
@@ -63,21 +61,23 @@ public final class Quiz {
         this.questions = questions;
     }
 
-    public static Quiz getDemoQuiz() {
+    public Boolean getCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(Boolean completed) {
+        this.completed = completed;
+    }
+
+    public static Quiz getQuiz() {
         ArrayList<Question> questions = new ArrayList<>();
-        Question q1 = new Question("This indicates the regular alarm.", AlarmType.REGULAR);
-        Question q2 = new Question("This indicates the regular alarm.", AlarmType.REGULAR);
-        Question q3 = new Question("This indicates the skip a night alarm.", AlarmType.SKIP_A_NIGHT);
-        Question q4 = new Question("This indicates the skip a night alarm.", AlarmType.SKIP_A_NIGHT);
-        Question q5 = new Question("This indicates the step by step alarm.", AlarmType.STEP_BY_STEP);
-        Question q6 = new Question("This indicates the step by step alarm.", AlarmType.STEP_BY_STEP);
-        questions.add(q1);
-        questions.add(q2);
-        questions.add(q3);
-        questions.add(q4);
-        questions.add(q5);
-        questions.add(q6);
-        Quiz ret = new Quiz("demoQuiz", "Please answer those demo questions", questions);
+        questions.add(new Question("I have trouble staying up all night.", AlarmType.STEP_BY_STEP));
+        questions.add(new Question("I like staying up all night.", AlarmType.SKIP_A_NIGHT));
+        questions.add(new Question("I need to fix my sleep schedule quickly.", AlarmType.SKIP_A_NIGHT));
+        questions.add(new Question("I like gradual change.", AlarmType.STEP_BY_STEP));
+        questions.add(new Question("I have a few weeks (or more) time to fix my sleep schedule.", AlarmType.STEP_BY_STEP));
+        questions.add(new Question("I like getting things done quickly.", AlarmType.SKIP_A_NIGHT));
+        Quiz ret = new Quiz("quiz", "Please answer those questions to get a recommendation of which alarm to use.", questions);
         return ret;
     }
 }
