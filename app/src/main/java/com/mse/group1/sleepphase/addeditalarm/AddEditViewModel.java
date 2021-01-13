@@ -68,6 +68,8 @@ public class AddEditViewModel extends AndroidViewModel {
 
     private final MutableLiveData<Event<String>> informationDialog = new MutableLiveData<>();
 
+    public final MutableLiveData<AlarmType> type = new MutableLiveData<>();
+
 
     private String alarmId;
 
@@ -83,7 +85,7 @@ public class AddEditViewModel extends AndroidViewModel {
         alarmsDataSource = SimpleAlarmsDataSource.getInstance(new AppExecutors(), application);
     }
 
-    public void start(final String alarmId, AlarmType type) {
+    public void start(final String alarmId) {
         this.alarmId = alarmId;
         if (alarmId == null) {
             // new alarm creation
@@ -107,8 +109,8 @@ public class AddEditViewModel extends AndroidViewModel {
             addChecklistField.setValue("");
 
             itemss.setValue(new ArrayList<ChecklistBedtime>());
-            if (type != null) {
-                typeSpinnerPosition.setValue(type == AlarmType.REGULAR ? 0 : (type == AlarmType.STEP_BY_STEP ? 1 : 2));
+            if (type.getValue() != null) {
+                typeSpinnerPosition.setValue(type.getValue() == AlarmType.REGULAR ? 0 : (type.getValue() == AlarmType.STEP_BY_STEP ? 1 : 2));
             }
             return;
         }
@@ -288,4 +290,9 @@ public class AddEditViewModel extends AndroidViewModel {
         }
         return strings;
     }
+
+    public MutableLiveData<AlarmType> getType() {
+        return type;
+    }
+
 }

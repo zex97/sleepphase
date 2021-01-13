@@ -54,6 +54,7 @@ public class QuizActivity  extends AppCompatActivity {
 
     public void skipCklick() {
         Intent goToAlarms = new Intent(this, AlarmsActivity.class);
+        finish();
         startActivity(goToAlarms);
     }
 
@@ -69,6 +70,7 @@ public class QuizActivity  extends AppCompatActivity {
         Bundle b = new Bundle();
         b.putInt("type", t);
         goToAddAlarms.putExtras(b);
+        finish();
         startActivity(goToAddAlarms);
     }
 

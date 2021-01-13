@@ -199,4 +199,8 @@ public class RingingViewModel extends AndroidViewModel {
     public MutableLiveData<Event<Object>> getAlarmLoadedObservable() {
         return alarmLoadedObservable;
     }
+
+    public MutableLiveData<Integer> getDifficulty() {
+        return difficulty;
+    }
 }
