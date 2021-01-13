@@ -58,7 +58,7 @@
                   android:id="@+id/textView4" app:layout_constraintHorizontal_bias="0.5"/>
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:layout_marginBottom="80dp"
+                android:layout_height="wrap_content" android:layout_marginBottom="50dp"
                 app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="8dp" android:id="@+id/constraintLayout">
@@ -66,38 +66,37 @@
             <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
                     android:text="SNOOZE"
                     android:onClick="@{() -> listener.snoozePressed()}" android:id="@+id/button"
-                    app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintEnd_toStartOf="@+id/button2"
-                    android:background="@drawable/snooze_button_bg" android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:background="@drawable/snooze_button_bg"
                     android:visibility="@{viewmodel.snoozeEnabled ? View.VISIBLE : View.GONE}"
                     android:textColor="@color/colorWhite"
-                    android:textSize="22sp"/>
+                    android:textSize="22sp" android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent" android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
+                    app:layout_constraintStart_toStartOf="parent"/>
 
-            <Button android:layout_width="88dp" android:layout_height="wrap_content"
+            <Button android:layout_width="120dp" android:layout_height="wrap_content"
                     android:text="DISMISS"
                     android:background="@drawable/dismiss_button_bg"
                     android:onClick="@{() -> listener.dismissPressed()}" android:layout_marginEnd="8dp"
                     android:id="@+id/button2" app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/button" app:layout_constraintHorizontal_bias="0.5"
                     android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
                     android:visibility="@{viewmodel.turningOffType == `SWIPE_OVER_SCREEN` ? View.VISIBLE : View.GONE}"
                     android:textColor="@color/colorWhite"
-                    android:textSize="22sp"/>
+                    android:textSize="22sp" android:layout_marginStart="8dp"
+                    app:layout_constraintStart_toStartOf="parent" android:layout_marginBottom="30dp"
+                    app:layout_constraintBottom_toTopOf="@+id/button"/>
 
-            <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+            <Button android:layout_width="120dp" android:layout_height="wrap_content"
                     android:text="GO"
                     android:background="@drawable/check_equation_button_bg"
-                    android:onClick="@{() -> listener.goPressed()}" android:layout_marginEnd="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:onClick="@{() -> listener.goPressed()}"
                     android:visibility="@{viewmodel.turningOffType == `MATH_EQUATION` ? View.VISIBLE : View.GONE}"
-                    app:layout_constraintStart_toEndOf="@+id/button" android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
                     android:textColor="@color/colorWhite"
-                    android:textSize="26sp"/>
+                    android:textSize="26sp" android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="30dp"
+                    app:layout_constraintBottom_toTopOf="@+id/button" android:layout_marginStart="8dp"
+                    app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

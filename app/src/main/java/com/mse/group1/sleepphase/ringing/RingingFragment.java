@@ -121,7 +121,7 @@ public class RingingFragment extends Fragment {
                 Alarm originalAlarm = viewModel.getAlarm().getValue();
 
                 Alarm alarm = new Alarm();
-                alarm.setName(viewModel.getName() + " Snooze");
+                alarm.setName(viewModel.getName().getValue() + " Snooze");
                 alarm.setActive(true);
                 alarm.setType(AlarmType.REGULAR);
                 alarm.setRingAt(new LocalTime(calendar));
@@ -130,9 +130,9 @@ public class RingingFragment extends Fragment {
                 alarm.setSound(originalAlarm.getSound());
                 alarm.setVolume(originalAlarm.getVolume());
                 alarm.setVibrate(originalAlarm.getVibrate());
-                alarm.setSnooze_enabled(true);                  // TODO disable after a few times?
-                alarm.setSnooze_every_min(5);                   //TODO not implemented yet, maybe leave out?
-                alarm.setSnooze_times(1);                       //TODO same
+                alarm.setSnooze_enabled(true);
+                alarm.setSnooze_every_min(5);                 //not implemented yet
+                alarm.setSnooze_times(1);                     //not implemented yet
                 alarm.setTurning_off_alarm(originalAlarm.getTurning_off_alarm());
                 alarm.setChecklist_bedtime(originalAlarm.getChecklist_bedtime());
 
