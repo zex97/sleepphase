@@ -3,6 +3,7 @@
     <string name="action_settings">Settings</string>
     <string name="delete_alarm">Delete</string>
     <string name="equation_progress">Equation %s/%s</string>
+    <string name="shake_count">%s/%s</string>
 
     <string-array name="spinner_alarm_types">
         <item>Regular</item>

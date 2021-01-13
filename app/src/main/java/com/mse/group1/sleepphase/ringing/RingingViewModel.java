@@ -1,9 +1,12 @@
 package com.mse.group1.sleepphase.ringing;
 
 import android.app.Application;
+import android.hardware.SensorEvent;
+import android.hardware.SensorManager;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
+import com.mse.group1.sleepphase.Event;
 import com.mse.group1.sleepphase.data.Alarm;
 import com.mse.group1.sleepphase.data.alarm_components.TurningOffTypes;
 import com.mse.group1.sleepphase.data.source.AlarmsDataSource;
@@ -43,9 +46,16 @@ public class RingingViewModel extends AndroidViewModel {
 
     private final MutableLiveData<Boolean> invalidAnswer = new MutableLiveData<>();
 
+    private final MutableLiveData<Integer> shakeCount = new MutableLiveData<>();
+
+    private final MutableLiveData<Event<Object>> shakeCountAchieved = new MutableLiveData<>();
+
+    private final MutableLiveData<Event<Object>> alarmLoadedObservable = new MutableLiveData<>();
+
 
 
     public void start(final String alarmId) {
+        shakeCount.setValue(0);
         alarmsDataSource.getAlarm(alarmId, new AlarmsDataSource.GetAlarmsCallback() {
             @Override
             public void onAlarmLoaded(Alarm alarm) {
@@ -67,9 +77,15 @@ public class RingingViewModel extends AndroidViewModel {
                 }
                 typedSolution.setValue("");
                 progress.setValue(1);
-                amount.setValue(alarm.getTurning_off_alarm().getAmount() + 1);
+                if (turningOffType.getValue().equals("SHAKE_THE_PHONE")) {
+                    amount.setValue((alarm.getTurning_off_alarm().getAmount() + 1) * 10);
+                } else {
+                    amount.setValue(alarm.getTurning_off_alarm().getAmount() + 1);
+                }
                 difficulty.setValue(alarm.getTurning_off_alarm().getDifficulty());
                 invalidAnswer.setValue(false);
+
+                alarmLoadedObservable.setValue(new Event<>(new Object()));
             }
 
             @Override
@@ -128,6 +144,17 @@ public class RingingViewModel extends AndroidViewModel {
         return invalidAnswer;
     }
 
+    public MutableLiveData<Integer> getShakeCount() {
+        return shakeCount;
+    }
+
+    public void incrementShakeCount () {
+        shakeCount.setValue(shakeCount.getValue() + 1);
+        if (shakeCount.getValue() >= amount.getValue()) {
+            shakeCountAchieved.setValue(new Event<>(new Object()));
+        }
+    }
+
     public void equationAdd(String s) {
         invalidAnswer.setValue(false);
         if (typedSolution.getValue().length() > 5) {
@@ -163,5 +190,13 @@ public class RingingViewModel extends AndroidViewModel {
         }
         invalidAnswer.setValue(true);
         return false;
+    }
+
+    public MutableLiveData<Event<Object>> getShakeCountAchieved() {
+        return shakeCountAchieved;
+    }
+
+    public MutableLiveData<Event<Object>> getAlarmLoadedObservable() {
+        return alarmLoadedObservable;
     }
 }
