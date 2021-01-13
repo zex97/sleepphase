@@ -25,6 +25,10 @@ public class Question {
         String[] split = string.split(" --- ");
         String question = split[0];
         AlarmType alarmType = AlarmType.valueOf(split[1]);
+        boolean selected = false;
+        if (split[2].equals("true")) {
+            selected = true;
+        }
         return new Question(question, alarmType);
     }
 
@@ -47,5 +51,13 @@ public class Question {
 
     public void setIndicates(AlarmType indicates) {
         this.indicates = indicates;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }
