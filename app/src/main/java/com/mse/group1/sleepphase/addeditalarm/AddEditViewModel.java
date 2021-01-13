@@ -164,9 +164,7 @@ public class AddEditViewModel extends AndroidViewModel {
         Alarm alarm = new Alarm();
         alarm.setActive(true);
         alarm.setType(typeSpinnerPosition.getValue() == 0 ? AlarmType.REGULAR : (typeSpinnerPosition.getValue() == 1 ? AlarmType.STEP_BY_STEP : AlarmType.SKIP_A_NIGHT));
-        if (alarm.getType().equals(AlarmType.STEP_BY_STEP)) {
-            alarm.setLastChange(LocalDate.now());
-        }
+        alarm.setLastChange(LocalDate.now());
         alarm.setName(name.getValue());
         alarm.setRingAt(new LocalTime(ringAtHour.getValue(), ringAtMinute.getValue()));
         alarm.setRecurring(true);

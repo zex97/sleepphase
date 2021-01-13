@@ -19,6 +19,7 @@
                 android:label="@string/app_name"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -34,9 +35,11 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".addeditalarm.AddEditAlarmActivity" />
+        <activity android:name=".addeditalarm.AddEditAlarmActivity"
+                  android:screenOrientation="portrait"/>
         <activity android:name=".ringing.RingingActivity"
-                  android:theme="@style/AppTheme.NoActionBar">
+                  android:theme="@style/AppTheme.NoActionBar"
+                  android:screenOrientation="portrait">
         </activity>
 
         <receiver android:name=".ringing.AlarmReceiver">
