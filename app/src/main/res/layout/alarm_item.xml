@@ -4,6 +4,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <import type="android.view.View.OnClickListener" />
+        <import type="android.view.View"/>
 
         <variable
                 name="alarm"
@@ -44,16 +45,6 @@
                         app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
                         app:layout_constraintBottom_toBottomOf="parent"/>
                 <TextView
-                        android:text="@{alarm.name.length() > 10 ? alarm.name.substring(0,10)+`...` : alarm.name}"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/alarmNameTextView" android:layout_marginTop="8dp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="18sp" android:layout_marginStart="8dp"
-                        app:layout_constraintStart_toStartOf="@+id/guideline" android:layout_marginEnd="8dp"
-                        app:layout_constraintEnd_toStartOf="@+id/guideline2"/>
-                <TextView
                         android:text="@{alarm.ringAtForList}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -65,16 +56,50 @@
                         app:layout_constraintBottom_toTopOf="@+id/daysOrDateAlarmTextView"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"/>
-                <TextView
-                        android:text="@{alarm.turningOffAlarmForList}"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/alarmGoalTextView" android:layout_marginTop="8dp"
-                        app:layout_constraintTop_toBottomOf="@+id/alarmNameTextView"
-                        android:textColor="@color/colorWhite"
-                        android:layout_marginStart="8dp"
-                        app:layout_constraintEnd_toStartOf="@+id/guideline2" android:layout_marginEnd="8dp"
-                        app:layout_constraintStart_toStartOf="@+id/guideline"/>
+                <LinearLayout android:layout_width="wrap_content" android:layout_height="match_parent"
+                              android:orientation="vertical" app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                              android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="@+id/guideline"
+                              android:layout_marginStart="8dp"
+                              app:layout_constraintTop_toTopOf="parent"
+                              app:layout_constraintBottom_toBottomOf="parent"
+                              android:gravity="center_horizontal">
+                    <TextView
+                            android:text="@{alarm.name.length() > 10 ? alarm.name.substring(0,10)+`...` : alarm.name}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/alarmNameTextView" android:layout_marginTop="8dp"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="18sp" android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"/>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                                  android:orientation="horizontal" android:gravity="center_horizontal">
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp"
+                                   android:src="@drawable/math_exercise_symbol"
+                                   android:layout_marginTop="5dp"
+                                   android:visibility="@{alarm.turningOffAlarmForList == `Math exercise` ? View.VISIBLE : View.GONE}"
+                                   android:layout_gravity="center"/>
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp"
+                                   android:src="@drawable/press_button_symbol"
+                                   android:layout_marginTop="5dp"
+                                   android:visibility="@{alarm.turningOffAlarmForList == `Swipe screen` ? View.VISIBLE : View.GONE}"
+                                   android:layout_gravity="center"/>
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp"
+                                   android:src="@drawable/shake"
+                                   android:layout_marginTop="5dp"
+                                   android:visibility="@{alarm.turningOffAlarmForList == `Shake phone` ? View.VISIBLE : View.GONE}"
+                                   android:layout_gravity="center"/>
+                    </LinearLayout>
+                    <TextView
+                            android:text="@{alarm.typeForList}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/alarmTypeTextView"
+                            android:textColor="@color/colorWhite"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"/>
+                </LinearLayout>
 
                 <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/guideline"
@@ -93,17 +118,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:id="@+id/guideline2"
                         app:layout_constraintGuide_percent="0.87"/>
-                <TextView
-                        android:text="@{alarm.typeForList}"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/alarmTypeTextView"
-                        android:textColor="@color/colorWhite"
-                        android:layout_marginBottom="8dp"
-                        app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
-                        app:layout_constraintTop_toBottomOf="@+id/alarmGoalTextView"
-                        app:layout_constraintStart_toStartOf="@+id/guideline" android:layout_marginStart="8dp"
-                        app:layout_constraintEnd_toStartOf="@+id/guideline2" android:layout_marginEnd="8dp"/>
                 <TextView
                         android:text="@{alarm.daysForList}"
                         android:layout_width="wrap_content"
