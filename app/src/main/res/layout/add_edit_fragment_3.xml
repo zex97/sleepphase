@@ -14,7 +14,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary">
+            android:background="@color/colorPrimary"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp">
         <LinearLayout android:orientation="vertical"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content" android:layout_marginTop="20dp"
@@ -26,7 +28,10 @@
                           android:orientation="horizontal" android:layout_gravity="center">
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:text="Turning Off Method"
-                          android:layout_gravity="center"/>
+                          android:layout_gravity="center"
+                          android:textSize="22sp"
+                          android:textColor="@color/colorWhite"
+                          android:layout_marginBottom="5dp"/>
                 <ImageView android:layout_width="55dp" android:layout_height="55dp"
                            android:id="@+id/info_button3"
                            android:background="@drawable/info_bg"
@@ -36,57 +41,97 @@
                            android:onClick="@{() -> viewmodel.displayInformationDialog(`turning_off_type`)}"/>
             </LinearLayout>
 
+            <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimaryDark"
+                    android:layout_gravity="center">
             <Spinner android:layout_width="match_parent" android:layout_height="wrap_content"
                      android:layout_marginStart="20dp"
                      android:layout_marginEnd="20dp"
                      android:entries="@array/spinner_turning_off_types"
-                     android:selectedItemPosition="@={viewmodel.turningOffSpinnerPosition}"/>
+                     android:selectedItemPosition="@={viewmodel.turningOffSpinnerPosition}"
+                     android:textSize="20sp"
+                     android:theme="@style/spinnerStyle"
+                     android:padding="5dp"/>
+            </RelativeLayout>
 
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:orientation="vertical" android:background="@drawable/block_border"
                           android:visibility="@{viewmodel.turningOffSpinnerPosition != 0 ? View.VISIBLE : View.GONE}"
-                          android:padding="10dp">
+                          android:padding="10dp"
+            android:layout_marginTop="20dp">
 
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:layout_gravity="center" android:text="Amount"/>
+                          android:layout_gravity="center" android:text="Amount"
+                          android:textSize="18sp"
+                          android:textColor="@color/colorWhite"
+                          android:layout_marginBottom="5dp"/>
+                <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimaryDark"
+                        android:layout_marginBottom="20dp">
                 <Spinner android:layout_width="match_parent" android:layout_height="wrap_content"
                          android:layout_marginStart="10dp"
                          android:layout_marginEnd="10dp"
                          android:entries="@array/spinner_amount_low"
                          android:selectedItemPosition="@={viewmodel.turningOffAmount}"
-                         android:visibility="@{viewmodel.turningOffSpinnerPosition == 1 ? View.VISIBLE : View.GONE}"/>
+                         android:visibility="@{viewmodel.turningOffSpinnerPosition == 1 ? View.VISIBLE : View.GONE}"
+                         android:theme="@style/spinnerStyle"
+                         android:padding="5dp"/>
+                </RelativeLayout>
+                <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimaryDark"
+                        android:layout_marginBottom="20dp">
                 <Spinner android:layout_width="match_parent" android:layout_height="wrap_content"
                          android:layout_marginStart="10dp"
                          android:layout_marginEnd="10dp"
                          android:entries="@array/spinner_amount_high"
                          android:selectedItemPosition="@={viewmodel.turningOffAmount}"
-                         android:visibility="@{viewmodel.turningOffSpinnerPosition == 2 ? View.VISIBLE : View.GONE}"/>
+                         android:visibility="@{viewmodel.turningOffSpinnerPosition == 2 ? View.VISIBLE : View.GONE}"
+                         android:theme="@style/spinnerStyle"
+                         android:padding="5dp"/>
+                </RelativeLayout>
 
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:layout_gravity="center" android:text="Difficulty"
-                          android:visibility="@{viewmodel.turningOffSpinnerPosition == 1 ? View.VISIBLE : View.GONE}"/>
+                          android:visibility="@{viewmodel.turningOffSpinnerPosition == 1 ? View.VISIBLE : View.GONE}"
+                          android:textSize="18sp"
+                          android:textColor="@color/colorWhite"
+                          android:layout_marginBottom="5dp"/>
+                <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimaryDark">
                 <Spinner android:layout_width="match_parent" android:layout_height="wrap_content"
                          android:layout_marginStart="10dp"
                          android:layout_marginEnd="10dp"
                          android:entries="@array/spinner_difficulties"
                          android:selectedItemPosition="@={viewmodel.turningOffDifficulty}"
-                         android:visibility="@{viewmodel.turningOffSpinnerPosition == 1 ? View.VISIBLE : View.GONE}"/>
-
-
-
+                         android:visibility="@{viewmodel.turningOffSpinnerPosition == 1 ? View.VISIBLE : View.GONE}"
+                         android:theme="@style/spinnerStyle"
+                         android:padding="5dp"/>
+                </RelativeLayout>
             </LinearLayout>
 
-
-
-
-
-
         </LinearLayout>
-        <!--   progess dots here     -->
+
+        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                   android:src="@drawable/ic_progress_dots_3" android:layout_marginBottom="8dp"
+                   app:layout_constraintBottom_toTopOf="@+id/button_next_3" app:layout_constraintEnd_toEndOf="parent"
+                   android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
+                   android:layout_marginStart="8dp"/>
         <Button android:id="@+id/button_next_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Next"
+                android:text="Continue"
+                android:textColor="@color/colorWhite"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:textAllCaps="false"
+                android:textSize="20sp"
                 android:layout_marginBottom="20dp"
                 android:layout_gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"

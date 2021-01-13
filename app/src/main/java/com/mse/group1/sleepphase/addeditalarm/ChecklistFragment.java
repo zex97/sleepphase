@@ -1,10 +1,13 @@
 package com.mse.group1.sleepphase.addeditalarm;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -38,6 +41,18 @@ public class ChecklistFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 viewModel.saveAlarm();
+            }
+        });
+
+        EditText editText = getActivity().findViewById(R.id.edit_text_2);
+        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(v.getId() == R.id.edit_text_2 && !hasFocus) {
+
+                    InputMethodManager imm =  (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
             }
         });
     }

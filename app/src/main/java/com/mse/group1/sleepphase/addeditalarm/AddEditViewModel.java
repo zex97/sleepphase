@@ -104,6 +104,7 @@ public class AddEditViewModel extends AndroidViewModel {
 
             turningOffDifficulty.setValue(0);
             turningOffAmount.setValue(0);
+            addChecklistField.setValue("");
 
             itemss.setValue(new ArrayList<ChecklistBedtime>());
             if (type != null) {
@@ -227,9 +228,11 @@ public class AddEditViewModel extends AndroidViewModel {
         if (list == null) {
             list = new ArrayList<>();
         }
-        list.add(new ChecklistBedtime(addChecklistField.getValue(), false));
-        itemss.setValue(list);
-        addChecklistField.setValue("");
+        if (!addChecklistField.getValue().equals("")) {
+            list.add(new ChecklistBedtime(addChecklistField.getValue(), false));
+            itemss.setValue(list);
+            addChecklistField.setValue("");
+        }
     }
 
     private ArrayList<String> makeDaysStrings() {
