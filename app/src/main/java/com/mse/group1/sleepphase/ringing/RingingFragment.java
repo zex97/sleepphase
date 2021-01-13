@@ -147,9 +147,7 @@ public class RingingFragment extends Fragment {
             public void dismissPressed() {
                 Intent intentAlarmService = new Intent(getActivity().getApplicationContext(), AlarmService.class);
                 getActivity().getApplicationContext().stopService(intentAlarmService);
-                // getActivity().finish();
-                Intent goToChecklist = new Intent(getActivity(), AlarmsActivity.class);
-                startActivity(goToChecklist);
+                getActivity().finish();
             }
 
             @Override

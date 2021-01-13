@@ -108,7 +108,6 @@ public class AddEditAlarmActivity extends AppCompatActivity {
 
     public void onAlarmSavedSuccessfully() {
         setResult(ADD_EDIT_OK);
-        Intent goToAlarms = new Intent(this, AlarmsActivity.class);
-        startActivity(goToAlarms);
+        finish();
     }
 }
