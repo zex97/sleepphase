@@ -13,7 +13,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary">
+            android:background="@color/colorPrimary"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp">
         <LinearLayout android:orientation="vertical"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content" android:layout_marginTop="20dp"
@@ -24,22 +26,40 @@
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:text="Sound"
+                      android:textSize="22sp"
+                      android:textColor="@color/colorWhite"
+                      android:layout_marginBottom="5dp"
                       android:layout_gravity="center"/>
 
-            <Spinner android:layout_width="match_parent"
+            <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimaryDark"
+                    android:layout_gravity="center">
+            <Spinner android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
                      android:entries="@array/spinner_songs_placeholder"
-                     android:selectedItemPosition="@={viewmodel.soundSpinnerPosition}"/>
-
+                     android:selectedItemPosition="@={viewmodel.soundSpinnerPosition}"
+                     android:textSize="20sp"
+                     android:theme="@style/spinnerStyle"
+                     android:layout_gravity="center"
+                     android:padding="5dp"/>
+            </RelativeLayout>
             <CheckBox
                     android:text="Vibrate"
-                    android:layout_width="89dp"
-                    android:layout_height="26dp"
-                    android:checked="@={viewmodel.vibrate}"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@={viewmodel.vibrate}"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorWhite"
+                    android:layout_marginBottom="5dp"
+                    android:buttonTint="@color/colorWhite"/>
             <TextView
                     android:text="Volume"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorWhite"
                     android:layout_gravity="center"/>
             <SeekBar
                     android:layout_width="match_parent"
@@ -47,9 +67,13 @@
                     android:progress="@={viewmodel.volume}"/>
             <CheckBox
                     android:text="Snooze"
-                    android:layout_width="89dp"
-                    android:layout_height="26dp"
-                    android:checked="@={viewmodel.snooze}"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@={viewmodel.snooze}"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorWhite"
+                    android:layout_marginBottom="5dp"
+                    android:buttonTint="@color/colorWhite"/>
             <View
                     android:id="@+id/vVerticalLine"
                     android:background="@drawable/horizontal_line"
@@ -58,12 +82,14 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"/>
+            />
             <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:orientation="horizontal" android:layout_gravity="center">
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:text="Bedtime Reminder"
+                          android:textSize="20sp"
+                          android:textColor="@color/colorWhite"
                 android:layout_gravity="center"/>
                 <ImageView android:layout_width="55dp" android:layout_height="55dp"
                            android:id="@+id/info_button2"
@@ -77,43 +103,71 @@
                 <RadioButton android:layout_width="wrap_content"
                              android:layout_height="wrap_content"
                              android:text="Pick Suggested Bedtime Reminder"
+                             android:buttonTint="@color/colorWhite"
+                             android:textColor="@color/colorWhite"
                              android:checked="@={viewmodel.pickReminder}"/>
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                              android:orientation="vertical" android:layout_gravity="center"
-                              android:visibility="@{viewmodel.pickReminder ? View.VISIBLE : View.GONE}">
+                              android:orientation="horizontal" android:layout_gravity="center"
+                              android:visibility="@{viewmodel.pickReminder ? View.VISIBLE : View.GONE}"
+                              android:layout_marginStart="15dp"
+                              android:layout_marginEnd="15dp">>
+                    <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorPrimaryDark"
+                            android:layout_gravity="center">
                     <Spinner android:layout_width="wrap_content"
                              android:layout_height="wrap_content"
                              android:entries="@array/spinner_reminders_placeholder"
-                             android:layout_gravity="center"/>
+                             android:layout_gravity="center"
+                             android:theme="@style/spinnerStyle"
+                             android:textSize="16sp"
+                             android:padding="5dp"/>
+                    </RelativeLayout>
                     <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                  android:orientation="horizontal" android:layout_gravity="center">
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                  android:text="Ring"/>
-                        <EditText android:layout_width="35dp"
+                                  android:orientation="horizontal" android:layout_gravity="center"
+                                  android:layout_marginStart="15dp"
+                                  android:layout_marginEnd="15dp">
+                        <EditText android:layout_width="30dp"
                                   android:layout_height="40dp"
                                   android:inputType="number" android:ems="10"
-                                  android:text="3"/>
+                                  android:text="3"
+                                  android:paddingStart="4dp"
+                                  android:textColor="@color/colorWhite"/>
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                  android:text="minutes before."/>
+                                  android:text="min before."
+                                  android:textColor="@color/colorWhite"/>
                     </LinearLayout>
                 </LinearLayout>
 
                 <RadioButton android:layout_width="wrap_content"
                              android:layout_height="wrap_content"
                              android:text="Bed-Time Reminder At"
+                             android:buttonTint="@color/colorWhite"
+                             android:textColor="@color/colorWhite"
                              android:checked="@={viewmodel.atReminder}"/>
                 <RadioButton android:layout_width="wrap_content"
                              android:layout_height="wrap_content"
                              android:text="No Bed-Time Reminder"
+                             android:buttonTint="@color/colorWhite"
+                             android:textColor="@color/colorWhite"
                              android:checked="@={viewmodel.noReminder}"/>
 
             </RadioGroup>
         </LinearLayout>
-        <!--   progess dots here     -->
+        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                   android:src="@drawable/ic_progress_dots_2" android:layout_marginBottom="8dp"
+                   app:layout_constraintBottom_toTopOf="@+id/button_next_2" app:layout_constraintEnd_toEndOf="parent"
+                   android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
+                   android:layout_marginStart="8dp"/>
         <Button android:id="@+id/button_next_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Next"
+                android:text="Continue"
+                android:textColor="@color/colorWhite"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:textAllCaps="false"
+                android:textSize="20sp"
                 android:layout_marginBottom="20dp"
                 android:layout_gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"

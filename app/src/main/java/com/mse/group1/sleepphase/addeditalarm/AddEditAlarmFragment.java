@@ -1,9 +1,11 @@
 package com.mse.group1.sleepphase.addeditalarm;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -56,6 +58,18 @@ public static final String EDIT_ALARM_CODE = "edit_alarm_code";
                         .replace(R.id.container_for_add_edit_fragment, fragment, "PickSoundFragment")
                         .addToBackStack(null)
                         .commit();
+            }
+        });
+
+        EditText editText = getActivity().findViewById(R.id.edit_text_1);
+        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(v.getId() == R.id.edit_text_1 && !hasFocus) {
+
+                    InputMethodManager imm =  (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
             }
         });
     }
