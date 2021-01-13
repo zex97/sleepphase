@@ -2,6 +2,7 @@ package com.mse.group1.sleepphase.addeditalarm;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import com.mse.group1.sleepphase.Event;
 import com.mse.group1.sleepphase.R;
+import com.mse.group1.sleepphase.alarms.AlarmsActivity;
 import com.mse.group1.sleepphase.data.alarm_components.AlarmType;
 
 
@@ -106,6 +108,7 @@ public class AddEditAlarmActivity extends AppCompatActivity {
 
     public void onAlarmSavedSuccessfully() {
         setResult(ADD_EDIT_OK);
-        finish();
+        Intent goToAlarms = new Intent(this, AlarmsActivity.class);
+        startActivity(goToAlarms);
     }
 }

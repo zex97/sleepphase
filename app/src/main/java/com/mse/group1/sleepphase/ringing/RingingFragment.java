@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import com.mse.group1.sleepphase.Event;
 import com.mse.group1.sleepphase.R;
+import com.mse.group1.sleepphase.alarms.AlarmsActivity;
 import com.mse.group1.sleepphase.data.Alarm;
 import com.mse.group1.sleepphase.data.alarm_components.AlarmType;
 import com.mse.group1.sleepphase.data.alarm_components.ChecklistBedtime;
@@ -146,7 +147,9 @@ public class RingingFragment extends Fragment {
             public void dismissPressed() {
                 Intent intentAlarmService = new Intent(getActivity().getApplicationContext(), AlarmService.class);
                 getActivity().getApplicationContext().stopService(intentAlarmService);
-                getActivity().finish();
+                // getActivity().finish();
+                Intent goToChecklist = new Intent(getActivity(), AlarmsActivity.class);
+                startActivity(goToChecklist);
             }
 
             @Override
