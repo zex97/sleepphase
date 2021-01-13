@@ -66,7 +66,7 @@ public final class Alarm {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, getId().hashCode(), intent, 0);
         alarmManager.cancel(pendingIntent);
 
-        String string = String.format(Locale.ENGLISH,"Alarm %s canceled for %02d:%02d", name, ringAt.getHourOfDay(), ringAt.getMinuteOfHour());
+        String string = String.format(Locale.ENGLISH,"Alarm %s canceled.", name);
         Toast.makeText(context, string, Toast.LENGTH_SHORT).show();
     }
 

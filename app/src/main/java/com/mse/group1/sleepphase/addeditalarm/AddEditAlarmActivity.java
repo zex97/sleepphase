@@ -33,18 +33,6 @@ public class AddEditAlarmActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Bundle b = getIntent().getExtras();
-        AlarmType type = null; // or other values
-        if (b != null) {
-           if (b.getInt("type") == 0) {
-               type = AlarmType.REGULAR;
-           } else if (b.getInt("type") == 1) {
-               type = AlarmType.STEP_BY_STEP;
-           } else if (b.getInt("type") == 2) {
-               type = AlarmType.SKIP_A_NIGHT;
-           }
-        }
-
         setContentView(R.layout.activity_add_edit);
 
 
@@ -54,7 +42,7 @@ public class AddEditAlarmActivity extends AppCompatActivity {
 
         AddEditAlarmFragment fragment = (AddEditAlarmFragment) getSupportFragmentManager().findFragmentById(R.id.container_for_add_edit_fragment);
         if (fragment == null) {
-            fragment = new AddEditAlarmFragment(type);
+            fragment = new AddEditAlarmFragment();
 
             Bundle bundle = new Bundle();
             bundle.putString(AddEditAlarmFragment.EDIT_ALARM_CODE, getIntent().getStringExtra(AddEditAlarmFragment.EDIT_ALARM_CODE));

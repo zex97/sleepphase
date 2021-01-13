@@ -26,15 +26,25 @@ public static final String EDIT_ALARM_CODE = "edit_alarm_code";
 
     private AddEditFragment1Binding binding;
 
-    private AlarmType alarmType = null;
-
-    public AddEditAlarmFragment(AlarmType alarmType) {
-        this.alarmType = alarmType;
-    }
+    public AddEditAlarmFragment () {}
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        Bundle b = getActivity().getIntent().getExtras();
+        AlarmType type = null; // or other values
+        if (b != null) {
+            int typeNum = b.getInt("type");
+            if (typeNum == 0) {
+                type = AlarmType.REGULAR;
+            } else if (typeNum == 1) {
+                type = AlarmType.STEP_BY_STEP;
+            } else if (typeNum == 2) {
+                type = AlarmType.SKIP_A_NIGHT;
+            }
+        }
+        viewModel.type.setValue(type);
 
         ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
         if (getArguments() != null && getArguments().get(EDIT_ALARM_CODE) != null) {
@@ -44,9 +54,9 @@ public static final String EDIT_ALARM_CODE = "edit_alarm_code";
         }
 
         if (getArguments() != null) {
-            viewModel.start(getArguments().getString(EDIT_ALARM_CODE), alarmType);
+            viewModel.start(getArguments().getString(EDIT_ALARM_CODE));
         } else {
-            viewModel.start(null, alarmType);
+            viewModel.start(null);
         }
 
         Button nextButton = getActivity().findViewById(R.id.button_next_1);
@@ -87,9 +97,5 @@ public static final String EDIT_ALARM_CODE = "edit_alarm_code";
         setRetainInstance(false);
 
         return binding.getRoot();
-    }
-
-    public void setAlarmType(AlarmType alarmType) {
-        this.alarmType = alarmType;
     }
 }
