@@ -169,18 +169,18 @@ public class AddEditViewModel extends AndroidViewModel {
         alarm.setName(name.getValue());
         alarm.setRingAt(new LocalTime(ringAtHour.getValue(), ringAtMinute.getValue()));
         alarm.setRecurring(true);
-        alarm.setGoal(LocalTime.now()); // TODO goal
+        alarm.setGoal(LocalTime.now()); // PLACEHOLDER
         ArrayList<String> daysStrings = makeDaysStrings();
         alarm.setDays(daysStrings);
-        alarm.setSkip(LocalDate.now()); //TODO skip
-        alarm.setChangeBy(5);           //TODO change by
-        alarm.setEveryDays(3);          // TODO everyDays
+        alarm.setSkip(LocalDate.now()); // PLACEHOLDER
+        alarm.setChangeBy(5);           // PLACEHOLDER
+        alarm.setEveryDays(3);          // PLACEHOLDER
         alarm.setSound(soundSpinnerPosition.getValue() == 0 ? "Feeling Good" : soundSpinnerPosition.getValue() == 1 ? "Strings Galore" : "Tropical Keys");
         alarm.setVolume(volume.getValue());
         alarm.setVibrate(vibrate.getValue());
         alarm.setSnooze_enabled(snooze.getValue());
-        alarm.setSnooze_every_min(3);   // TODO snooze
-        alarm.setSnooze_times(1);       //TODO snooze
+        alarm.setSnooze_every_min(3);   // PLACEHOLDER
+        alarm.setSnooze_times(1);       // PLACEHOLDER
         TurningOffTypes tot = turningOffSpinnerPosition.getValue() == 0 ? TurningOffTypes.SWIPE_OVER_SCREEN :
                 (turningOffSpinnerPosition.getValue() == 1 ? TurningOffTypes.MATH_EQUATION : TurningOffTypes.SHAKE_THE_PHONE);
         alarm.setTurning_off_alarm(new TurningOffAlarm(tot, turningOffDifficulty.getValue(), turningOffAmount.getValue()));
