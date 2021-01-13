@@ -70,7 +70,7 @@ public class QuizActivity  extends AppCompatActivity {
         Bundle b = new Bundle();
         b.putInt("type", t);
         goToAddAlarms.putExtras(b);
-        finish();
+        //finish();
         startActivity(goToAddAlarms);
     }
 
